@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
-from views.registration_views import *
+from views import *
 
 urlpatterns = [
 
@@ -19,5 +19,7 @@ urlpatterns = [
         {'template_name': 'registration/password_reset_success.html'},
         name='password_reset_complete'),
     url(r'^change-password$', change_password, name='change-password'),
-
+    url(r'^login$', login, name='login'),
+    url(r'^logout$', logout, name='logout'),
+    url(r'^$', dashboard, name='dash'),
 ]
