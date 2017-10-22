@@ -1,11 +1,11 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from views.registration_views import *
-from views.login import *
 from views.dashboard_views import *
+from views.login import *
 
 urlpatterns = [
-
+    url(r'^$', home, name='home'),
     url(r'^register/$', register, name='register'),
     url(r'^confirm-registration/(?P<user_id>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         confirm_registration, name='confirm-registration'),
