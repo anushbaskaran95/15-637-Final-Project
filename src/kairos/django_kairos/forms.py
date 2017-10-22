@@ -20,6 +20,7 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = User
+        exclude = ['username']
         fields = ['email', 'first_name', 'last_name', 'password1', 'password2']
 
     def clean(self):
@@ -49,7 +50,8 @@ class RegisterForm(UserCreationForm):
         last_name = self.cleaned_data.get('last_name')
         password = self.cleaned_data.get('password')
 
-        new_user = User.objects.create_user(email=email,
+        new_user = User.objects.create_user(username=None,
+                                            email=email,
                                             first_name=first_name,
                                             last_name=last_name,
                                             password=password)
