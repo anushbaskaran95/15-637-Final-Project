@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="{% url 'register' %}">
+    {% csrf_token %}
+    <div class="error">{{ form.non_field_errors }}</div>
+
+    <div class="error">{{ form.username.errors }}</div>
+    <div class="input-field">
+        {{ form.username }}
+        <label class="input-label"
+               for="{{ form.username.id_for_label }}">Username</label>
+    </div>
+    <div class="error">{{ form.email.errors }}</div>
+    <div class="input-field">
+        {{ form.email }}
+        <label class="input-label"
+               for="{{ form.email.id_for_label }}">Email</label>
+    </div>
+
+    <div class="error">{{ form.first_name.errors }}</div>
+    <div class="input-field">
+        {{ form.first_name }}
+        <label class="input-label"
+               for="{{ form.first_name.id_for_label }}">First Name</label>
+    </div>
+
+    <div class="error">{{ form.last_name.errors }}</div>
+    <div class="input-field">
+        {{ form.last_name }}
+        <label class="input-label"
+               for="{{ form.last_name.id_for_label }}">Last Name</label>
+    </div>
+
+    <div class="error">{{ form.password1.errors }}</div>
+    <div class="error">{{ form.password2.errors }}</div>
+    <div class="input-field">
+        {{ form.password1 }}
+        <label class="input-label"
+               for="{{ form.password1.id_for_label }}">Password</label>
+    </div>
+
+    <div class="input-field">
+        {{ form.password2 }}
+        <label class="input-label"
+               for="{{ form.password2.id_for_label }}">Confirm Password</label>
+    </div>
+
+    <div class="center-align">
+        <input type="submit" class="action-btn btn" value="SIGN UP"/>
+    </div>
+</form>
+</body>
+</html>
