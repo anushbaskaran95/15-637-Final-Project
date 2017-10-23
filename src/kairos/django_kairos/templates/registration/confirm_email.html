@@ -1,0 +1,10 @@
+<div class="centered">
+    <h5>Enter Your Registered Email</h5>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="center-align">
+            <input type="submit" class="action-btn btn" value="Send Email"/>
+        </div>
+    </form>
+</div>
