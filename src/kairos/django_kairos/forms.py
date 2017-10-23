@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from .models import *
 
 
@@ -19,11 +20,18 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'password1', 'password2']
+        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
 
     def clean(self):
         cleaned_data = super(RegisterForm, self).clean()
         return cleaned_data
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username__exact=username):
+            raise forms.ValidationError("This username is already registered")
+        else:
+            return username
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -43,12 +51,14 @@ class RegisterForm(UserCreationForm):
         return user
 
     def register_user(self):
+        username = self.cleaned_data.get('username')
         email = self.cleaned_data.get('email')
         first_name = self.cleaned_data.get('first_name')
         last_name = self.cleaned_data.get('last_name')
         password = self.cleaned_data.get('password')
 
-        new_user = User.objects.create_user(email=email,
+        new_user = User.objects.create_user(username=username,
+                                            email=email,
                                             first_name=first_name,
                                             last_name=last_name,
                                             password=password)
