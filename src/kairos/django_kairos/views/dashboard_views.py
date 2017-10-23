@@ -25,10 +25,6 @@ from .. import forms
 
 
 # Create your views here.
-@login_required
-def home(request):
-    return HttpResponseRedirect(reverse('dash'))
-
-
 def dashboard(request):
-    return HttpResponseRedirect('dash')
+    context = {}
+    return render(request, 'dashboard/dashboard.html', context)
