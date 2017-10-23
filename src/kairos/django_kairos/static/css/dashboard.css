@@ -1,0 +1,12 @@
+li.float-none {
+    float: none !important;
+}
+
+div.fab-backdrop {
+    background-color: #fff !important;
+}
+
+a.modal-trigger {
+    font-weight: bold;
+    border-radius: 0px;
+}
