@@ -24,7 +24,7 @@ def login(request):
 		else:
 			errors = True
 
-		return render(request, 'landing/login.html', {'errors': errors})
+	return render(request, 'landing/login.html', {'errors': errors})
 
 @login_required
 def logout(request):
