@@ -25,9 +25,6 @@ from .. import forms
 
 
 # Create your views here.
-def home(request):
-    return HttpResponseRedirect(reverse('dash'))
-
-
 def dashboard(request):
-    return HttpResponseRedirect('Dashboard')
+    context = {}
+    return render(request, 'dashboard/dashboard.html', context)

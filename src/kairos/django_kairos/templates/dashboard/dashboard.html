@@ -1,0 +1,66 @@
+{% extends "base/dashboard-navbar.html" %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block fab %}
+<div class="fixed-action-btn toolbar show-on-medium-and-up hide-on-small-only">
+    <a class="btn-floating btn-large add-task red">
+        <i class="material-icons">create</i>
+    </a>
+    <ul>
+        <li class="">
+            <a class="btn modal-trigger cyan" href="#course-modal">
+                Course
+            </a>
+        </li>
+        <li class="">
+            <a class="btn modal-trigger light-green" href="#research-modal">
+                Research
+            </a>
+        </li>
+        <li class="">
+            <a class="btn modal-trigger amber" href="#routine-modal">
+                Routine
+            </a>
+        </li>
+        <li class="">
+            <a class="btn modal-trigger indigo lighten-2" href="#new-category-modal">
+                Add New Category
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="fixed-action-btn click-to-toggle hide-on-med-and-up show-on-small">
+    <a class="btn-floating btn-large red">
+        <i class="material-icons">create</i>
+    </a>
+    <ul>
+        <li>
+            <a class="btn-floating btn-large modal-trigger indigo lighten-2" href="#new-category-modal">
+               <i class="material-icons">add</i>
+            </a>
+        </li>
+        <li>
+            <a class="btn-floating btn-large modal-trigger amber" href="#routine-modal">
+                <i class="material-icons">hotel</i>
+            </a>
+        </li>
+        <li>
+            <a class="btn-floating btn-large modal-trigger light-green" href="#research-modal">
+                <i class="material-icons">library_books</i>
+            </a>
+        </li>
+        <li>
+            <a class="btn-floating btn-large modal-trigger cyan" href="#course-modal">
+                <i class="material-icons">note_add</i>
+            </a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block modals %}
+{% include "modals/modals.html" %}
+{% endblock %}
+

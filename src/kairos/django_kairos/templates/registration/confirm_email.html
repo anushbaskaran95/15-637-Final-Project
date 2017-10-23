@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="centered">
+    <h5>Enter Your Registered Email</h5>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="center-align">
+            <input type="submit" class="action-btn btn" value="Send Email"/>
+        </div>
+    </form>
+</div>
