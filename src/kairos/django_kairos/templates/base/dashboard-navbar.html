@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block child_css %}
-<link href="{% static 'css/common.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'css/dashboard.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 {% endblock %}
 
 {% block content %}
@@ -25,26 +25,14 @@
     </div>
 
     <div class="nav-content center-align">
-        <ul id="tabs-swipe-demo" class="tabs">
-            <li class="tab col s3 float-none"><a class="active" href="#test-swipe-1">Test 1</a></li>
-            <li class="tab col s3 float-none"><a href="#test-swipe-2">Test 2</a></li>
-            <li class="tab col s3 float-none"><a href="#test-swipe-3">Test 3</a></li>
+        <ul id="tabs" class="tabs">
+            <li class="tab col s3 float-none"><a class="active" href="#">Current Tasks</a></li>
+            <li class="tab col s3 float-none"><a href="#">Course Work</a></li>
+            <li class="tab col s3 float-none"><a href="#">Research</a></li>
+            <li class="tab col s3 float-none"><a href="#">Routine</a></li>
         </ul>
     </div>
 </nav>
-
-
-<div class="fixed-action-btn toolbar">
-    <a class="btn-floating btn-large red">
-        <i class="material-icons">edit</i>
-    </a>
-    <ul>
-        <li class="waves-effect waves-light"><a class="cyan">Course</a></li>
-        <li class="waves-effect waves-light"><a class="light-green">Research</a></li>
-        <li class="waves-effect waves-light"><a class="amber">Routine</a></li>
-        <li class="waves-effect waves-light"><a class="indigo lighten-2">Add New Category</a></li>
-    </ul>
-</div>
 {% endblock %}
 
 {% block scripts %}
