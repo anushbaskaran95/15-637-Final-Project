@@ -52,6 +52,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'kairos.urls'
 
+LOGIN_URL = '/login'
+
+LOGIN_REDIRECT_URL = ''
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -121,4 +125,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Email backend
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Email backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'kairos.backend@gmail.com'
+EMAIL_HOST_PASSWORD = 'Team310kairos'
+
