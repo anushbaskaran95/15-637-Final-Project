@@ -13,10 +13,10 @@ from django.contrib.auth.models import User
 def login(request):
 	errors = False
 	if request.method == 'POST':
-		email = request.POST.get('email')
+		username = request.POST.get('username')
 		password = request.POST.get('password')
 
-		user = authenticate(email = email, password = password)
+		user = authenticate(username = username, password = password)
 
 		if user:
 			login(request, user)
