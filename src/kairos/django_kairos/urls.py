@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm, password_reset_complete
-from views.registration_views import *
-from views.dashboard_views import *
+from views.registration import *
+from views.dashboard import *
 from views.login import *
 
 urlpatterns = [
@@ -18,7 +18,6 @@ urlpatterns = [
     url(r'^reset/done/$', password_reset_complete,
         {'template_name': 'registration/password_reset_success.html'},
         name='password_reset_complete'),
-    url(r'^change-password$', change_password, name='change-password'),
     url(r'^login$', login, name='login'),
     url(r'^logout$', logout, name='logout'),
     url(r'^$', dashboard, name='dash'),

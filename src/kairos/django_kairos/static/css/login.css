@@ -1,0 +1,38 @@
+.login-container {
+     position: absolute;
+     margin: auto;
+     top: 20%;
+     right: 0;
+     left: 0;
+     width: 60%;
+     max-width: 500px;
+     padding: 20px;
+}
+
+.welcome-text {
+     position: absolute;
+     margin: auto;
+     top: 10%;
+     right: 0;
+     bottom: 0;
+     left: 0;
+}
+
+.login-text {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.login-btn {
+    width: -webkit-fill-available
+}
+
+.forgot-text {
+    color: #999;
+}
+
+.sign-up-text {
+    color: #0277bd;
+    font-size: 16px !important;
+    text-transform: none !important;
+}

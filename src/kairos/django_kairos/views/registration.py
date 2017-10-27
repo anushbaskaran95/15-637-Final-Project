@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, reverse
+from django.template.loader import render_to_string
 
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
@@ -8,16 +9,9 @@ from django.utils.encoding import force_bytes, force_text
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.mail import send_mail
 
-from django.contrib import messages
-
-# decorator for built-in auth system
-from django.contrib.auth.decorators import login_required
-
 from django.db import transaction
 
 from django.contrib.auth.models import User
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
 
 from django.contrib.auth.tokens import default_token_generator
 
@@ -47,17 +41,19 @@ def register(request):
 
     token = default_token_generator.make_token(new_user)
 
-    email_body = """Welcome to Kairos. Please click the link below to verify your 
-        email address and complete the registration of your account: http://%s%s""" \
-                 % (request.get_host(), reverse('confirm-registration',
-                                                args=(urlsafe_base64_encode(force_bytes(new_user.pk)), token)))
+    email_data = {'domain': request.get_host(), 'token': token,
+                  'id': urlsafe_base64_encode(force_bytes(new_user.pk)),
+                  'username': new_user.username}
+
+    html_message = render_to_string('registration/confirmation_link.html', email_data)
 
     send_mail(subject="Verify your Kairos account",
-              message=email_body,
-              from_email="aburde@andrew.cmu.edu",
+              message='html_message',
+              html_message=html_message,
+              from_email="kairos.backend@gmail.com",
               recipient_list=[new_user.email])
 
-    context['email'] = form.cleaned_data['email']
+    context['email'] = register_form.cleaned_data['email']
     return render(request, 'registration/needs_confirmation.html', context)
 
 
@@ -75,18 +71,4 @@ def confirm_registration(request, user_id, token):
         return render(request, 'registration/email_confirmed.html')
     else:
         return HttpResponse('Activation link is invalid!')
-
-
-@login_required
-def change_password(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
-            messages.success(request, 'Your password was changed')
-            return redirect('change-password')
-    else:
-        form = PasswordChangeForm(request.user)
-    return render(request, 'child/change_password.html', {'form': form})
 
