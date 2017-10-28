@@ -19,6 +19,10 @@ from django.contrib.auth.tokens import default_token_generator
 from .. import forms
 
 @login_required
+def view_profile(request):
+	return HttpResponse(request, 'profile/profile.html', {})
+
+@login_required
 def edit_student_profile(request, username):
 	user_instance = get_object_or_404(User, username=username)
 

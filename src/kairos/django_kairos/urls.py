@@ -31,5 +31,6 @@ urlpatterns = [
     url(r'^course-work$', coursework, name='coursework'),
     url(r'^research$', research, name='research'),
     url(r'^routine$', dashboard, name='routine'),
-    url(r'^profile$', edit_student_profile, name='profile'),
+    url(r'^profile$', view_profile, name='profile'),
+    url(r'^edit-profile/(?P<username>.+)$', edit_student_profile, name='edit_profile'),
 ]
