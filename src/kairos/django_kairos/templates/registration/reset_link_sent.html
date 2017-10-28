@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Password Reset{% endblock %}
+{% block child_css %}
+<link href="{% static 'css/login.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+{% endblock %}
+
+{% block content %}
+<div class="pad20">
+    <h5 class="info-text">Password reset sent</h5>
+    <h6 class="info-text">We've emailed you instructions for setting your password, <b>if an account exists with the email you entered</b>. You should receive them shortly.</h6>
+    <h6 class="info-text">If you don't receive an email, please <b>make sure you've entered the email you registered with</b>, and check your spam folder.</h6>
+</div>
+{% endblock %}
