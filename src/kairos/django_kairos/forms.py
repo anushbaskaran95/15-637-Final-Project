@@ -121,7 +121,7 @@ class TaskInfoForm(forms.ModelForm):
 class CourseTaskForm(forms.ModelForm):
     class Meta:
         model = CourseTask
-        fields = ()
+        fields = ('name',)
 
     def clean_name(self):
         name = self.cleaned_data.get('name')
@@ -132,8 +132,8 @@ class CourseTaskForm(forms.ModelForm):
 
 class ResearchForm(forms.ModelForm):
     class Meta:
-        model = Research
-        fields = ()
+        model =  Research
+        fields = ('topic',)
 
     def clean_topic(self):
         topic = self.cleaned_data.get('topic')
@@ -145,7 +145,7 @@ class ResearchForm(forms.ModelForm):
 class MiscForm(forms.ModelForm):
     class Meta:
         model = Misc
-        fields = ()
+        fields = ('task_name',)
 
     def clean_task_name(self):
         task_name = self.cleaned_data.get('task_name')
@@ -169,7 +169,7 @@ class CustomForm(forms.ModelForm):
 class CustomTaskForm(forms.ModelForm):
     class Meta:
         model = CustomTask
-        fields = ()
+        fields = ('name',)
 
     def clean_name(self):
         name = self.objects.filter('name')
