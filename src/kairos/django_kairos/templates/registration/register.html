@@ -6,64 +6,63 @@
 {% endblock %}
 
 {% block main-content %}
-<div class="bg">
-    <div class="back-link">
-        <a href="{% url 'login' %}">
-            <i class="material-icons">arrow_back</i>
-        </a>
-    </div>
-    <div class="card register-container z-depth-3">
-        <p class="welcome-text">Create Account</p>
-        <form method="post" action="{% url 'register' %}">
-            {% csrf_token %}
-            <div class="error">{{ form.non_field_errors }}</div>
 
-            <div class="error">{{ form.username.errors }}</div>
-            <div class="input-field">
-                {{ form.username }}
-                <label class="input-label"
-                       for="{{ form.username.id_for_label }}">Username *</label>
-            </div>
-            <div class="error">{{ register_form.email.errors }}</div>
-            <div class="input-field">
-                {{ form.email }}
-                <label class="input-label"
-                       for="{{ form.email.id_for_label }}">Email *</label>
-            </div>
+<div class="back-link">
+    <a href="{% url 'login' %}">
+        <i class="material-icons">arrow_back</i>
+    </a>
+</div>
+<div class="card register-container z-depth-2">
+    <p class="welcome-text">Create Account</p>
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        <div class="error">{{ form.non_field_errors }}</div>
 
-            <div class="error">{{ form.first_name.errors }}</div>
-            <div class="input-field">
-                {{ form.first_name }}
-                <label class="input-label"
-                       for="{{ form.first_name.id_for_label }}">First Name</label>
-            </div>
+        <div class="error">{{ form.username.errors }}</div>
+        <div class="input-field">
+            {{ form.username }}
+            <label class="input-label"
+                   for="{{ form.username.id_for_label }}">Username *</label>
+        </div>
+        <div class="error">{{ form.email.errors }}</div>
+        <div class="input-field">
+            {{ form.email }}
+            <label class="input-label"
+                   for="{{ form.email.id_for_label }}">Email *</label>
+        </div>
 
-            <div class="error">{{ form.last_name.errors }}</div>
-            <div class="input-field">
-                {{ form.last_name }}
-                <label class="input-label"
-                       for="{{ form.last_name.id_for_label }}">Last Name</label>
-            </div>
+        <div class="error">{{ form.first_name.errors }}</div>
+        <div class="input-field">
+            {{ form.first_name }}
+            <label class="input-label"
+                   for="{{ form.first_name.id_for_label }}">First Name</label>
+        </div>
 
-            <div class="error">{{ form.password1.errors }}</div>
-            <div class="error">{{ form.password2.errors }}</div>
-            <div class="input-field">
-                {{ form.password1 }}
-                <label class="input-label"
-                       for="{{ form.password1.id_for_label }}">Password *</label>
-            </div>
+        <div class="error">{{ form.last_name.errors }}</div>
+        <div class="input-field">
+            {{ form.last_name }}
+            <label class="input-label"
+                   for="{{ form.last_name.id_for_label }}">Last Name</label>
+        </div>
 
-            <div class="input-field">
-                {{ form.password2 }}
-                <label class="input-label"
-                       for="{{ form.password2.id_for_label }}">Confirm Password *</label>
-            </div>
-            <br/>
-            <div class="center-align">
-                <button class="btn-large action-btn login-btn waves-effect waves-light" type="submit" name="action">Sign up
-                </button>
-            </div>
-        </form>
-    </div>
+        <div class="error">{{ form.password1.errors }}</div>
+        <div class="error">{{ form.password2.errors }}</div>
+        <div class="input-field">
+            {{ form.password1 }}
+            <label class="input-label"
+                   for="{{ form.password1.id_for_label }}">Password *</label>
+        </div>
+
+        <div class="input-field">
+            {{ form.password2 }}
+            <label class="input-label"
+                   for="{{ form.password2.id_for_label }}">Confirm Password *</label>
+        </div>
+        <br/>
+        <div class="center-align">
+            <button class="btn-large action-btn login-btn waves-effect waves-light" type="submit" name="action">Sign up
+            </button>
+        </div>
+    </form>
 </div>
 {% endblock %}

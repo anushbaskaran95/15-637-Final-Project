@@ -14,11 +14,13 @@ class RegisterForm(UserCreationForm):
 
     first_name = forms.CharField(label='First Name',
                                  widget=forms.TextInput(attrs={'id': 'first_name'}),
-                                 max_length=50)
+                                 max_length=50,
+                                 required=False)
 
     last_name = forms.CharField(label='Last Name',
                                 widget=forms.TextInput(attrs={'id': 'last_name'}),
-                                max_length=50)
+                                max_length=50,
+                                required=False)
 
     class Meta:
         model = User
