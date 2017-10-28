@@ -13,34 +13,17 @@
 }
 
 .error {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #ef5350;
 }
 .errorlist {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #ef5350;
 }
 .success {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: #66bb6a;
-}
-
-.input-field input:focus {
-     border-bottom: 2px solid #0d47a1 !important;
-     color: #666;
-}
-.input-field input {
-     font-size: 16px;
-     border-bottom: 2px solid #ccc !important;
-}
-
-.input-field label {
-    color: #999 !important;
-    font-size: 16px;
-}
-.input-field input:focus + label {
-    color: #999 !important;
 }
