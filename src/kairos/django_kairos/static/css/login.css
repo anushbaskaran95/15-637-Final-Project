@@ -1,3 +1,15 @@
+body, html {
+    height: 100%;
+}
+
+.bg {
+    background-image: url('../images/bg.jpg');
+    height: 100% !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .login-container {
      position: absolute;
      margin: auto;
@@ -7,20 +19,34 @@
      width: 60%;
      max-width: 500px;
      padding: 20px;
+     overflow: -webkit-paged-x;
 }
 
-.welcome-text {
+.register-container {
+     position: absolute;
+     margin: auto;
+     top: 3%;
+     right: 0;
+     left: 0;
+     width: 65%;
+     max-width: 500px;
+     padding: 0px 20px 10px 20px;
+     overflow: -webkit-paged-x;
+}
+
+.tagline-text {
      position: absolute;
      margin: auto;
      top: 10%;
      right: 0;
-     bottom: 0;
      left: 0;
+     color: #fff;
 }
 
-.login-text {
-    padding-bottom: 5px;
+.welcome-text {
+    color: #666;
     border-bottom: 1px solid #ccc;
+    font-size: 26px;
 }
 
 .login-btn {
@@ -35,4 +61,28 @@
     color: #0277bd;
     font-size: 16px !important;
     text-transform: none !important;
+}
+
+.input-field input:focus {
+     border-bottom: 2px solid #0d47a1 !important;
+     color: #333;
+}
+.input-field input {
+     font-size: 15px;
+     border-bottom: 2px solid #ddd !important;
+     margin-bottom: 15px !important;
+}
+
+.input-field label {
+    color: #999 !important;
+    font-size: 14px;
+}
+.input-field input:focus + label {
+    color: #999 !important;
+}
+
+.back-link i {
+    color: #fff !important;
+    font-size: 40px;
+    margin: 20px 0px 0px 20px;
 }
