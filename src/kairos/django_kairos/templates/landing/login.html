@@ -8,14 +8,14 @@
 {% block content %}
 
 <h4 class="tagline-text center-align"> Manage Your Time with Kairos </h4>
-{% if errors %}
-<span class="error">Incorrect Username (or) Password</span>
-{% endif %}
 <div class="card login-container z-depth-3">
     <h5 class="welcome-text">Welcome back</h5>
     <br/>
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
+        {% if errors %}
+            <span class="error">Incorrect Username (or) Password</span>
+        {% endif %}
         <div class="row center-align">
             <div class="input-field">
                 <input id="username" type="text" name="username" required>
