@@ -1,3 +1,11 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block child_css %}
+<link href="{% static 'css/login.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+{% endblock %}
+
 <div class="pad20">
-    <h5>Thank you for the email confirmation. You can now <a href="{% url 'login' %}">Login</a>.</h5>
+    <p class="info-text">Thank you for the email confirmation. You can now <a href="{% url 'login' %}">Login</a>.
+    </p>
 </div>
