@@ -177,3 +177,8 @@ class CustomTaskForm(forms.ModelForm):
             raise forms.ValidationError("Custom task name is already existed")
         else:
             return name
+
+class StudentEditForm():
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name']
