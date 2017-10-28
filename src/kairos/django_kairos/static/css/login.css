@@ -63,6 +63,11 @@ body, html {
     text-transform: none !important;
 }
 
+.info-text {
+    color: #fff;
+    font-size: 22px;
+}
+
 .input-field input:focus {
      border-bottom: 2px solid #0d47a1 !important;
      color: #333;

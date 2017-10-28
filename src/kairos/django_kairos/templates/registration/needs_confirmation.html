@@ -1,5 +1,12 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block child_css %}
+<link href="{% static 'css/login.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+{% endblock %}
+
 <div class="pad20">
-    <h6>A confirmation mail has been sent to {{ email }}. Please click the link in that
+    <p class="info-text">A confirmation mail has been sent to {{ email }}. Please click the link in that
 email to confirm your email address and complete your registration for grumblr.
-    </h6>
+    </p>
 </div>
