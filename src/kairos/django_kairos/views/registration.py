@@ -53,7 +53,7 @@ def register(request):
               from_email="kairos.backend@gmail.com",
               recipient_list=[new_user.email])
 
-    context['email'] = register_form.cleaned_data['email']
+    context['email'] = form.cleaned_data['email']
     return render(request, 'registration/needs_confirmation.html', context)
 
 

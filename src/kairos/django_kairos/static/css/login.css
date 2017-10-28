@@ -1,37 +1,30 @@
 body, html {
-    height: 100%;
-}
-
-.bg {
     background-image: url('../images/bg.jpg');
-    height: 100% !important;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    height: 100%;
+    background-repeat: repeat-y;
+    background-size: cover
 }
 
 .login-container {
      position: absolute;
-     margin: auto;
+     margin: 0 auto;
      top: 20%;
      right: 0;
      left: 0;
      width: 60%;
      max-width: 500px;
      padding: 20px;
-     overflow: -webkit-paged-x;
 }
 
 .register-container {
      position: absolute;
-     margin: auto;
+     margin: 0 auto;
      top: 3%;
      right: 0;
      left: 0;
      width: 65%;
      max-width: 500px;
      padding: 0px 20px 10px 20px;
-     overflow: -webkit-paged-x;
 }
 
 .tagline-text {

@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
@@ -16,7 +18,7 @@ def login(request):
         user = authenticate(username = username, password = password)
 
         if user:
-            login(request, user)
+            auth_login(request, user)
             return HttpResponseRedirect(reverse('dash'))
         else:
             errors = True
@@ -26,5 +28,5 @@ def login(request):
 
 @login_required
 def logout(request):
-    logout(request)
+    auth_logout(request)
     return HttpResponseRedirect(reverse('login'))
