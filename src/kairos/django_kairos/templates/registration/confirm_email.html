@@ -1,10 +1,24 @@
-<div class="centered">
-    <h5>Enter Your Registered Email</h5>
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Password Reset{% endblock %}
+{% block child_css %}
+<link href="{% static 'css/login.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+{% endblock %}
+
+{% block content %}
+<div class="card login-container">
+    <h5 class="welcome-text">Reset Password</h5>
+    <br/>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="input-field">
+            {{ form.email }}
+            <label class="input-label"
+                   for="{{ form.email.id_for_label }}">Registered Email *</label>
+        </div>
         <div class="center-align">
-            <input type="submit" class="action-btn btn" value="Send Email"/>
+            <input type="submit" class="action-btn btn" value="Send Reset Link"/>
         </div>
     </form>
 </div>
+{% endblock %}
