@@ -6,40 +6,39 @@
 {% endblock %}
 
 {% block content %}
-<div class="bg">
-    <h4 class="tagline-text center-align"> Manage Time with Kairos </h4>
-    {% if errors %}
-    <span class="error">Incorrect Username (or) Password</span>
-    {% endif %}
-    <div class="card login-container z-depth-3">
-        <h5 class="welcome-text">Welcome back</h5>
-        <br/>
-        <form action="{% url 'login' %}" method="post">
-            {% csrf_token %}
-            <div class="row center-align">
-                <div class="input-field">
-                    <input id="username" type="text" name="username" required>
-                    <label for="username">Username</label>
-                </div>
-                <div class="input-field">
-                    <input id="password" type="password" name="password" required>
-                    <label for="password">Password</label>
-                </div>
+
+<h4 class="tagline-text center-align"> Manage Time with Kairos </h4>
+{% if errors %}
+<span class="error">Incorrect Username (or) Password</span>
+{% endif %}
+<div class="card login-container z-depth-3">
+    <h5 class="welcome-text">Welcome back</h5>
+    <br/>
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <div class="row center-align">
+            <div class="input-field">
+                <input id="username" type="text" name="username" required>
+                <label for="username">Username</label>
             </div>
-            <div class="row center-align">
-                <button class="btn-large action-btn login-btn waves-effect waves-light" type="submit" name="action">Login
-                </button>
-                <br/><br/>
-                <a class="forgot-text" href="{% url 'password_reset' %}">
-                    Forgot Password ?
-                </a>
+            <div class="input-field">
+                <input id="password" type="password" name="password" required>
+                <label for="password">Password</label>
             </div>
-        </form>
-        <div class="center-align">
-            <a class="btn-flat sign-up-text" href="{% url 'register' %}">
-                Don't have an account? Sign Up
+        </div>
+        <div class="row center-align">
+            <button class="btn-large action-btn login-btn waves-effect waves-light" type="submit" name="action">Login
+            </button>
+            <br/><br/>
+            <a class="forgot-text" href="{% url 'password_reset' %}">
+                Forgot Password ?
             </a>
         </div>
+    </form>
+    <div class="center-align">
+        <a class="btn-flat sign-up-text" href="{% url 'register' %}">
+            Don't have an account? Sign Up
+        </a>
     </div>
 </div>
 {% endblock %}
