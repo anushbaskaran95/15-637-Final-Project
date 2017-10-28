@@ -7,6 +7,7 @@ from views.currenttasks import *
 from views.coursework import *
 from views.research import *
 from views.routine import *
+from views.profile import *
 
 urlpatterns = [
     url(r'^register/$', register, name='register'),
@@ -30,4 +31,5 @@ urlpatterns = [
     url(r'^course-work$', coursework, name='coursework'),
     url(r'^research$', research, name='research'),
     url(r'^routine$', dashboard, name='routine'),
+    url(r'^profile$', edit_student_profile, name='profile'),
 ]
