@@ -10,3 +10,15 @@ a.modal-trigger {
     font-weight: bold;
     border-radius: 0px;
 }
+
+.ml20 {
+    margin-left: 20px;
+}
+
+.tabs .tab a {
+    color: #0288d1 !important;
+}
+
+.tabs .indicator {
+    background-color: #01579b;
+}
