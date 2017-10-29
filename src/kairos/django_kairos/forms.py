@@ -159,12 +159,9 @@ class CourseTaskForm(forms.ModelForm):
         model = CourseTask
         fields = ('name',)
 
-    def clean_name(self):
-        name = self.cleaned_data.get('name')
-        if CourseTask.objects.filter(name__exact=name):
-            raise forms.ValidationError("This course task already exists")
-        else:
-            return name
+    def clean(self):
+        cleaned_data = super(CourseTaskForm, self).clean()
+        return cleaned_data
 
 
 class ResearchForm(forms.ModelForm):
@@ -185,8 +182,23 @@ class MiscForm(forms.ModelForm):
         model = Misc
         fields = ('task_name',)
 
+    def clean(self):
+        cleaned_data = super(MiscForm, self).clean()
+        return cleaned_data
 
-class StudentEditForm(RegisterForm):
+
+class StudentEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name']
+
+    def clean(self):
+        cleaned_data = super(StudentEditForm, self).clean()
+        return cleaned_data
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username__exact=username):
+            raise forms.ValidationError("Username already exists")
+        else:
+            return username
