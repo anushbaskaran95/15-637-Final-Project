@@ -14,7 +14,7 @@
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="">Profile</a></li>
+            <li><a href="{% url 'profile' %}">Profile</a></li>
             <li><a href="{% url 'logout' %}"><i class="large material-icons">exit_to_app</i></a></li>
         </ul>
 
@@ -26,10 +26,11 @@
 
     <div class="nav-content center-align">
         <ul id="tabs" class="tabs">
-            <li class="tab col s3 float-none"><a class="active" href="#">Current Tasks</a></li>
-            <li class="tab col s3 float-none"><a href="#">Course Work</a></li>
-            <li class="tab col s3 float-none"><a href="#">Research</a></li>
-            <li class="tab col s3 float-none"><a href="#">Routine</a></li>
+            <li class="tab col s3 float-none"><a id="current_tasks" target="_self" href="{% url 'dash' %}">Current Tasks</a></li>
+            <li class="tab col s3 float-none"><a id="course-work" target="_self" href="{% url 'coursework' %}">Course Work</a></li>
+            <li class="tab col s3 float-none"><a id="research" target="_self" href="{% url 'research' %}">Research</a></li>
+            <li class="tab col s3 float-none"><a id="routine" target="_self" href="{% url 'routine' %}">Routine</a></li>
+            <li class="tab col s3 float-none"><a id="personal" target="_self" href="{% url 'personal' %}">Personal</a></li>
         </ul>
     </div>
 </nav>

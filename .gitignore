@@ -33,3 +33,5 @@ nosetests.xml
 
 # Mac OS file
 .DS_Store
+src/kairos/kairos/secrets.py
+src/kairos/db.sqlite3
