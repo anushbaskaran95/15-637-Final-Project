@@ -27,5 +27,4 @@ from .. import forms
 @login_required
 def coursework(request):
     context = {}
-    print('Hello')
     return render(request, 'dashboard/coursework.html', context)

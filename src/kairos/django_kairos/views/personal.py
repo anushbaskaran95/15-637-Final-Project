@@ -25,6 +25,6 @@ from .. import forms
 
 # Create your views here.
 @login_required
-def current_tasks(request):
+def personal(request):
     context = {}
-    return render(request, 'dashboard/dashboard.html', context)
+    return render(request, 'dashboard/personal.html', context)

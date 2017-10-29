@@ -26,10 +26,11 @@
 
     <div class="nav-content center-align">
         <ul id="tabs" class="tabs">
-            <li class="tab col s3 float-none"><a class="active" href="{% url 'currenttasks' %}">Current Tasks</a></li>
-            <li class="tab col s3 float-none"><a href="{% url 'coursework' %}">Course Work</a></li>
-            <li class="tab col s3 float-none"><a href="{% url 'research' %}">Research</a></li>
-            <li class="tab col s3 float-none"><a href="{% url 'routine' %}">Routine</a></li>
+            <li class="tab col s3 float-none"><a target="_self"  href="{% url 'dash' %}">Current Tasks</a></li>
+            <li class="tab col s3 float-none"><a target="_self" href="{% url 'coursework' %}">Course Work</a></li>
+            <li class="tab col s3 float-none"><a target="_self" href="{% url 'research' %}">Research</a></li>
+            <li class="tab col s3 float-none"><a target="_self" href="{% url 'routine' %}">Routine</a></li>
+            <li class="tab col s3 float-none"><a target="_self" href="{% url 'personal' %}">Personal</a></li>
         </ul>
     </div>
 </nav>
