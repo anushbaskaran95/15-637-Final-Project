@@ -20,7 +20,7 @@ from .. import forms
 
 @login_required
 def view_profile(request):
-	return HttpResponse(request, 'profile/profile.html', {})
+	return render(request, 'profile/profile.html', {})
 
 @login_required
 def edit_student_profile(request, username):
