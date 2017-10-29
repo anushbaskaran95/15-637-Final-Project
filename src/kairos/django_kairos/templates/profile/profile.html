@@ -11,7 +11,7 @@
 {% if user.is_authenticated %}
 <body>        
     <a class="btn btn-primary " href="{% url 'edit_profile' user.username %}" role="button">Edit Student Profile</a> 
-    <a class="btn btn-primary" href="#" role="button">Change Password</a>
+    <a class="btn btn-primary" href="{% url 'change_password' %}" role="button">Change Password</a>
 </body>
 {% endif %}
 </html>

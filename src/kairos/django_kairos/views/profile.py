@@ -9,12 +9,17 @@ from django.utils.encoding import force_bytes, force_text
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+
 
 from django.db import transaction
 
 from django.contrib.auth.models import User
 
 from django.contrib.auth.tokens import default_token_generator
+
+from django.contrib.auth.forms import PasswordChangeForm
+
 
 from .. import forms
 
@@ -37,3 +42,20 @@ def edit_student_profile(request, username):
 			user_form.save()
 
 	return HttpResponseRedirect(reverse('profile'))
+
+@login_required
+def change_password(request):
+	if request.method == 'POST':
+		password_changed_form = PasswordChangeForm(data=request.POST, user=request.user)
+
+		if password_changed_form.is_valid():
+			password_changed_form.save()
+			update_session_auth_hash(request, password_changed_form.user)
+			return HttpResponseRedirect('dash')
+
+		else:
+			return render(request, 'profile/change-password.html', {'cpform': password_changed_form})
+
+	else:
+		password_changed_form = PasswordChangeForm(user=request.user)
+		return render(request, 'profile/change-password.html', {'cpform': password_changed_form})
