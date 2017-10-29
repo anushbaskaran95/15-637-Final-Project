@@ -1,12 +1,13 @@
 from django.conf.urls import url
-from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm, password_reset_complete
+from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm, \
+    password_reset_complete
 from views.registration import *
 from views.dashboard import *
 from views.login import *
-from views.currenttasks import *
 from views.coursework import *
 from views.research import *
 from views.routine import *
+from views.personal import *
 from views.profile import *
 
 urlpatterns = [
@@ -27,10 +28,10 @@ urlpatterns = [
     url(r'^login$', login, name='login'),
     url(r'^logout$', logout, name='logout'),
     url(r'^$', dashboard, name='dash'),
-    url(r'^current-tasks$', current_tasks, name='currenttasks'),
     url(r'^course-work$', coursework, name='coursework'),
     url(r'^research$', research, name='research'),
-    url(r'^routine$', dashboard, name='routine'),
+    url(r'^routine$', routine, name='routine'),
+    url(r'^personal$', personal, name='personal'),
     url(r'^profile$', view_profile, name='profile'),
     url(r'^edit-profile/(?P<username>.+)$', edit_student_profile, name='edit_profile'),
 ]

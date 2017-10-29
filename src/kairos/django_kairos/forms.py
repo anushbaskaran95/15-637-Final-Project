@@ -178,7 +178,7 @@ class CustomTaskForm(forms.ModelForm):
         else:
             return name
 
-class StudentEditForm(RegisterForm):
+class StudentEditForm():
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name']

@@ -27,4 +27,4 @@ from .. import forms
 @login_required
 def routine(request):
     context = {}
-    return render(request, 'dashboard/dashboard.html', context)
+    return render(request, 'dashboard/routine.html', context)

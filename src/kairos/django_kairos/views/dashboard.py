@@ -24,9 +24,8 @@ from django.contrib.auth.tokens import default_token_generator
 from .. import forms
 
 
-
 # Create your views here.
 @login_required
 def dashboard(request):
     context = {}
-    return render(request, 'dashboard/dashboard.html', context)
+    return render(request, 'dashboard/current_tasks.html', context)
