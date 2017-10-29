@@ -12,7 +12,7 @@ from .. import forms
 
 
 @transaction.atomic
-def login(request):
+def login_user(request):
     context = {}
     if request.method == 'GET':
         if request.user.is_authenticated():
@@ -39,6 +39,6 @@ def login(request):
 
 
 @login_required
-def logout(request):
+def logout_user(request):
     auth_logout(request)
     return HttpResponseRedirect(reverse('login'))
