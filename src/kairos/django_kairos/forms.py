@@ -220,6 +220,6 @@ class CustomTaskForm(forms.ModelForm):
 
 
 class StudentEditForm(RegisterForm):
-    class Meta():
+    class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name']
