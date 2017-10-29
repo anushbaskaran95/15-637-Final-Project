@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base/dashboard-navbar.html" %}
+{% load static %}
 
-</body>
-</html>
+{% block title %}Research{% endblock %}
+
+{% block fab %}
+<div class="fixed-action-btn click-to-toggle">
+    <a class="btn-floating btn-large modal-trigger light-green" href="#research-modal">
+        <i class="material-icons">create</i>
+    </a>
+</div>
+{% endblock %}
+
+{% block modals %}
+{% include "modals/modals.html" %}
+{% endblock %}
+

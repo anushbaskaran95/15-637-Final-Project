@@ -8,7 +8,6 @@ div.fab-backdrop {
 
 a.modal-trigger {
     font-weight: bold;
-    border-radius: 0px;
 }
 
 .ml20 {
@@ -20,5 +19,9 @@ a.modal-trigger {
 }
 
 .tabs .indicator {
-    background-color: #01579b;
+    display: none;
+}
+
+.tab-indicator {
+    border-bottom: 2px solid #01579b;
 }

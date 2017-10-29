@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-Hello
-</body>
-</html>
+{% extends "base/dashboard-navbar.html" %}
+{% load static %}
+
+{% block title %}Course Work{% endblock %}
+
+{% block fab %}
+<div class="fixed-action-btn click-to-toggle">
+    <a class="btn-floating btn-large modal-trigger cyan" href="#course-modal">
+        <i class="material-icons">create</i>
+    </a>
+</div>
+{% endblock %}
+
+{% block modals %}
+{% include "modals/modals.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}
