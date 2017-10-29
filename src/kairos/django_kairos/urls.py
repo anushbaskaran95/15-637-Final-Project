@@ -7,7 +7,6 @@ from views.login import *
 from views.coursework import *
 from views.research import *
 from views.routine import *
-from views.personal import *
 from views.profile import *
 
 urlpatterns = [
@@ -31,7 +30,6 @@ urlpatterns = [
     url(r'^course-work$', coursework, name='coursework'),
     url(r'^research$', research, name='research'),
     url(r'^routine$', routine, name='routine'),
-    url(r'^personal$', personal, name='personal'),
     url(r'^profile$', view_profile, name='profile'),
     url(r'^edit-profile/(?P<username>.+)$', edit_student_profile, name='edit_profile'),
     url(r'^change-password$', change_password, name='change_password'),

@@ -174,7 +174,7 @@ class ResearchForm(forms.ModelForm):
 
     def clean_topic(self):
         topic = self.cleaned_data.get('topic')
-        if Research.objects.filter(topic__exact = topic):
+        if Research.objects.filter(topic__exact=topic):
             raise forms.ValidationError("This research topic already exists")
         else:
             return topic
@@ -184,39 +184,6 @@ class MiscForm(forms.ModelForm):
     class Meta:
         model = Misc
         fields = ('task_name',)
-
-    def clean_task_name(self):
-        task_name = self.cleaned_data.get('task_name')
-        if Misc.objects.filter(task_name__exact= task_name):
-            raise forms.ValidationError("This task already exists")
-        else:
-            return task_name
-
-
-class CustomForm(forms.ModelForm):
-    class Meta:
-        model = Custom
-        fields = ('name',)
-
-    def clean_name(self):
-        name = self.cleaned_data.get('name')
-        if Custom.objects.filter(name__exact=name):
-            raise forms.ValidationError("This category already exists")
-        else:
-            return name
-
-
-class CustomTaskForm(forms.ModelForm):
-    class Meta:
-        model = CustomTask
-        fields = ('name',)
-
-    def clean_name(self):
-        name = self.objects.filter('name')
-        if CustomTask.objects.filter(name__exact=name):
-            raise forms.ValidationError("This task name already exists")
-        else:
-            return name
 
 
 class StudentEditForm(RegisterForm):
