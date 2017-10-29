@@ -6,6 +6,39 @@ from .models import *
 import datetime
 
 
+# Login Form
+class LoginForm(forms.Form):
+    username = forms.CharField(label='username',
+                               widget=forms.TextInput(attrs={'id': 'username'}),
+                               max_length=20)
+
+    password = forms.CharField(label='password',
+                               widget=forms.PasswordInput(attrs={'id': 'password'}))
+
+    def clean(self):
+        cleaned_data = super(LoginForm, self).clean()
+        return cleaned_data
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if not User.objects.filter(username__exact=username):
+            raise forms.ValidationError("Invalid Username")
+        else:
+            return username
+
+    def clean_password(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        if len(User.objects.filter(username__exact=username)) == 1:
+            user = User.objects.get(username__exact=username)
+            if not user.check_password(password):
+                raise forms.ValidationError("Incorrect Password for "+username)
+            else:
+                return password
+        else:
+            return password
+
+
 # Register Form
 class RegisterForm(UserCreationForm):
 

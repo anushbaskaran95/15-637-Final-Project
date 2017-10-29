@@ -7,23 +7,35 @@ from django.contrib.auth import logout as auth_logout
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
+from .. import forms
 
 
+@transaction.atomic
 def login(request):
-    errors = False
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(username = username, password = password)
-
-        if user:
-            auth_login(request, user)
+    context = {}
+    if request.method == 'GET':
+        if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('dash'))
         else:
-            errors = True
+            context['form'] = forms.LoginForm()
+            return render(request, 'landing/login.html', context)
 
-    return render(request, 'landing/login.html', {'errors': errors})
+    form = forms.LoginForm(request.POST)
+    context['form'] = form
+
+    if not form.is_valid():
+        return render(request, 'landing/login.html', context)
+
+    user = authenticate(request, username=form.cleaned_data['username'],
+                        password=form.cleaned_data['password'])
+
+    if user is not None:
+        auth_login(request, user)
+        return HttpResponseRedirect(reverse('dash'))
+    else:
+        context['errors'] = 'Invalid Credentials'
+        return render(request, 'landing/login.html', context)
 
 
 @login_required
