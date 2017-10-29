@@ -28,7 +28,7 @@ def edit_student_profile(request, username):
 
 	if request.method == 'GET':
 		initial_edit_form = StudentEditForm(instance=user_instance)
-		return render(request, 'profile/profile.html', {'edit_form': initial_edit_form})
+		return render(request, 'profile/edit-profile.html', {'edit_form': initial_edit_form})
 
 	if request.method == 'POST':
 		user_form = StudentEditForm(data=request.POST, instance=user_instance)
