@@ -70,6 +70,7 @@ class RegisterForm(UserCreationForm):
 
         return new_user
 
+
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
@@ -78,15 +79,16 @@ class CourseForm(forms.ModelForm):
     def clean_course_name(self):
         course_name = self.cleaned_data.get('course_name')
         if Course.objects.filter(course_name__exact=course_name):
-            raise forms.ValidationError("Course name is already existed")
+            raise forms.ValidationError("Course already exists")
         else:
             return course_name
+
 
 class TaskInfoForm(forms.ModelForm):
     class Meta:
         model = TaskInfo
         exclude = ('time_spent',)
-    """
+
     def clean_start_time(self):
         start_time = self.cleaned_data.get('start_time')
         now = datetime.datetime.now()
@@ -94,26 +96,27 @@ class TaskInfoForm(forms.ModelForm):
             raise forms.ValidationError("You should plan for future task")
         else:
             return start_time
-    """
+
     def clean_expected_finish_time(self):
         expected_finish_time = self.cleaned_data.get('expected_finish_time')
         start_time = self.cleaned_data.get('start_time')
         if expected_finish_time <= start_time:
-            raise forms.ValidationError("Expected finish time should in the future")
+            raise forms.ValidationError("Expected finish time after start time")
         else:
             return expected_finish_time
+
     def clean_due_date(self):
         due_date = self.cleaned_data.get('due_date')
         start_time = self.cleaned_data.get('start_time')
-        if expected_finish_time <= start_time:
-            raise forms.ValidationError("Due date should in the future")
+        if due_date <= start_time:
+            raise forms.ValidationError("Due date should be after start time")
         else:
             return due_date
 
     def clean_percentage_completion(self):
         percentage_completion = self.cleaned_data.get('percentage_completion')
-        if percentage_completion < 0 or percentage_completion >100:
-            forms.ValidationError("invalid percentage completion")
+        if percentage_completion < 0 or percentage_completion > 100:
+            forms.ValidationError("Invalid percentage completion")
         else:
             return percentage_completion
 
@@ -125,22 +128,24 @@ class CourseTaskForm(forms.ModelForm):
 
     def clean_name(self):
         name = self.cleaned_data.get('name')
-        if CourseTask.objects.filter(name__exact = name):
-            raise forms.ValidationError("This course task is already existed")
+        if CourseTask.objects.filter(name__exact=name):
+            raise forms.ValidationError("This course task is already exists")
         else:
             return name
 
+
 class ResearchForm(forms.ModelForm):
     class Meta:
-        model =  Research
+        model = Research
         fields = ('topic',)
 
     def clean_topic(self):
         topic = self.cleaned_data.get('topic')
-        if Research.objects.filter(topic__exact = topic):
-            raise forms.ValidationError("This reserch name is already existed")
+        if Research.objects.filter(topic__exact=topic):
+            raise forms.ValidationError("This research topic is already added")
         else:
             return topic
+
 
 class MiscForm(forms.ModelForm):
     class Meta:
@@ -149,10 +154,11 @@ class MiscForm(forms.ModelForm):
 
     def clean_task_name(self):
         task_name = self.cleaned_data.get('task_name')
-        if Misc.objects.filter(task_name__exact= task_name):
+        if Misc.objects.filter(task_name__exact=task_name):
             raise forms.ValidationError("This task name is already existed")
         else:
             return task_name
+
 
 class CustomForm(forms.ModelForm):
     class Meta:
@@ -162,9 +168,10 @@ class CustomForm(forms.ModelForm):
     def clean_name(self):
         name = self.cleaned_data.get('name')
         if Custom.objects.filter(name__exact=name):
-            raise forms.ValidationError("Custom name is already existed")
+            raise forms.ValidationError("This task category already exists")
         else:
             return name
+
 
 class CustomTaskForm(forms.ModelForm):
     class Meta:
@@ -174,9 +181,10 @@ class CustomTaskForm(forms.ModelForm):
     def clean_name(self):
         name = self.objects.filter('name')
         if CustomTask.objects.filter(name__exact=name):
-            raise forms.ValidationError("Custom task name is already existed")
+            raise forms.ValidationError("This custom task name already exists")
         else:
             return name
+
 
 class StudentEditForm():
     class Meta:
