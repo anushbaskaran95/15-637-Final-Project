@@ -24,13 +24,18 @@ urlpatterns = [
     url(r'^reset/done/$', password_reset_complete,
         {'template_name': 'registration/password_reset_success.html'},
         name='password_reset_complete'),
+
     url(r'^login$', login_user, name='login'),
     url(r'^logout$', logout_user, name='logout'),
+
     url(r'^$', dashboard, name='dash'),
     url(r'^course-work$', coursework, name='coursework'),
     url(r'^research$', research, name='research'),
     url(r'^routine$', routine, name='routine'),
     url(r'^profile$', view_profile, name='profile'),
+
     url(r'^edit-profile/(?P<username>.+)$', edit_student_profile, name='edit_profile'),
     url(r'^change-password$', change_password, name='change_password'),
+
+    url(r'^add-course$', add_course, name='add-course'),
 ]
