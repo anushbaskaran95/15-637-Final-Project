@@ -5,21 +5,21 @@
 
 {% block fab %}
 <div class="fixed-action-btn toolbar show-on-medium-and-up hide-on-small-only">
-    <a class="btn-floating btn-large light-blue darken-3">
+    <a class="btn-floating btn-large light-blue darken-2">
         <i class="material-icons">create</i>
     </a>
     <ul>
-        <li class="">
-            <a class="btn modal-trigger cyan" href="#course-modal">Course</a>
+        <li class="waves-effect waves-light">
+            <a class="modal-trigger" href="#add-course-modal">Create Course</a>
         </li>
-        <li class="">
-            <a class="btn modal-trigger light-green" href="#research-modal">Research</a>
+        <li class=" waves-effect waves-light">
+            <a class="modal-trigger" href="#course-task-modal">Course Task</a>
         </li>
-        <li class="">
-            <a class="btn modal-trigger amber" href="#routine-modal">Routine</a>
+        <li class="waves-effect waves-light ">
+            <a class="modal-trigger" href="#research-task-modal">Research Task</a>
         </li>
-        <li class="">
-            <a class="btn modal-trigger indigo lighten-2" href="#new-category-modal">Add New Category</a>
+        <li class="waves-effect waves-light ">
+            <a class="modal-trigger" href="#routine-task-modal">Routine Task</a>
         </li>
     </ul>
 </div>
@@ -29,22 +29,22 @@
     </a>
     <ul>
         <li>
-            <a class="btn-floating btn-large modal-trigger indigo lighten-2" href="#new-category-modal">
-               <i class="material-icons">add</i>
+            <a class="btn-floating btn-large modal-trigger indigo lighten-3" href="#add-course-modal">
+                <i class="material-icons">add</i>
             </a>
         </li>
         <li>
-            <a class="btn-floating btn-large modal-trigger amber" href="#routine-modal">
+            <a class="btn-floating btn-large modal-trigger amber" href="#routine-task-modal">
                 <i class="material-icons">hotel</i>
             </a>
         </li>
         <li>
-            <a class="btn-floating btn-large modal-trigger light-green" href="#research-modal">
+            <a class="btn-floating btn-large modal-trigger light-green" href="#research-task-modal">
                 <i class="material-icons">library_books</i>
             </a>
         </li>
         <li>
-            <a class="btn-floating btn-large modal-trigger cyan" href="#course-modal">
+            <a class="btn-floating btn-large modal-trigger cyan" href="#course-task-modal">
                 <i class="material-icons">note_add</i>
             </a>
         </li>
@@ -53,9 +53,9 @@
 {% endblock %}
 
 {% block modals %}
+{% include "modals/add_course_modal.html" %}
 {% include "modals/course_modal.html" %}
 {% include "modals/research_modal.html" %}
 {% include "modals/routine_modal.html" %}
-{% include "modals/personal_modal.html" %}
 {% endblock %}
 

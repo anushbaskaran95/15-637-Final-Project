@@ -28,4 +28,8 @@ from .. import forms
 @login_required
 def dashboard(request):
     context = {}
+    add_course_form = forms.CourseForm()
+    context['add_course_form'] = add_course_form
+
+
     return render(request, 'dashboard/current_tasks.html', context)

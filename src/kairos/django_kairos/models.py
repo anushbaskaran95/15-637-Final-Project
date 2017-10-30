@@ -14,10 +14,10 @@ class TaskInfo(models.Model):
     start_time = models.DateTimeField()
     expected_finish_time = models.DateTimeField()
     due_date = models.DateTimeField(null=True)
-    time_spent = models.FloatField()
-    status = models.IntegerField()
     comments = models.CharField(max_length=450, null=True)
     percentage_completion = models.IntegerField()
+    time_spent = models.FloatField()
+    status = models.IntegerField()
 
 
 class CourseTask(models.Model):
@@ -35,15 +35,4 @@ class Research(models.Model):
 class Misc(models.Model):
     user = models.ForeignKey(User)
     task_name = models.CharField(max_length=100)
-    task_info = models.ForeignKey(TaskInfo)
-
-
-class Custom(models.Model):
-    user = models.ForeignKey(User)
-    name = models.CharField(max_length=50)
-
-
-class CustomTask(models.Model):
-    custom_field = models.ForeignKey(Custom)
-    name = models.CharField(max_length=100)
     task_info = models.ForeignKey(TaskInfo)

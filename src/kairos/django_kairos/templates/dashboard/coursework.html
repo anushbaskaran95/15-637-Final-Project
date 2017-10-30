@@ -4,13 +4,22 @@
 {% block title %}Course Work{% endblock %}
 
 {% block fab %}
-<div class="fixed-action-btn click-to-toggle">
-    <a class="btn-floating btn-large modal-trigger cyan" href="#course-modal">
+<div class="fixed-action-btn toolbar">
+    <a class="btn-floating btn-large light-blue darken-2">
         <i class="material-icons">create</i>
     </a>
+    <ul>
+        <li class="waves-effect waves-light">
+            <a class="modal-trigger" href="#add-course-modal">Create Course</a>
+        </li>
+        <li class="waves-effect waves-light">
+            <a class="modal-trigger" href="#course-task-modal">Course Task</a>
+        </li>
+    </ul>
 </div>
 {% endblock %}
 
 {% block modals %}
 {% include "modals/course_modal.html" %}
+{% include "modals/add_course_modal.html" %}
 {% endblock %}
