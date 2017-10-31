@@ -23,8 +23,18 @@ from django.contrib.auth.tokens import default_token_generator
 
 from .. import forms
 
+
 # Create your views here.
 @login_required
 def routine(request):
     context = {}
+    routine_form = forms.MiscForm()
+    task_info_form = forms.TaskInfoForm()
+    context['routine_form'] = routine_form
+    context['task_info_form'] = task_info_form
     return render(request, 'dashboard/routine.html', context)
+
+
+@login_required
+def add_routine_task(request):
+    return HttpResponse('ok')

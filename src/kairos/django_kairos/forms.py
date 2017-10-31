@@ -117,7 +117,24 @@ class CourseForm(forms.ModelForm):
             return course_name
 
 
+class MySplitDateTimeWidget(forms.SplitDateTimeWidget):
+    def __init__(self, attrs=None, date_format="%Y-%m-%d", time_format="%H:%M"):
+        date_class = attrs.pop('date_class')
+        time_class = attrs.pop('time_class')
+        widgets = (forms.DateInput(attrs={'class': date_class, 'placeholder': 'Date'}, format=date_format),
+                   forms.TimeInput(attrs={'class': time_class, 'placeholder': 'Time'}, format=time_format))
+        super(forms.SplitDateTimeWidget, self).__init__(widgets, attrs)
+
+
 class TaskInfoForm(forms.ModelForm):
+
+    start_time = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker',
+                                                                         'time_class': 'timepicker'}))
+    expected_finish_time = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker',
+                                                                                   'time_class': 'timepicker'}))
+    due_date = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker',
+                                                                       'time_class': 'timepicker'}))
+
     class Meta:
         model = TaskInfo
         exclude = ('time_spent',)

@@ -38,4 +38,7 @@ urlpatterns = [
     url(r'^change-password$', change_password, name='change_password'),
 
     url(r'^add-course$', add_course, name='add-course'),
+    url(r'^add-course-task$', add_course_task, name='add-course-task'),
+    url(r'^add-research-task$', add_research_task, name='add-research-task'),
+    url(r'^add-routine-task$', add_routine_task, name='add-routine-task'),
 ]

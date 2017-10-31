@@ -19,10 +19,19 @@ from .. import forms
 def coursework(request):
     context = {}
     add_course_form = forms.CourseForm()
+    course_task_form = forms.CourseTaskForm()
+    task_info_form = forms.TaskInfoForm()
     context['add_course_form'] = add_course_form
+    context['course_task_form'] = course_task_form
+    context['task_info_form'] = task_info_form
     return render(request, 'dashboard/coursework.html', context)
 
 
 @login_required
 def add_course(request):
+    return HttpResponse('ok')
+
+
+@login_required
+def add_course_task(request):
     return HttpResponse('ok')
