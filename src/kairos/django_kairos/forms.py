@@ -115,9 +115,36 @@ class CourseForm(forms.ModelForm):
             raise forms.ValidationError("Course already exists")
         else:
             return course_name
+    # check if a task is already in the course
+    # if yes, return True
+    # if not, return False
+    def check_task_in_course(self, task_name):
+        course_name = self.cleaned_data.get('course_name')
+        all_task = CourseTask.objects.filter(course_name__exact=course_name)
+        if task_name in all_task:
+            return True
+        else:
+            return False
+
+
+class MySplitDateTimeWidget(forms.SplitDateTimeWidget):
+    def __init__(self, attrs=None, date_format="%Y-%m-%d", time_format="%H:%M"):
+        date_class = attrs.pop('date_class')
+        time_class = attrs.pop('time_class')
+        widgets = (forms.DateInput(attrs={'class': date_class, 'placeholder': 'Date'}, format=date_format),
+                   forms.TimeInput(attrs={'class': time_class, 'placeholder': 'Time'}, format=time_format))
+        super(forms.SplitDateTimeWidget, self).__init__(widgets, attrs)
 
 
 class TaskInfoForm(forms.ModelForm):
+
+    start_time = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker',
+                                                                         'time_class': 'timepicker'}))
+    expected_finish_time = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker',
+                                                                                   'time_class': 'timepicker'}))
+    due_date = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker',
+                                                                       'time_class': 'timepicker'}))
+
     class Meta:
         model = TaskInfo
         exclude = ('time_spent',)

@@ -23,8 +23,18 @@ from django.contrib.auth.tokens import default_token_generator
 
 from .. import forms
 
+
 # Create your views here.
 @login_required
 def research(request):
     context = {}
+    research_form = forms.ResearchForm()
+    task_info_form = forms.TaskInfoForm()
+    context['research_form'] = research_form
+    context['task_info_form'] = task_info_form
     return render(request, 'dashboard/research.html', context)
+
+
+@login_required
+def add_research_task(request):
+    return HttpResponse('ok')
