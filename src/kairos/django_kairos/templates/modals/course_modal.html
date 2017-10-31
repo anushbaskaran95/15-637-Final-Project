@@ -4,11 +4,22 @@
         <form method="post" action="{% url 'add-course-task' %}" class="mt20">
             {% csrf_token %}
             <div class="error">{{ errors }}</div>
+
+            <div class="input-field">
+                <select name="course_name">
+                    <option value="" disabled selected></option>
+                    {% for course in courses %}
+                        <option value="{{course}}">{{course.course_name}}</option>
+                    {% endfor %}
+                </select>
+                <label>Select Course</label>
+            </div>
+
             <div class="error">{{ course_task_form.name.errors }}</div>
             <div class="input-field">
                 {{ course_task_form.name }}
                 <label class="input-label"
-                   for="{{ course_task_form.name.id_for_label }}">Task Name</label>
+                       for="{{ course_task_form.name.id_for_label }}">Task Name</label>
             </div>
 
             <div class="error">{{ task_info_form.start_time.errors}}</div>
@@ -32,7 +43,7 @@
             <div class="input-field">
                 {{ task_info_form.comments }}
                 <label class="input-label"
-                   for="{{ task_info_form.comments.id_for_label }}">Comments</label>
+                       for="{{ task_info_form.comments.id_for_label }}">Comments</label>
             </div>
         </form>
     </div>

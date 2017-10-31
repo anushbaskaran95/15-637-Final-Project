@@ -37,4 +37,23 @@ def routine(request):
 
 @login_required
 def add_routine_task(request):
-    return HttpResponse('ok')
+	print "heya"
+	context = {}
+	if request.method == 'POST':
+		print "yolo"
+		routineform = forms.MiscForm(data=request.POST)
+		taskinfoform = forms.TaskInfoForm(data=request.POST)
+		context['routineform'] = routineform
+		context['taskinfoform'] = taskinfoform
+		
+		if routineform.is_valid and taskinfoform.is_valid():
+			taskinfo = taskinfoform.save()
+			routine = routineform.save(commit=False)
+			routine.user = request.user
+			routine.task_info = taskinfo
+			routine.save()
+			print "heya"
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+	print "not done"
+	return render(request, 'modals/routine_modal.html', context)
