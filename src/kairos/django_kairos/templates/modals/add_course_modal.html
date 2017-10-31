@@ -1,0 +1,22 @@
+<div id="add-course-modal" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h5>Add Course</h5>
+        <br/>
+        <form method="post" action="{% url 'add-course' %}">
+        {% csrf_token %}
+        <div class="error">{{ errors }}</div>
+        <div class="error">{{ add_course_form.non_field_errors }}</div>
+        <div class="error">{{ add_course_form.username.errors }}</div>
+        <div class="input-field">
+            {{ add_course_form.course_name }}
+            <label class="input-label"
+                   for="{{ add_course_form.course_name.id_for_label }}">Course Name</label>
+        </div>
+        <div class="modal-footer">
+            <a href="" class="modal-action modal-close waves-effect waves-light btn action-btn">
+                Add
+            </a>
+        </div>
+    </form>
+    </div>
+</div>

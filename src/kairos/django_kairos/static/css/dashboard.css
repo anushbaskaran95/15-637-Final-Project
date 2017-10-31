@@ -2,11 +2,8 @@ li.float-none {
     float: none !important;
 }
 
-div.fab-backdrop {
-    background-color: #fff !important;
-}
-
 a.modal-trigger {
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -24,4 +21,31 @@ a.modal-trigger {
 
 .tab-indicator {
     border-bottom: 2px solid #01579b;
+}
+
+.bottom-sheet {
+    max-height: 82% !important;
+}
+
+.date-label {
+    font-size: 15px !important;
+}
+
+.picker__date-display {
+    background-color: #03a9f4;
+}
+.picker__close {
+    color: #03a9f4;
+}
+.picker__today {
+    color: #03a9f4;
+}
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+    background-color: #03a9f4;
+}
+.picker__day.picker__day--today {
+    color: #03a9f4;
+}
+.picker__nav--prev:hover, .picker__nav--next:hover {
+    background-color: #81d4fa;
 }
