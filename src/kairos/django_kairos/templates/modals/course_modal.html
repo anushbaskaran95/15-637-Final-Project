@@ -9,7 +9,7 @@
                 <select name="course_name">
                     <option value="" disabled selected></option>
                     {% for course in courses %}
-                        <option value="{{course}}">{{course}}</option>
+                        <option value="{{course}}">{{course.course_name}}</option>
                     {% endfor %}
                 </select>
                 <label>Select Course</label>

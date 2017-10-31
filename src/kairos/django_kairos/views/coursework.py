@@ -40,8 +40,10 @@ def add_course(request):
             course = courseform.save(commit = False)
             course.user = request.user
             course.save()
+            print "hello"
             return HttpResponse('')
-    
+
+    print "Hi"
     return render(request, 'modals/add_course_modal.html', context)
 
 @login_required
