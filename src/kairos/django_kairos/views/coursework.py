@@ -40,7 +40,7 @@ def add_course(request):
             course = courseform.save(commit = False)
             course.user = request.user
             course.save()
-            return HttpResponse('')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     return render(request, 'modals/add_course_modal.html', context)
 
