@@ -65,7 +65,7 @@ def add_course_task(request):
             taskinfo = taskInfoForm.save(commit=False)
             taskinfo.save()
             task.task_info = taskinfo
-            task.course = courseselected
+            task.course = course
             task.save()
             print "done"
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
