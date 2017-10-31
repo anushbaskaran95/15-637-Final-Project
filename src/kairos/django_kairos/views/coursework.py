@@ -46,8 +46,10 @@ def add_course(request):
 
 @login_required
 def add_course_task(request):
+    print "hi"
     context = {}
     if request.method == 'POST':
+        print "helllo"
         courseselected = request.POST.get('course_name')
         course = models.Course.objects.get(course_name=courseselected)
         taskForm = forms.CourseTaskForm(data = request.POST)
