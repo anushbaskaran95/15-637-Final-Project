@@ -38,7 +38,9 @@ def add_course(request):
             course = courseform.save(commit = False)
             course.user = request.user
             course.save()
-            return http.HttpResponseRedirect('')
+            return HttpResponseRedirect('')
+    
+    return render(request, 'dashboard/coursework.html', context)
 
 @login_required
 def add_course_task(request):
