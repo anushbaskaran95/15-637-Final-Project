@@ -37,4 +37,23 @@ def research(request):
 
 @login_required
 def add_research_task(request):
-    return HttpResponse('ok')
+	print "heya"
+	context = {}
+	if request.method == 'POST':
+		print "yolo"
+		researchform = forms.ResearchForm(data=request.POST)
+		taskinfoform = forms.TaskInfoForm(data=request.POST)
+		context['researchform'] = researchform
+		context['taskinfoform'] = taskinfoform
+		
+		if researchform.is_valid and taskinfoform.is_valid():
+			taskinfo = taskinfoform.save()
+			research = researchform.save(commit=False)
+			research.user = request.user
+			research.task_info = taskinfo
+			research.save()
+			print "heya"
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+	print "not done"
+	return render(request, 'modals/research_modal.html', context)
