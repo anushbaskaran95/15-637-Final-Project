@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from .. import forms
+from .. import models
 
 
 # Create your views here.
@@ -24,6 +25,7 @@ def coursework(request):
     context['add_course_form'] = add_course_form
     context['course_task_form'] = course_task_form
     context['task_info_form'] = task_info_form
+    context['courses'] = models.Course.objects.all()
     return render(request, 'dashboard/coursework.html', context)
 
 

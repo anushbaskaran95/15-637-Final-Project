@@ -28,6 +28,7 @@ $(document).ready(function(){
     }
     $('#'+tab).addClass('tab-indicator');
 
+    $('select').material_select();
 
     $('.datepicker').pickadate({
         selectMonths: false, // Creates a dropdown to control month
