@@ -31,9 +31,21 @@ def coursework(request):
 
 @login_required
 def add_course(request):
-    return HttpResponse('ok')
+    context = {}
+    if request.method == 'POST':
+        courseform = forms.CourseForm(data = request.POST)
+        context['form'] = courseform
 
+        if courseform.is_valid():
+            course = courseform.save(commit = False)
+            course.user = request.user
+            course.save()
+            return HttpResponseRedirect('')
+    
+    return render(request, 'dashboard/coursework.html', context)
 
 @login_required
 def add_course_task(request):
+    context = {}
+
     return HttpResponse('ok')
