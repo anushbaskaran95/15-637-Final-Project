@@ -115,6 +115,16 @@ class CourseForm(forms.ModelForm):
             raise forms.ValidationError("Course already exists")
         else:
             return course_name
+    # check if a task is already in the course
+    # if yes, return True
+    # if not, return False
+    def check_task_in_course(self, task_name):
+        course_name = self.cleaned_data.get('course_name')
+        all_task = CourseTask.objects.filter(course_name__exact=course_name)
+        if task_name in all_task:
+            return True
+        else:
+            return False
 
 
 class MySplitDateTimeWidget(forms.SplitDateTimeWidget):
