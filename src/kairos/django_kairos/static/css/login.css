@@ -61,24 +61,6 @@ body, html {
     font-size: 22px;
 }
 
-.input-field input:focus {
-     border-bottom: 2px solid #0d47a1 !important;
-     color: #333;
-}
-.input-field input {
-     font-size: 15px;
-     border-bottom: 2px solid #ddd !important;
-     margin-bottom: 15px !important;
-}
-
-.input-field label {
-    color: #999 !important;
-    font-size: 14px;
-}
-.input-field input:focus + label {
-    color: #999 !important;
-}
-
 .back-link i {
     color: #fff !important;
     font-size: 40px;

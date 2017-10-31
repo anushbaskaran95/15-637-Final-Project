@@ -28,4 +28,14 @@ from .. import forms
 @login_required
 def dashboard(request):
     context = {}
+    add_course_form = forms.CourseForm()
+    course_task_form = forms.CourseTaskForm()
+    research_form = forms.ResearchForm()
+    routine_form = forms.MiscForm()
+    task_info_form = forms.TaskInfoForm()
+    context['add_course_form'] = add_course_form
+    context['course_task_form'] = course_task_form
+    context['research_form'] = research_form
+    context['routine_form'] = routine_form
+    context['task_info_form'] = task_info_form
     return render(request, 'dashboard/current_tasks.html', context)

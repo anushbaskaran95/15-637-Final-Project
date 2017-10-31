@@ -1,9 +1,44 @@
-<div id="research-modal" class="modal">
+<div id="research-task-modal" class="modal bottom-sheet">
     <div class="modal-content">
-        <h4>Research</h4>
-        <p>A bunch of text</p>
+        <h5>Add Research Task</h5>
+        <form method="post" action="{% url 'add-research-task' %}" class="mt20">
+            {% csrf_token %}
+            <div class="error">{{ errors }}</div>
+            <div class="error">{{ research_form.topic.errors }}</div>
+            <div class="input-field">
+                {{ research_form.topic }}
+                <label class="input-label"
+                   for="{{ research_form.topic.id_for_label }}">Topic</label>
+            </div>
+
+            <div class="error">{{ task_info_form.start_time.errors}}</div>
+            <label class="date-label input-label">Start Date</label>
+            <div class="input-field">
+                {{ task_info_form.start_time }}
+            </div>
+
+            <div class="error">{{ task_info_form.expected_finish_time.errors}}</div>
+            <label class="date-label input-label">Expected Finish Date</label>
+            <div class="input-field">
+                {{ task_info_form.expected_finish_time }}
+            </div>
+
+            <div class="error">{{ task_info_form.due_date.errors}}</div>
+            <label class="date-label input-label">Due Date</label>
+            <div class="input-field">
+                {{ task_info_form.due_date }}
+            </div>
+
+            <div class="input-field">
+                {{ task_info_form.comments }}
+                <label class="input-label"
+                   for="{{ task_info_form.comments.id_for_label }}">Comments</label>
+            </div>
+        </form>
     </div>
     <div class="modal-footer">
-        <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        <a href="" class="modal-action modal-close waves-effect waves-light btn action-btn">
+            Add
+        </a>
     </div>
 </div>

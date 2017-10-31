@@ -117,7 +117,24 @@ class CourseForm(forms.ModelForm):
             return course_name
 
 
+class MySplitDateTimeWidget(forms.SplitDateTimeWidget):
+    def __init__(self, attrs=None, date_format="%Y-%m-%d", time_format="%H:%M"):
+        date_class = attrs.pop('date_class')
+        time_class = attrs.pop('time_class')
+        widgets = (forms.DateInput(attrs={'class': date_class, 'placeholder': 'Date'}, format=date_format),
+                   forms.TimeInput(attrs={'class': time_class, 'placeholder': 'Time'}, format=time_format))
+        super(forms.SplitDateTimeWidget, self).__init__(widgets, attrs)
+
+
 class TaskInfoForm(forms.ModelForm):
+
+    start_time = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker',
+                                                                         'time_class': 'timepicker'}))
+    expected_finish_time = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker',
+                                                                                   'time_class': 'timepicker'}))
+    due_date = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker',
+                                                                       'time_class': 'timepicker'}))
+
     class Meta:
         model = TaskInfo
         exclude = ('time_spent',)
@@ -159,12 +176,9 @@ class CourseTaskForm(forms.ModelForm):
         model = CourseTask
         fields = ('name',)
 
-    def clean_name(self):
-        name = self.cleaned_data.get('name')
-        if CourseTask.objects.filter(name__exact=name):
-            raise forms.ValidationError("This course task already exists")
-        else:
-            return name
+    def clean(self):
+        cleaned_data = super(CourseTaskForm, self).clean()
+        return cleaned_data
 
 
 class ResearchForm(forms.ModelForm):
@@ -174,7 +188,7 @@ class ResearchForm(forms.ModelForm):
 
     def clean_topic(self):
         topic = self.cleaned_data.get('topic')
-        if Research.objects.filter(topic__exact = topic):
+        if Research.objects.filter(topic__exact=topic):
             raise forms.ValidationError("This research topic already exists")
         else:
             return topic
@@ -185,41 +199,23 @@ class MiscForm(forms.ModelForm):
         model = Misc
         fields = ('task_name',)
 
-    def clean_task_name(self):
-        task_name = self.cleaned_data.get('task_name')
-        if Misc.objects.filter(task_name__exact= task_name):
-            raise forms.ValidationError("This task already exists")
-        else:
-            return task_name
+    def clean(self):
+        cleaned_data = super(MiscForm, self).clean()
+        return cleaned_data
 
 
-class CustomForm(forms.ModelForm):
-    class Meta:
-        model = Custom
-        fields = ('name',)
-
-    def clean_name(self):
-        name = self.cleaned_data.get('name')
-        if Custom.objects.filter(name__exact=name):
-            raise forms.ValidationError("This category already exists")
-        else:
-            return name
-
-
-class CustomTaskForm(forms.ModelForm):
-    class Meta:
-        model = CustomTask
-        fields = ('name',)
-
-    def clean_name(self):
-        name = self.objects.filter('name')
-        if CustomTask.objects.filter(name__exact=name):
-            raise forms.ValidationError("This task name already exists")
-        else:
-            return name
-
-
-class StudentEditForm(RegisterForm):
+class StudentEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name']
+
+    def clean(self):
+        cleaned_data = super(StudentEditForm, self).clean()
+        return cleaned_data
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username__exact=username):
+            raise forms.ValidationError("Username already exists")
+        else:
+            return username
