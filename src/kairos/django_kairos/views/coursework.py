@@ -46,20 +46,23 @@ def add_course(request):
 
 @login_required
 def add_course_task(request):
-    print "hi"
+    #print "hi"
     context = {}
     if request.method == 'POST':
-        print "helllo"
+        #print "helllo"
         courseselected = request.POST.get('course_name')
-        course = models.Course.objects.get(course_name=courseselected)
+        #print courseselected
+        course = courseselected
         taskForm = forms.CourseTaskForm(data = request.POST)
         context['taskForm'] = taskForm
         taskInfoForm = forms.TaskInfoForm(data = request.POST)
         context['taskInfoForm'] = taskInfoForm
 
         task = taskForm.save(commit = False)
+        print task.name
 
-        if models.CourseTask.objects.filter(course=course).filter(name=task.name).exists():
+        taskcourse = models.CourseTask.objects.filter(course=course)
+        if  taskcourse.filter(name=task.name).exists():
             context['error'] = 'Task for the course already exists'
             return render(request, 'modals/course_modal.html', context) 
 
