@@ -61,8 +61,9 @@ def add_course_task(request):
         task = taskForm.save(commit = False)
         print task.name
 
-        taskcourse = models.CourseTask.objects.filter(course=course)
-        if  taskcourse.filter(name=task.name).exists():
+        #taskcourse = models.CourseTask.objects.filter(course_task_course=course)
+        #if  taskcourse.filter(name=task.name).exists():
+        if models.Course.objects.filter(coursetask__name__exact=task.name):
             context['error'] = 'Task for the course already exists'
             return render(request, 'modals/course_modal.html', context) 
 
