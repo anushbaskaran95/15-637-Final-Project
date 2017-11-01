@@ -17,7 +17,26 @@ from .. import forms
 
 @login_required
 def view_profile(request):
-	return render(request, 'profile/profile.html', {})
+	courses = Course.objects.filter(user=request.user)
+	#in case you don't need these, you can delete them in the return object
+	course_tasks = CourseTask.objects.filter(course=courses)
+	course_task_infoes = CourseTask.objects.filter(course_tasks__course=course_tasks)
+
+	researches = Research.objects.filter(user=request.user)
+	#in case you don't need these, you can delete them in the return object
+	research_task_infoes = CourseTask.objects.filter(research__user=request.user)
+
+	misces = Misc.objects.filter(user=request.user)
+	#in case you don't need these, you can delete them in the return object
+	misc_task_infoes = CourseTask.objects.filter(misc__user=request.user)
+
+	return render(request, 'profile/profile.html', {'courses':courses,
+                                                    'course_tasks':course_tasks,
+													'course_task_infoes':course_task_infoes,
+                                                    'researches':researches,
+													'research_task_infoes':research_task_infoes,
+													'misces':misces,
+													'misc_task_infoes':misc_task_infoes})
 
 
 @login_required
