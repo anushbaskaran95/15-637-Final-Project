@@ -1,15 +1,14 @@
 <div id="course-task-modal" class="modal bottom-sheet">
     <div class="modal-content">
         <h5>Add Course Task</h5>
-        <form method="post" action="{% url 'add-course-task' %}" class="mt20">
+        <form method="post" action="{% url 'add-course-task' %}">
             {% csrf_token %}
             <div class="error">{{ errors }}</div>
-
             <div class="input-field">
                 <select name="course_name">
                     <option value="" disabled selected></option>
                     {% for course in courses %}
-                        <option value="{{course}}">{{course.course_name}}</option>
+                    <option value="{{course}}">{{course.course_name}}</option>
                     {% endfor %}
                 </select>
                 <label>Select Course</label>
@@ -46,10 +45,10 @@
                        for="{{ task_info_form.comments.id_for_label }}">Comments</label>
             </div>
         </form>
-    </div>
-    <div class="modal-footer">
-        <button type="submit" class="modal-action modal-close waves-effect waves-light btn action-btn">
-            Add
-        </button>
+        <div class="modal-footer">
+            <button type="submit" class="modal-action modal-close waves-effect waves-light btn action-btn">
+                Add
+            </button>
+        </div>
     </div>
 </div>

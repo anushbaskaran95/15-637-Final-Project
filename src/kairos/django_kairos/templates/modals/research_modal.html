@@ -8,7 +8,7 @@
             <div class="input-field">
                 {{ research_form.topic }}
                 <label class="input-label"
-                   for="{{ research_form.topic.id_for_label }}">Topic</label>
+                       for="{{ research_form.topic.id_for_label }}">Topic</label>
             </div>
 
             <div class="error">{{ task_info_form.start_time.errors}}</div>
@@ -32,13 +32,13 @@
             <div class="input-field">
                 {{ task_info_form.comments }}
                 <label class="input-label"
-                   for="{{ task_info_form.comments.id_for_label }}">Comments</label>
+                       for="{{ task_info_form.comments.id_for_label }}">Comments</label>
             </div>
         </form>
-    </div>
-    <div class="modal-footer">
-        <button type="submit" class="modal-action modal-close waves-effect waves-light btn action-btn">
-            Add
-        </button>
+        <div class="modal-footer">
+            <button type="submit" class="modal-action modal-close waves-effect waves-light btn action-btn">
+                Add
+            </button>
+        </div>
     </div>
 </div>
