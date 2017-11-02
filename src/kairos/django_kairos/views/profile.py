@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.forms import PasswordChangeForm
 
-
+from django_kairos.models import *
 from .. import forms
 
 
@@ -20,15 +20,15 @@ def view_profile(request):
 	courses = Course.objects.filter(user=request.user)
 	#in case you don't need these, you can delete them in the return object
 	course_tasks = CourseTask.objects.filter(course=courses)
-	course_task_infoes = CourseTask.objects.filter(course_tasks__course=course_tasks)
+	course_task_infoes = TaskInfo.objects.filter(coursetask=course_tasks)
 
 	researches = Research.objects.filter(user=request.user)
 	#in case you don't need these, you can delete them in the return object
-	research_task_infoes = CourseTask.objects.filter(research__user=request.user)
+	research_task_infoes = TaskInfo.objects.filter(research=researches)
 
 	misces = Misc.objects.filter(user=request.user)
 	#in case you don't need these, you can delete them in the return object
-	misc_task_infoes = CourseTask.objects.filter(misc__user=request.user)
+	misc_task_infoes = TaskInfo.objects.filter(misc=misces)
 
 	return render(request, 'profile/profile.html', {'courses':courses,
                                                     'course_tasks':course_tasks,
