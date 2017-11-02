@@ -1,7 +1,7 @@
 <div id="course-task-modal" class="modal bottom-sheet">
     <div class="modal-content">
         <h5>Add Course Task</h5>
-        <form method="post" action="{% url 'add-course-task' %}">
+        <form method="post" action="{% url 'add-course-task' %}" class="mt20">
             {% csrf_token %}
             <div class="error">{{ errors }}</div>
             <div class="input-field">

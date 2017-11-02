@@ -32,16 +32,17 @@ def coursework(request):
 def add_course(request):
     context = {}
     if request.method == 'POST':
-        courseform = forms.CourseForm(data = request.POST)
-        context['form'] = courseform
+        course_form = forms.CourseForm(request.POST)
+        context['form'] = course_form
 
-        if courseform.is_valid():
-            course = courseform.save(commit = False)
+        if course_form.is_valid():
+            course = course_form.save(commit=False)
             course.user = request.user
             course.save()
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            return JsonResponse({'status': 'ok', 'errors': []})
         else:
-            return JsonResponse({'success': False, 'errors': [(k, v[0]) for k, v in courseform.errors.items()]})
+            return JsonResponse({'status': 'fail', 'errors': [(k, v[0]) for k, v in course_form.errors.items()]})
+
 
 @login_required
 def add_course_task(request):

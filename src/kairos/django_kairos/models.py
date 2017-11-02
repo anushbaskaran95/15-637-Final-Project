@@ -13,9 +13,9 @@ class Course(models.Model):
 class TaskInfo(models.Model):
     start_time = models.DateTimeField()
     expected_finish_time = models.DateTimeField()
-    due_date = models.DateTimeField(null=True)
-    comments = models.CharField(max_length=450, null=True)
-    percentage_completion = models.IntegerField()
+    due_date = models.DateTimeField(null=True, blank=True)
+    comments = models.CharField(max_length=450, null=True, blank=True)
+    percentage_completion = models.IntegerField(null=True, blank=True)
     time_spent = models.FloatField()
     status = models.IntegerField()
 
