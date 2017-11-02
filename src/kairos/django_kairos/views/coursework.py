@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render, redirect, reverse
-
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 
 from django.contrib import messages
 
@@ -41,8 +40,8 @@ def add_course(request):
             course.user = request.user
             course.save()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-    return render(request, 'modals/add_course_modal.html', context)
+        else:
+            return JsonResponse({'success': False, 'errors': [(k, v[0]) for k, v in courseform.errors.items()]})
 
 @login_required
 def add_course_task(request):
@@ -76,4 +75,5 @@ def add_course_task(request):
             print "done"
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    return render(request, 'modals/course_modal.html', context)
+        else:
+            return JsonResponse({'success': False, 'errors': [(k, v[0]) for k, v in taskForm.errors.items()] + [(k, v[0]) for k, v in taskInfoForm.errors.items()]})

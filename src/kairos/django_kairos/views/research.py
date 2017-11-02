@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, reverse
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.core.mail import send_mail
 
 from django.contrib import messages
@@ -46,7 +46,7 @@ def add_research_task(request):
 		context['researchform'] = researchform
 		context['taskinfoform'] = taskinfoform
 		
-		if researchform.is_valid and taskinfoform.is_valid():
+		if researchform.is_valid() and taskinfoform.is_valid():
 			taskinfo = taskinfoform.save()
 			research = researchform.save(commit=False)
 			research.user = request.user
@@ -54,6 +54,5 @@ def add_research_task(request):
 			research.save()
 			print "heya"
 			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-	print "not done"
-	return render(request, 'modals/research_modal.html', context)
+		else:
+			return JsonResponse({'success': False, 'errors': [(k, v[0]) for k, v in researchform.errors.items()] + [(k, v[0]) for k, v in taskinfoform.errors.items()]})
