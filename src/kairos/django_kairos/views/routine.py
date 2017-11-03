@@ -30,19 +30,22 @@ def routine(request):
 
 @login_required
 def add_routine_task(request):
-    context = {}
     if request.method == 'POST':
-        routineform = forms.MiscForm(data=request.POST)
-        taskinfoform = forms.TaskInfoForm(data=request.POST)
-        context['routineform'] = routineform
-        context['taskinfoform'] = taskinfoform
+        routine_form = forms.MiscForm(request.POST)
+        task_info_form = forms.TaskInfoForm(request.POST)
 
-        if routineform.is_valid() and taskinfoform.is_valid():
-            taskinfo = taskinfoform.save()
-            routine_task = routineform.save(commit=False)
+        if routine_form.is_valid() and task_info_form.is_valid():
+            task_info = task_info_form.save()
+            routine_task = routine_form.save(commit=False)
             routine_task.user = request.user
-            routine_task.task_info = taskinfo
+            routine_task.task_info = task_info
             routine_task.save()
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            return JsonResponse({'status': 'ok', 'errors': []})
         else:
-            return JsonResponse({'success': False, 'errors': [(k, v[0]) for k, v in routineform.errors.items()] + [(k, v[0]) for k, v in taskinfoform.errors.items()]})
+            error_list = dict()
+            error_list['status'] = 'fail'
+            error_list['start-date-error'] = task_info_form['start_date'].errors[0]
+            error_list['finish-date-error'] = task_info_form['expected_finish_date'].errors[0]
+            return JsonResponse({'status': 'fail', 'errors': error_list})
+    else:
+        return HttpResponseRedirect(reverse('dash'))

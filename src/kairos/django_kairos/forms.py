@@ -138,14 +138,14 @@ class TaskInfoForm(forms.ModelForm):
         model = TaskInfo
         exclude = ('date_paused', 'time_paused', 'status',)
 
-    # def clean_start_time(self):
+    # def clean_start_date(self):
     #     start_time = self.cleaned_data.get('start_time')
     #     if start_time < datetime.now():
     #         raise forms.ValidationError("Invalid start time")
     #     else:
     #         return start_time
     #
-    # def clean_expected_finish_time(self):
+    # def clean_expected_finish_date(self):
     #     expected_finish_time = self.cleaned_data.get('expected_finish_time')
     #     start_time = self.cleaned_data.get('start_time')
     #     if expected_finish_time <= start_time:

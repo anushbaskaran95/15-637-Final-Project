@@ -53,16 +53,15 @@ def add_course_task(request):
         if not course:
             return JsonResponse({'status': 'fail', 'errors': [{'course-name-error': 'Course does not exist'}]})
 
+        if 'name' in request.POST:
+            if course.coursetask_set.filter(name__iexact=request.POST['name']):
+                return JsonResponse({'status': 'fail', 'errors': {'task-name-error': 'Task already exists'}})
+        else:
+            return JsonResponse({'status': 'fail', 'errors': {'task-name-error': 'Enter task name'}})
+
         course_task_form = forms.CourseTaskForm(request.POST)
-
         task_info_form = forms.TaskInfoForm(request.POST)
-
-        print task_info_form
-
         task = course_task_form.save(commit=False)
-
-        if course.coursetask_set.filter(name__iexact=task.name):
-            return JsonResponse({'status': 'fail', 'errors': {'task-name-error': 'Task already exists'}})
 
         if course_task_form.is_valid() and task_info_form.is_valid():
             task_info = task_info_form.save()
@@ -74,9 +73,8 @@ def add_course_task(request):
             error_list = dict()
             error_list['status'] = 'fail'
             error_list['start-date-error'] = task_info_form['start_date'].errors[0]
-            error_list['start-time-error'] = task_info_form['start_time'].errors[0]
             error_list['finish-date-error'] = task_info_form['expected_finish_date'].errors[0]
-            error_list['finish-time-error'] = task_info_form['expected_finish_time'].errors[0]
             error_list['due-date-error'] = task_info_form['due_date'].errors[0]
-            error_list['due-time-error'] = task_info_form['due_time'].errors[0]
             return JsonResponse({'status': 'fail', 'errors': error_list})
+    else:
+        return HttpResponseRedirect(reverse('dash'))
