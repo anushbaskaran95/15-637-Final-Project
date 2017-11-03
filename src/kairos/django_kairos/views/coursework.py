@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 
 from .. import forms
 from .. import models
-
+from .. import utils
 
 # Create your views here.
 @login_required
@@ -41,40 +41,42 @@ def add_course(request):
             course.save()
             return JsonResponse({'status': 'ok', 'errors': []})
         else:
-            return JsonResponse({'status': 'fail', 'errors': [(k, v[0]) for k, v in course_form.errors.items()]})
+            return JsonResponse({'status': 'fail', 'errors': [{k: v[0]} for k, v in course_form.errors.items()]})
 
 
 @login_required
 def add_course_task(request):
-    #print "hi"
-    context = {}
     if request.method == 'POST':
-        #print "helllo"
-        courseselected = request.POST.get('course_name')
-        #print courseselected
-        course = courseselected
-        taskForm = forms.CourseTaskForm(data = request.POST)
-        context['taskForm'] = taskForm
-        taskInfoForm = forms.TaskInfoForm(data = request.POST)
-        context['taskInfoForm'] = taskInfoForm
+        course_name = request.POST.get('course_name')
+        course = models.Course.objects.filter(course_name__exact=course_name)[0]
 
-        task = taskForm.save(commit = False)
-        print task.name
+        if not course:
+            return JsonResponse({'status': 'fail', 'errors': [{'course-name-error': 'Course does not exist'}]})
 
-        #taskcourse = models.CourseTask.objects.filter(course_task_course=course)
-        #if  taskcourse.filter(name=task.name).exists():
-        if models.Course.objects.filter(coursetask__name__exact=task.name):
-            context['error'] = 'Task for the course already exists'
-            return render(request, 'modals/course_modal.html', context) 
+        course_task_form = forms.CourseTaskForm(request.POST)
 
-        if taskForm.is_valid() and taskInfoForm.is_valid():
-            taskinfo = taskInfoForm.save(commit=False)
-            taskinfo.save()
-            task.task_info = taskinfo
+        task_info_form = forms.TaskInfoForm(request.POST)
+
+        print task_info_form
+
+        task = course_task_form.save(commit=False)
+
+        if course.coursetask_set.filter(name__iexact=task.name):
+            return JsonResponse({'status': 'fail', 'errors': {'task-name-error': 'Task already exists'}})
+
+        if course_task_form.is_valid() and task_info_form.is_valid():
+            task_info = task_info_form.save()
+            task.task_info = task_info
             task.course = course
             task.save()
-            print "done"
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
+            return JsonResponse({'status': 'ok', 'errors': []})
         else:
-            return JsonResponse({'success': False, 'errors': [(k, v[0]) for k, v in taskForm.errors.items()] + [(k, v[0]) for k, v in taskInfoForm.errors.items()]})
+            error_list = dict()
+            error_list['status'] = 'fail'
+            error_list['start-date-error'] = task_info_form['start_date'].errors[0]
+            error_list['start-time-error'] = task_info_form['start_time'].errors[0]
+            error_list['finish-date-error'] = task_info_form['expected_finish_date'].errors[0]
+            error_list['finish-time-error'] = task_info_form['expected_finish_time'].errors[0]
+            error_list['due-date-error'] = task_info_form['due_date'].errors[0]
+            error_list['due-time-error'] = task_info_form['due_time'].errors[0]
+            return JsonResponse({'status': 'fail', 'errors': error_list})

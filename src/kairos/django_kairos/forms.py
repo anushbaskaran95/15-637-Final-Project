@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import *
 
-import datetime
+from datetime import datetime, timedelta
 
 
 # Login Form
@@ -111,67 +111,55 @@ class CourseForm(forms.ModelForm):
 
     def clean_course_name(self):
         course_name = self.cleaned_data.get('course_name')
-        if Course.objects.filter(course_name__exact=course_name):
+        if Course.objects.filter(course_name__iexact=course_name):
             raise forms.ValidationError("Course already exists")
         else:
             return course_name
-    # check if a task is already in the course
-    # if yes, return True
-    # if not, return False
-    def check_task_in_course(self, task_name):
-        course_name = self.cleaned_data.get('course_name')
-        all_task = CourseTask.objects.filter(course_name__exact=course_name)
-        if task_name in all_task:
-            return True
-        else:
-            return False
-
-
-class MySplitDateTimeWidget(forms.SplitDateTimeWidget):
-    def __init__(self, attrs=None, date_format="%Y-%m-%d", time_format="%H:%M"):
-        date_class = attrs.pop('date_class')
-        time_class = attrs.pop('time_class')
-        widgets = (forms.DateInput(attrs={'class': date_class, 'placeholder': 'Date'}, format=date_format),
-                   forms.TimeInput(attrs={'class': time_class, 'placeholder': 'Time'}, format=time_format))
-        super(forms.SplitDateTimeWidget, self).__init__(widgets, attrs)
 
 
 class TaskInfoForm(forms.ModelForm):
 
-    start_time = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker',
-                                                                         'time_class': 'timepicker'}))
-    expected_finish_time = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker',
-                                                                                   'time_class': 'timepicker'}))
-    due_date = forms.DateTimeField(widget=MySplitDateTimeWidget(attrs={'date_class': 'datepicker',
-                                                                       'time_class': 'timepicker'}))
+    start_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'datepicker', 'placeholder': 'Start Date'},
+                                                        format='%d %B, %Y'))
+    start_time = forms.TimeField(widget=forms.TimeInput(attrs={'class': 'timepicker', 'placeholder': 'Start Time'},
+                                                        format='%H:%M'))
+    expected_finish_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'datepicker',
+                                                                         'placeholder': 'Expected Finish Date'},
+                                                                  format='%d %B, %Y'))
+    expected_finish_time = forms.TimeField(widget=forms.TimeInput(attrs={'class': 'timepicker',
+                                                                         'placeholder': 'Expected Finish Time'},
+                                                                  format='%H:%M'))
+    due_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'datepicker', 'placeholder': 'Due Date'},
+                                                      format='%d %B, %Y'), required=False)
+    due_time = forms.TimeField(widget=forms.TimeInput(attrs={'class': 'timepicker', 'placeholder': 'Due Time'},
+                                                      format='%H:%M'), required=False)
 
     class Meta:
         model = TaskInfo
-        exclude = ('time_spent',)
+        exclude = ('date_paused', 'time_paused', 'status',)
 
-    def clean_start_time(self):
-        start_time = self.cleaned_data.get('start_time')
-        now = datetime.datetime.now()
-        if start_time < now:
-            raise forms.ValidationError("Invalid start time")
-        else:
-            return start_time
-
-    def clean_expected_finish_time(self):
-        expected_finish_time = self.cleaned_data.get('expected_finish_time')
-        start_time = self.cleaned_data.get('start_time')
-        if expected_finish_time <= start_time:
-            raise forms.ValidationError("Expected finish time should be after start time")
-        else:
-            return expected_finish_time
-
-    def clean_due_date(self):
-        due_date = self.cleaned_data.get('due_date')
-        start_time = self.cleaned_data.get('start_time')
-        if due_date <= start_time:
-            raise forms.ValidationError("Due date should be after start time")
-        else:
-            return due_date
+    # def clean_start_time(self):
+    #     start_time = self.cleaned_data.get('start_time')
+    #     if start_time < datetime.now():
+    #         raise forms.ValidationError("Invalid start time")
+    #     else:
+    #         return start_time
+    #
+    # def clean_expected_finish_time(self):
+    #     expected_finish_time = self.cleaned_data.get('expected_finish_time')
+    #     start_time = self.cleaned_data.get('start_time')
+    #     if expected_finish_time <= start_time:
+    #         raise forms.ValidationError("Expected finish time should be after start time")
+    #     else:
+    #         return expected_finish_time
+    #
+    # def clean_due_date(self):
+    #     due_date = self.cleaned_data.get('due_date')
+    #     start_time = self.cleaned_data.get('start_time')
+    #     if due_date <= start_time:
+    #         raise forms.ValidationError("Due date should be after start time")
+    #     else:
+    #         return due_date
 
     def clean_percentage_completion(self):
         percentage_completion = self.cleaned_data.get('percentage_completion')
@@ -198,7 +186,7 @@ class ResearchForm(forms.ModelForm):
 
     def clean_topic(self):
         topic = self.cleaned_data.get('topic')
-        if Research.objects.filter(topic__exact=topic):
+        if Research.objects.filter(topic__iexact=topic):
             raise forms.ValidationError("This research topic already exists")
         else:
             return topic

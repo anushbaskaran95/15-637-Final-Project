@@ -49,6 +49,10 @@
 .pad20 {
     padding: 20px;
 }
-.mt20{
-   margin-top: 20px;
+.mt30{
+   margin-top: 30px;
+}
+
+.dropdown-content li>span {
+    color: #03a9f4;
 }

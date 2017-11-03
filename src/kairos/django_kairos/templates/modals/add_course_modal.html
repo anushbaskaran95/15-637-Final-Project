@@ -4,14 +4,14 @@
         <br/>
         <form id="add-course-form" method="post">
             {% csrf_token %}
-            <div id="course-name-error"></div>
+            <div id="course-name-error" class="error"></div>
             <div class="input-field">
                 {{ add_course_form.course_name }}
                 <label class="input-label"
                        for="{{ add_course_form.course_name.id_for_label }}">Course Name</label>
             </div>
             <div class="modal-footer">
-                <button class="modal-action waves-effect waves-light btn action-btn"
+                <button type="submit" class="modal-action waves-effect waves-light btn action-btn"
                         id="add-course-btn">
                     Add
                 </button>
