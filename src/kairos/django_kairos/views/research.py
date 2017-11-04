@@ -22,6 +22,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.tokens import default_token_generator
 
 from .. import forms
+from .. import models
+
 
 
 # Create your views here.
@@ -32,6 +34,7 @@ def research(request):
     task_info_form = forms.TaskInfoForm()
     context['research_form'] = research_form
     context['task_info_form'] = task_info_form
+    context['researches'] = models.Research.objects.all()
     return render(request, 'dashboard/research.html', context)
 
 
@@ -40,7 +43,7 @@ def add_research_task(request):
     if request.method == 'POST':
         research_form = forms.ResearchForm(request.POST)
         task_info_form = forms.TaskInfoForm(request.POST)
-		
+
         if research_form.is_valid() and task_info_form.is_valid():
             task_info = task_info_form.save()
             research_task = research_form.save(commit=False)

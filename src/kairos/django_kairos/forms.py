@@ -148,15 +148,15 @@ class TaskInfoForm(forms.ModelForm):
         due_date = cleaned_data.get("due_date")
         due_time = cleaned_data.get("due_time")
         start_datetime = datetime.datetime.combine(start_date, start_time)
-        #print(start_datetime)
         expected_finish_datetime = datetime.datetime.combine(expected_finish_date, expected_finish_time)
-        due_datetime = datetime.datetime.combine(due_date, due_time)
+        #due_datetime = datetime.datetime.combine(due_date, due_time)
+        #print(due_datetime)
 
         if start_datetime < datetime.datetime.now() - datetime.timedelta(minutes=2):
             raise forms.ValidationError("Invalid start time")
 
-        if due_datetime < datetime.datetime.now():
-            raise forms.ValidationError("Invalid due datetime")
+        #if due_datetime < datetime.datetime.now():
+        #    raise forms.ValidationError("Invalid due datetime")
 
         if expected_finish_datetime < datetime.datetime.now():
             raise forms.ValidationError("Invalid expected finish-datetime")
