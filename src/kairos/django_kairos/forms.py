@@ -3,7 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import *
 
-from datetime import datetime, timedelta
+#from datetime import datetime, timedelta
+import datetime
 
 
 # Login Form
@@ -138,6 +139,37 @@ class TaskInfoForm(forms.ModelForm):
         model = TaskInfo
         exclude = ('date_paused', 'time_paused', 'status',)
 
+    def clean(self):
+        cleaned_data = super(TaskInfoForm, self).clean()
+        start_date = cleaned_data.get("start_date")
+        start_time = cleaned_data.get("start_time")
+        expected_finish_date = cleaned_data.get("expected_finish_date")
+        expected_finish_time = cleaned_data.get("expected_finish_time")
+        due_date = cleaned_data.get("due_date")
+        due_time = cleaned_data.get("due_time")
+        start_datetime = datetime.datetime.combine(start_date, start_time)
+        #print(start_datetime)
+        expected_finish_datetime = datetime.datetime.combine(expected_finish_date, expected_finish_time)
+        due_datetime = datetime.datetime.combine(due_date, due_time)
+
+        if start_datetime < datetime.datetime.now() - datetime.timedelta(minutes=2):
+            raise forms.ValidationError("Invalid start time")
+
+        if due_datetime < datetime.datetime.now():
+            raise forms.ValidationError("Invalid due datetime")
+
+        if expected_finish_datetime < datetime.datetime.now():
+            raise forms.ValidationError("Invalid expected finish-datetime")
+
+        return cleaned_data
+
+    def clean_percentage_completion(self):
+        percentage_completion = self.cleaned_data.get('percentage_completion')
+        if percentage_completion < 0 or percentage_completion > 100:
+            forms.ValidationError("Invalid percentage completion")
+        else:
+            return percentage_completion
+
     # def clean_start_date(self):
     #     start_time = self.cleaned_data.get('start_time')
     #     if start_time < datetime.now():
@@ -160,13 +192,8 @@ class TaskInfoForm(forms.ModelForm):
     #         raise forms.ValidationError("Due date should be after start time")
     #     else:
     #         return due_date
+    #
 
-    def clean_percentage_completion(self):
-        percentage_completion = self.cleaned_data.get('percentage_completion')
-        if percentage_completion < 0 or percentage_completion > 100:
-            forms.ValidationError("Invalid percentage completion")
-        else:
-            return percentage_completion
 
 
 class CourseTaskForm(forms.ModelForm):
