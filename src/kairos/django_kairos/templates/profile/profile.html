@@ -10,7 +10,15 @@
 <div class="container">
     <ul class="collection">
         {% for course in courses %}
-            <li class="collection-item">{{course.course_name}}</li>
+        <li class="collection-header"><h5>{{course.course_name}}</h5></li>
+            {% for task in course.course_in_task.all %}
+                <li class="collection-item">{{task.name}}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+    <ul class="collection">
+        {% for task in research_tasks %}
+            <li class="collection-item">{{task.topic}}</li>
         {% endfor %}
     </ul>
 </div>

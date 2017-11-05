@@ -23,7 +23,7 @@ $('#course-task-form').on('submit', function(e) {
             if(data['status'] == 'fail') {
                 errors = data['errors'];
                 for (var key in errors) {
-                    $('#'+key).append(errors[key]);
+                    $('#'+key).html(errors[key]);
                 }
                 $('#errors-note').html('Check errors above');
             }
@@ -45,7 +45,7 @@ $('#research-task-form').on('submit', function(e) {
             if(data['status'] == 'fail') {
                 errors = data['errors'];
                 for (var key in errors) {
-                    $('#'+key).append(errors[key]);
+                    $('#'+key).html(errors[key]);
                 }
                 $('#errors-note').html('Check errors above');
             }
@@ -67,8 +67,9 @@ $('#routine-task-form').on('submit', function(e) {
             if(data['status'] == 'fail') {
                 errors = data['errors'];
                 for (var key in errors) {
-                    $('#'+key).append(errors[key]);
+                    $('#'+key).html(errors[key]);
                 }
+                $('#errors-note').html('Check errors above');
             }
             else {
                 $('#routine-task-modal').modal('close');

@@ -18,10 +18,8 @@ def profile(request):
     context = dict()
     context['username'] = request.user.username
     courses = Course.objects.filter(user=request.user)
-    course_tasks = CourseTask.objects.filter(course=courses)
     research_tasks = Research.objects.filter(user=request.user)
     context['courses'] = courses
-    context['course_taks'] = course_tasks
     context['research_tasks'] = research_tasks
 
     return render(request, 'profile/profile.html', context)
