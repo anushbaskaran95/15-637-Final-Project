@@ -155,9 +155,10 @@ class TaskInfoForm(forms.ModelForm):
 
         due_date = self.cleaned_data.get("due_date")
         due_time = self.cleaned_data.get("due_time")
-        due_datetime = datetime.datetime.combine(due_date, due_time)
-        if due_datetime <= start_datetime:
-            raise forms.ValidationError({'due_date': "Due date should be after start time"})
+        if due_date is not None and due_time is not None:
+            due_datetime = datetime.datetime.combine(due_date, due_time)
+            if due_datetime <= start_datetime:
+                raise forms.ValidationError({'due_date': "Due date should be after start time"})
 
         return cleaned_data
 
