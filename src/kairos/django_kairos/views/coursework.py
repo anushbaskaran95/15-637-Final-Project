@@ -75,11 +75,11 @@ def add_course_task(request):
             error_list = dict()
             error_list['status'] = 'fail'
             if task_info_form['start_date'].errors:
-                error_list['start-date-error'] = task_info_form['start_date'].errors[0]
+                error_list['start-date-error'] = task_info_form['start_date'].errors
             if task_info_form['expected_finish_date']:
-                error_list['finish-date-error'] = task_info_form['expected_finish_date'].errors[0]
+                error_list['finish-date-error'] = task_info_form['expected_finish_date'].errors
             if task_info_form['due_date']:
-                error_list['due-date-error'] = task_info_form['due_date'].errors[0]
+                error_list['due-date-error'] = task_info_form['due_date'].errors
             return JsonResponse({'status': 'fail', 'errors': error_list})
     else:
         return HttpResponseRedirect(reverse('dash'))
