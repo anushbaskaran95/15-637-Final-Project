@@ -12,11 +12,8 @@ from django.contrib.auth.decorators import login_required
 
 from django.db import transaction
 
-from django.contrib.auth.tokens import default_token_generator
-
 from .. import forms
 from .. import models
-
 
 
 # Create your views here.
@@ -28,6 +25,7 @@ def routine(request):
     context['routine_form'] = routine_form
     context['task_info_form'] = task_info_form
     context['routines'] = models.Misc.objects.all()
+    context['username'] = request.user.username
     return render(request, 'dashboard/routine.html', context)
 
 

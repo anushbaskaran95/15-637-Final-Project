@@ -14,6 +14,7 @@ from .. import forms
 from .. import models
 from .. import utils
 
+
 # Create your views here.
 @login_required
 def coursework(request):
@@ -25,6 +26,7 @@ def coursework(request):
     context['course_task_form'] = course_task_form
     context['task_info_form'] = task_info_form
     context['courses'] = models.Course.objects.all()
+    context['username'] = request.user.username
     return render(request, 'dashboard/coursework.html', context)
 
 

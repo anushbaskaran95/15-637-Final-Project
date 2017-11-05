@@ -25,7 +25,6 @@ from .. import forms
 from .. import models
 
 
-
 # Create your views here.
 @login_required
 def research(request):
@@ -35,6 +34,7 @@ def research(request):
     context['research_form'] = research_form
     context['task_info_form'] = task_info_form
     context['researches'] = models.Research.objects.all()
+    context['username'] = request.user.username
     return render(request, 'dashboard/research.html', context)
 
 

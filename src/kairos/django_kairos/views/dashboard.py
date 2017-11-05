@@ -34,4 +34,5 @@ def dashboard(request):
     context['courses'] = models.Course.objects.all()
     context['researches'] = models.Research.objects.all()
     context['routines'] = models.Misc.objects.all()
+    context['username'] = request.user.username
     return render(request, 'dashboard/current_tasks.html', context)
