@@ -53,6 +53,13 @@
    margin-top: 30px;
 }
 
+.mr30 {
+    margin-right: 30px;
+}
+.ml20 {
+    margin-left: 20px;
+}
+
 .dropdown-content li>span {
     color: #03a9f4;
 }

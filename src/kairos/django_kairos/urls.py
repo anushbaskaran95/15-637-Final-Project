@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^profile$', view_profile, name='profile'),
 
     url(r'^edit-profile/(?P<username>.+)$', edit_student_profile, name='edit_profile'),
-    url(r'^change-password$', change_password, name='change_password'),
+    url(r'^change-password$', change_password, name='change-password'),
 
     url(r'^add-course$', add_course, name='add-course'),
     url(r'^add-course-task$', add_course_task, name='add-course-task'),

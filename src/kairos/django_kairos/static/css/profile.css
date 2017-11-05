@@ -1,0 +1,15 @@
+.form-container {
+     position: absolute;
+     margin: 0 auto;
+     top: 10%;
+     right: 0;
+     left: 0;
+     width: 60%;
+     max-width: 500px;
+     padding: 20px;
+}
+
+.back-link i {
+    font-size: 40px;
+    margin: 20px 0px 0px 20px;
+}
