@@ -32,9 +32,9 @@ urlpatterns = [
     url(r'^course-work$', coursework, name='coursework'),
     url(r'^research$', research, name='research'),
     url(r'^routine$', routine, name='routine'),
-    url(r'^profile$', view_profile, name='profile'),
+    url(r'^profile$', profile, name='profile'),
 
-    url(r'^edit-profile/(?P<username>.+)$', edit_student_profile, name='edit_profile'),
+    url(r'^edit-profile/(?P<user_id>\d+)$', edit_profile, name='edit-profile'),
     url(r'^change-password$', change_password, name='change-password'),
 
     url(r'^add-course$', add_course, name='add-course'),

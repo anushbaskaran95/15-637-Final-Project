@@ -1,25 +1,63 @@
-<!DOCTYPE html>
+{% extends "base/navbar.html" %}
 {% load static %}
-<html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="{% static 'css/materialize.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-</head>
+{% block title %}Edit Profile{% endblock %}
+{% block child_css %}
+<link href="{% static 'css/profile.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+{% endblock %}
+
+{% block main-content %}
+<div class="back-link">
+    <a href="{% url 'profile' %}">
+        <i class="material-icons">arrow_back</i>
+    </a>
+</div>
 {% if user.is_authenticated %}
-<body>        
-    <h4 class="sign_in_header center-align"> Edit User Information </h4>
-            <form class="col s12" method="POST" action="{% url 'edit_profile' user.username %}">
-                {% csrf_token %}
-                <div class="row center-align">
-                    {{ edit_form.as_p }}
-                </div>
-                <div class="row center-align submit-align">
-                    <input class="btn waves-effect waves-light s12" type="submit" name="" value="Save">
-                </div>
-            </form>
-</body>
+<div class="form-container">
+    <h4>Edit Profile</h4>
+    <br/>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <br/>
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="error">{{ form.non_field_errors }}</div>
+
+        <div class="error">{{ form.username.errors }}</div>
+        <div class="input-field">
+            {{ form.username }}
+            <label class="input-label"
+                   for="{{ form.username.id_for_label }}">Username *</label>
+        </div>
+
+        <div class="error">{{ form.first_name.errors }}</div>
+        <div class="input-field">
+            {{ form.first_name }}
+            <label class="input-label"
+                   for="{{ form.first_name.id_for_label }}">First Name</label>
+        </div>
+
+        <div class="error">{{ form.last_name.errors }}</div>
+        <div class="input-field">
+            {{ form.last_name }}
+            <label class="input-label"
+                   for="{{ form.last_name.id_for_label }}">Last Name</label>
+        </div>
+        <div class="center-align mt30">
+            <button class="btn waves-effect waves-light action-btn" type="submit">
+                Save
+            </button>
+        </div>
+    </form>
+</div>
 {% endif %}
-</html>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}

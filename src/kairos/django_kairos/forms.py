@@ -216,18 +216,21 @@ class MiscForm(forms.ModelForm):
         return cleaned_data
 
 
-class StudentEditForm(forms.ModelForm):
+class EditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name']
 
     def clean(self):
-        cleaned_data = super(StudentEditForm, self).clean()
+        cleaned_data = super(EditForm, self).clean()
         return cleaned_data
 
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(username__exact=username):
+    def check_username(self, cleaned_data, user_id):
+        form_username = cleaned_data.get('username')
+        user = User.objects.get(pk__exact=user_id)
+        if form_username == user.username:
+            return form_username
+        if User.objects.filter(username__exact=form_username):
             raise forms.ValidationError("Username already exists")
         else:
-            return username
+            return form_username
