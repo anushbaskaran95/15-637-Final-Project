@@ -1,17 +1,29 @@
-<!DOCTYPE html>
+{% extends "base/navbar.html" %}
 {% load static %}
-<html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="{% static 'css/materialize.min.css' %}" type="text/css" rel="stylesheet" media="screen"/>
-</head>
-{% if user.is_authenticated %}
-<body>        
-    <a class="btn btn-primary " href="{% url 'edit-profile' user.pk %}" role="button">Edit Student Profile</a>
-    <a class="btn btn-primary" href="{% url 'change-password' %}" role="button">Change Password</a>
-</body>
-{% endif %}
-</html>
+{% block title %}Profile{% endblock %}
+{% block child_css %}
+<link href="{% static 'css/profile.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+{% endblock %}
+
+{% block main-content %}
+<div class="container">
+    <ul class="collection">
+        {% for course in courses %}
+            <li class="collection-item">{{course.course_name}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+{% block fab %}
+<div class="fixed-action-btn">
+    <a class="btn light-blue darken-3 waves-effect waves-light" href="{% url 'edit-profile' user.pk %}">
+        Edit User Info
+    </a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}

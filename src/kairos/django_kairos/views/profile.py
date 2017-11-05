@@ -15,26 +15,16 @@ from .. import forms
 
 @login_required
 def profile(request):
+    context = dict()
+    context['username'] = request.user.username
     courses = Course.objects.filter(user=request.user)
-    #in case you don't need these, you can delete them in the return object
     course_tasks = CourseTask.objects.filter(course=courses)
-    course_task_infoes = TaskInfo.objects.filter(coursetask=course_tasks)
+    research_tasks = Research.objects.filter(user=request.user)
+    context['courses'] = courses
+    context['course_taks'] = course_tasks
+    context['research_tasks'] = research_tasks
 
-    researches = Research.objects.filter(user=request.user)
-    #in case you don't need these, you can delete them in the return object
-    research_task_infoes = TaskInfo.objects.filter(research=researches)
-
-    misces = Misc.objects.filter(user=request.user)
-    #in case you don't need these, you can delete them in the return object
-    misc_task_infoes = TaskInfo.objects.filter(misc=misces)
-
-    return render(request, 'profile/profile.html', {'courses':courses,
-                                                    'course_tasks':course_tasks,
-                                                    'course_task_infoes':course_task_infoes,
-                                                    'researches':researches,
-                                                    'research_task_infoes':research_task_infoes,
-                                                    'misces':misces,
-                                                    'misc_task_infoes':misc_task_infoes})
+    return render(request, 'profile/profile.html', context)
 
 
 @login_required
@@ -63,7 +53,6 @@ def edit_profile(request, user_id):
     else:
         form = forms.EditForm(instance=user_instance)
         context['form'] = form
-        return render(request, 'profile/edit-profile.html', context)
 
     return render(request, 'profile/edit-profile.html', context)
 
