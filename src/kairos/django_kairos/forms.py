@@ -169,39 +169,6 @@ class TaskInfoForm(forms.ModelForm):
         else:
             return percentage_completion
 
-    # def clean_start_date(self):
-    #     start_date = self.cleaned_data.get("start_date")
-    #     start_time = self.cleaned_data.get("start_time")
-    #     start_datetime = datetime.datetime.combine(start_date, start_time)
-    #     if start_datetime < (datetime.datetime.now() - datetime.timedelta(minutes=2)):
-    #         raise forms.ValidationError("Invalid start time. Enter current or future time.")
-    #     else:
-    #         return start_date
-
-    # def clean_expected_finish_date(self):
-    #     start_date = self.cleaned_data.get("start_date")
-    #     start_time = self.cleaned_data.get("start_time")
-    #     expected_finish_date = self.cleaned_data.get("expected_finish_date")
-    #     expected_finish_time = self.cleaned_data.get("expected_finish_time")
-    #     start_datetime = datetime.datetime.combine(start_date, start_time)
-    #     expected_finish_datetime = datetime.datetime.combine(expected_finish_date, expected_finish_time)
-    #     if expected_finish_datetime < start_datetime:
-    #         raise forms.ValidationError("Invalid Expected finish date")
-    #     else:
-    #         return expected_finish_date
-
-    # def clean_due_date(self):
-    #     start_date = self.cleaned_data.get("start_date")
-    #     start_time = self.cleaned_data.get("start_time")
-    #     due_date = self.cleaned_data.get("due_date")
-    #     due_time = self.cleaned_data.get("due_time")
-    #     start_datetime = datetime.datetime.combine(start_date, start_time)
-    #     due_datetime = datetime.datetime.combine(due_date, due_time)
-    #     if due_datetime <= start_datetime:
-    #         raise forms.ValidationError("Due date should be after start time")
-    #     else:
-    #         return due_date
-
 
 class CourseTaskForm(forms.ModelForm):
     class Meta:

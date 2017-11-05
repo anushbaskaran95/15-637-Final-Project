@@ -23,7 +23,7 @@
 {% for course in courses %}
 <div class="row">
     <div class="col s12"><span class="red-text text-darken-2">Course Name:</span> {{course.course_name}}</div>
-    {% for task in course.course_in_task.all %}
+    {% for task in course.course_tasks.all %}
     <div class="collection">
         <div class="collection-item">
             <span class="badge">Due Date: {{task.task_info.due_date}}
