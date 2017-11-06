@@ -151,7 +151,8 @@ class TaskInfoForm(forms.ModelForm):
         expected_finish_time = self.cleaned_data.get("expected_finish_time")
         expected_finish_datetime = datetime.datetime.combine(expected_finish_date, expected_finish_time)
         if expected_finish_datetime < start_datetime:
-            raise forms.ValidationError({'expected_finish_date': "Invalid Expected finish date"})
+            raise forms.ValidationError(
+                {'expected_finish_date': "Expected finish date should be after start date."})
 
         due_date = self.cleaned_data.get("due_date")
         due_time = self.cleaned_data.get("due_time")

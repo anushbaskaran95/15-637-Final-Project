@@ -10,7 +10,7 @@
     </a>
     <ul>
         <li class="waves-effect waves-light">
-            <a class="modal-trigger" href="#add-course-modal">Create Course</a>
+            <a class="modal-trigger" href="#add-course-modal">Add Course</a>
         </li>
         <li class="waves-effect waves-light">
             <a class="modal-trigger" href="#course-task-modal">Course Task</a>
@@ -24,17 +24,18 @@
 <div class="row">
     <div class="col s12"><span class="red-text text-darken-2">Course Name:</span> {{course.course_name}}</div>
     {% for task in course.course_tasks.all %}
-    <div class="collection">
+    <div class="collection p20">
         <div class="collection-item">
             <span class="badge">Due Date: {{task.task_info.due_date}}
             </span>
             <span class="green-text">Task:</span> {{task.name}}
+        </div>
+        <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
+        <div class="col s6">Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
+        <div class="col s12">Comments: {{task.task_info.comments}}</div>
+        <div class="col s12">Percentage completion: {{task.task_info.percentage_completion}}</div>
+        {% endfor %}
     </div>
-    <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
-    <div class="col s6">Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
-    <div class="col s12">Comments: {{task.task_info.comments}}</div>
-    <div class="col s12">Percentage completion: {{task.task_info.percentage_completion}}</div>
-    {% endfor %}
 </div>
 {% endfor %}
 {% endblock %}
