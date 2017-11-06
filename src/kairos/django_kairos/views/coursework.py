@@ -73,7 +73,6 @@ def add_course_task(request):
             return JsonResponse({'status': 'ok', 'errors': []})
         else:
             error_list = dict()
-            error_list['status'] = 'fail'
             if task_info_form['start_date'].errors:
                 error_list['start-date-error'] = task_info_form['start_date'].errors
             if task_info_form['expected_finish_date']:
