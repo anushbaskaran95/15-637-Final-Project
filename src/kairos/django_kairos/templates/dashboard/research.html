@@ -12,14 +12,24 @@
 {% endblock %}
 
 {% block main-content%}
-{% for research in researches %}
-<div class="row">
-  <div class="col s12"><span class="red-text text-darken-2">Research Name:</span> {{research.topic}}</div>
-  <div class="col s6">Due Date: {{research.task_info.due_date}}</div>
-  <div class="col s6">Start Date: {{research.task_info.start_date}}</div>
-  <div class="col s6">Expected Finish Date: {{research.task_info.expected_finish_date}}</div>
-  <div class="col s12">Comments: {{research.task_info.comments}}</div>
-  <div class="col s12">Percentage completion: {{research.task_info.percentage_completion}}</div>
+{% for task in research_tasks %}
+<div class="row card pad20">
+    <div class="col s12"><h6><b>{{task.topic}}</b></h6> </div>
+    <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
+
+    {% if task.task_info.due_date %}
+    <div class="col s6">Due Date: {{task.task_info.due_date}}</div>
+    {% endif %}
+
+    <div class="col s6">Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
+
+    {% if task.task_info.comments %}
+    <div class="col s12">Comments: {{task.task_info.comments}}</div>
+    {% endif %}
+
+    {% if task.task_info.percentage_completion %}
+        <div class="col s12">Percentage completion: {{task.task_info.percentage_completion}}</div>
+    {% endif %}
 </div>
 {% endfor %}
 {% endblock %}

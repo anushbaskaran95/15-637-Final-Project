@@ -45,3 +45,14 @@ a.modal-trigger {
 .picker__nav--prev:hover, .picker__nav--next:hover {
     background-color: #81d4fa;
 }
+
+p.course-name {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+p.task-headings {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+}

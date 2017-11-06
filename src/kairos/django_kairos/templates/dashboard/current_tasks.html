@@ -53,44 +53,71 @@
 {% endblock %}
 
 {% block main-content%}
+<p class="task-headings">Coursework</p>
 {% for course in courses %}
-<div class="row">
-    <div class="col s12"><span class="red-text text-darken-2">Course Name:</span> {{course.course_name}}</div>
+<div class="row card pad20">
+    <div class="col s12"><p class="course-name">{{course.course_name}}</p></div>
     {% for task in course.course_tasks.all %}
-    <div class="collection">
+    <div class="collection pad10">
         <div class="collection-item">
-            <span class="badge">Due Date: {{task.task_info.due_date}}
-            </span>
-            <span class="green-text">Task:</span> {{task.name}}
+            <h6><b>{{task.name}}</b></h6>
+            <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
+            <div class="col s6">Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
+
+            {% if task.task_info.due_date %}
+            <div class="col s6">Due Date: {{task.task_info.due_date}}</div>
+            {% endif %}
+
+            {% if task.task_info.comments %}
+            <div class="col s12">Comments: {{task.task_info.comments}}</div>
+            {% endif %}
+
+            {% if task.task_info.percentage_completion %}
+            <div class="col s12">Percentage completion: {{task.task_info.percentage_completion}}</div>
+            {% endif %}
         </div>
-        <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
-        <div class="col s6">Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
-        <!--<div class="col s12">Comments: {{task.task_info.comments}}</div>-->
-        <div class="col s12">Percentage completion: {{task.task_info.percentage_completion}}</div>
     </div>
     {% endfor %}
 </div>
 {% endfor %}
+<br/>
+<p class="task-headings">Research Tasks</p>
+{% for task in research_tasks %}
+<div class="row card pad20">
+    <div class="col s12"><h6><b>{{task.topic}}</b></h6> </div>
+    <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
 
-{% for research in researches %}
-<div class="row">
-    <div class="col s12"><span class="red-text text-darken-2">Research Name:</span> {{research.topic}}</div>
-    <div class="col s6">Due Date: {{research.task_info.due_date}}</div>
-    <div class="col s6">Start Date: {{research.task_info.start_date}}</div>
-    <div class="col s6">Expected Finish Date: {{research.task_info.expected_finish_date}}</div>
-    <!--<div class="col s12">Comments: {{research.task_info.comments}}</div>-->
-    <div class="col s12">Percentage completion: {{research.task_info.percentage_completion}}</div>
+    {% if task.task_info.due_date %}
+    <div class="col s6">Due Date: {{task.task_info.due_date}}</div>
+    {% endif %}
+
+    <div class="col s6">Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
+
+    {% if task.task_info.comments %}
+    <div class="col s12">Comments: {{task.task_info.comments}}</div>
+    {% endif %}
+
+    {% if task.task_info.percentage_completion %}
+    <div class="col s12">Percentage completion: {{task.task_info.percentage_completion}}</div>
+    {% endif %}
 </div>
 {% endfor %}
+<br/>
+<p class="task-headings">Routine tasks</p>
+{% for task in routine_tasks %}
+<div class="row card pad20">
+    <div class="col s12"><h6><b>{{task.task_name}}</b></h6> </div>
+    <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
 
-{% for routine in routines %}
-<div class="row">
-    <div class="col s12"><span class="red-text text-darken-2">Routine Name:</span> {{routine.task_name}}</div>
-    <div class="col s6">Due Date: {{routine.task_info.due_date}}</div>
-    <div class="col s6">Start Date: {{routine.task_info.start_date}}</div>
-    <div class="col s6">Expected Finish Date: {{routine.task_info.expected_finish_date}}</div>
-    <!--<div class="col s12">Comments: {{routine.task_info.comments}}</div>-->
-    <div class="col s12">Percentage completion: {{routine.task_info.percentage_completion}}</div>
+    <div class="col s6">Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
+
+    {% if task.task_info.comments %}
+    <div class="col s12">Comments: {{task.task_info.comments}}</div>
+    {% endif %}
+
+    {% if task.task_info.percentage_completion %}
+    <div class="col s12">Percentage completion: {{task.task_info.percentage_completion}}</div>
+    {% endif %}
 </div>
 {% endfor %}
 
