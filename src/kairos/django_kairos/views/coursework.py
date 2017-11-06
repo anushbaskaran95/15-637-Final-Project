@@ -56,7 +56,7 @@ def add_course_task(request):
             return JsonResponse({'status': 'fail', 'errors': [{'course-name-error': 'Course does not exist'}]})
 
         if 'name' in request.POST:
-            if course.course_in_task.filter(name__iexact=request.POST['name']):
+            if course.course_tasks.filter(name__iexact=request.POST['name']):
                 return JsonResponse({'status': 'fail', 'errors': {'task-name-error': 'Task already exists'}})
         else:
             return JsonResponse({'status': 'fail', 'errors': {'task-name-error': 'Enter task name'}})
