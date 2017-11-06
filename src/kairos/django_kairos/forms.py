@@ -135,6 +135,8 @@ class TaskInfoForm(forms.ModelForm):
     due_time = forms.TimeField(widget=forms.TimeInput(attrs={'class': 'timepicker', 'placeholder': 'Due Time'},
                                                       format='%H:%M'), required=False)
 
+    comments = forms.CharField(widget=forms.TextInput(attrs={'id': 'comments_input'}), required=False)
+
     class Meta:
         model = TaskInfo
         exclude = ('date_paused', 'time_paused', 'status',)
