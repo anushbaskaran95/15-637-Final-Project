@@ -60,7 +60,18 @@
     {% for task in course.course_tasks.all %}
     <div class="collection pad10">
         <div class="collection-item">
-            <h6><b>{{task.name}}</b></h6>
+            <div class="col s6"><h6><b>{{task.name}}</b></h6></div>
+            <!-- Switch -->
+            <div class="switch col s3">
+              <label>
+                Pause
+                <input type="checkbox">
+                <span class="lever"></span>
+                Start
+              </label>
+              <input type="hidden" name="id" value="{{task.task_info.id}}">
+            </div>
+            <div class="col s3"><a class="waves-effect waves-light btn">Stop</a></div>
             <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
             <div class="col s6">Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
 
@@ -84,7 +95,18 @@
 <p class="task-headings">Research Tasks</p>
 {% for task in research_tasks %}
 <div class="row card pad20">
-    <div class="col s12"><h6><b>{{task.topic}}</b></h6> </div>
+    <div class="col s6"><h6><b>{{task.topic}}</b></h6> </div>
+    <!-- Switch -->
+    <div class="switch col s3">
+      <label>
+        Pause
+        <input type="checkbox">
+        <span class="lever"></span>
+        Start
+      </label>
+      <input type="hidden" name="id" value="{{task.task_info.id}}">
+    </div>
+    <div class="col s3"><a class="waves-effect waves-light btn">Stop</a></div>
     <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
 
     {% if task.task_info.due_date %}
@@ -106,7 +128,18 @@
 <p class="task-headings">Routine tasks</p>
 {% for task in routine_tasks %}
 <div class="row card pad20">
-    <div class="col s12"><h6><b>{{task.task_name}}</b></h6> </div>
+    <div class="col s6"><h6><b>{{task.task_name}}</b></h6> </div>
+    <!-- Switch -->
+    <div class="switch col s3">
+      <label>
+        Pause
+        <input type="checkbox">
+        <span class="lever"></span>
+        Start
+      </label>
+      <input type="hidden" name="id" value="{{task.task_info.id}}">
+    </div>
+    <div class="col s3"><a class="waves-effect waves-light btn">Stop</a></div>
     <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
 
     <div class="col s6">Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
@@ -128,4 +161,8 @@
 {% include "modals/course_modal.html" %}
 {% include "modals/research_modal.html" %}
 {% include "modals/routine_modal.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/task_button.js' %}"></script>
 {% endblock %}

@@ -26,7 +26,20 @@
     {% for task in course.course_tasks.all %}
     <div class="collection pad10">
         <div class="collection-item">
-            <h6><b>{{task.name}}</b></h6>
+            <div class="col s6"><h6><b>{{task.name}}</b></h6></div>
+
+            <!-- Switch -->
+            <div class="switch col s3">
+              <label>
+                Pause
+                <input type="checkbox">
+                <span class="lever"></span>
+                Start
+              </label>
+              <input type="hidden" name="id" value="{{task.task_info.id}}">
+            </div>
+
+            <div class="col s3"><a class="waves-effect waves-light btn">Stop</a></div>
             <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
             <div class="col s6">Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
 
@@ -51,4 +64,8 @@
 {% block modals %}
 {% include "modals/course_modal.html" %}
 {% include "modals/add_course_modal.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/task_button.js' %}"></script>
 {% endblock %}

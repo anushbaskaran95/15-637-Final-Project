@@ -14,7 +14,20 @@
 {% block main-content%}
 {% for task in research_tasks %}
 <div class="row card pad20">
-    <div class="col s12"><h6><b>{{task.topic}}</b></h6> </div>
+    <div class="col s6"><h6><b>{{task.topic}}</b></h6> </div>
+    <div class="col s3">
+    <!-- Switch -->
+    <div class="switch">
+      <label>
+        Pause
+        <input type="checkbox">
+        <span class="lever"></span>
+        Start
+      </label>
+      <input type="hidden" name="id" value="{{task.task_info.id}}">
+    </div>
+    </div>
+    <div class="col s3"><a class="waves-effect waves-light btn">Stop</a></div>
     <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
 
     {% if task.task_info.due_date %}
@@ -36,4 +49,8 @@
 
 {% block modals %}
 {% include "modals/research_modal.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/task_button.js' %}"></script>
 {% endblock %}
