@@ -1,0 +1,34 @@
+<h5>Edit Routine Task</h5>
+<form id="edit-routine-task-form" method="post" class="mt30">
+    {% csrf_token %}
+
+    <div class="input-field">
+        {{ routine_form.task_name }}
+        <label class="input-label"
+               for="{{ routine_form.task_name.id_for_label }}">Task Name</label>
+    </div>
+    <br/>
+
+    <div id="finish-date-error" class="error"></div>
+    <label class="date-label input-label">Expected Finish Date</label>
+    <div class="row col s12">
+        <div class="input-field col s6">
+            {{ task_info_form.expected_finish_date }}
+        </div>
+        <div class="input-field col s6">
+            {{ task_info_form.expected_finish_time }}
+        </div>
+    </div>
+
+    <div class="input-field">
+        {{ task_info_form.comments }}
+        <label class="input-label"
+               for="{{ task_info_form.comments.id_for_label }}">Comments</label>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="modal-action modal-close waves-effect waves-light btn action-btn">
+            Update
+        </button>
+    </div>
+</form>
