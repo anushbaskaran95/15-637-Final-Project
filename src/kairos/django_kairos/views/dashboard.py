@@ -36,3 +36,15 @@ def dashboard(request):
     context['routine_tasks'] = models.Misc.objects.exclude(task_info__status=2)
     context['username'] = request.user.username
     return render(request, 'dashboard/current_tasks.html', context)
+
+
+def edit_course_modal(request, task_id, task_info_id):
+    return HttpResponse('')
+
+
+def edit_research_modal(request, task_id, task_info_id):
+    return HttpResponse('')
+
+
+def edit_routine_modal(request, task_id, task_info_id):
+    return HttpResponse('')

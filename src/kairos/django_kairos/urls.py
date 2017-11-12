@@ -41,4 +41,11 @@ urlpatterns = [
     url(r'^add-course-task$', add_course_task, name='add-course-task'),
     url(r'^add-research-task$', add_research_task, name='add-research-task'),
     url(r'^add-routine-task$', add_routine_task, name='add-routine-task'),
+
+    url(r'^edit-course-modal/(?P<task_id>\d+)/(?P<task_info_id>\d+)$', edit_course_modal,
+        name='edit-course-modal'),
+    url(r'^edit-research-modal/(?P<task_id>\d+)/(?P<task_info_id>\d+)$', edit_research_modal,
+        name='edit-research-modal'),
+    url(r'^edit-routine-modal/(?P<task_id>\d+)/(?P<task_info_id>\d+)$', edit_routine_modal,
+        name='edit-routine-modal'),
 ]

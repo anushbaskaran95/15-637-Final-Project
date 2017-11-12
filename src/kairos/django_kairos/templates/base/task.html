@@ -1,3 +1,5 @@
+{% load class_tag %}
+
 <div class="row card pad20">
     {% if task.name %}
         <div class="col s6"><h6><b>{{task.name}}</b></h6></div>
@@ -22,7 +24,12 @@
         <input type="hidden" name="id" value="{{task.task_info.id}}">
     </div>
     <div class="col s3"><button class="stop waves-effect waves-light btn">Stop</button></div>
-    <div class="col s3"><button class="edit waves-effect waves-light btn">Edit</button></div>
+    <div class="col s3">
+        <button id="{{task.id}}/{{task.task_info.id}}/{{task|get_class}}"
+                class="edit waves-effect waves-light btn">
+            Edit
+        </button>
+    </div>
     <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
     <div class="col s6">Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
 

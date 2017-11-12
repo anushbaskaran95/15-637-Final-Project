@@ -83,5 +83,20 @@ $(document).ready(function(){
         aftershow: function(){} //Function for after opening timepicker
     });
 
-
+    $( ".edit" ).click(function() {
+        ids = this.id.split('/');
+        switch (ids[2]) {
+            case 'CourseTask':
+                getEditCourseModal(ids[0], ids[1]);
+                break;
+            case 'Research':
+                getEditResearchModal(ids[0], ids[1]);
+                break;
+            case 'Misc':
+                getEditRoutineModal(ids[0], ids[1]);
+                break;
+            default:
+                console.log('Invalid task type');
+        }
+    });
 });
