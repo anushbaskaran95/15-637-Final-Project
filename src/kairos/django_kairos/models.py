@@ -31,11 +31,11 @@ class TaskInfo(models.Model):
     percentage_completion = models.IntegerField(null=True, blank=True)
 
     # Date and time User pauses the task
-    date_paused = models.DateField(null=True, blank=True)
-    time_paused = models.TimeField(null=True, blank=True)
+    #date_paused = models.DateField(null=True, blank=True)
+    #time_paused = models.TimeField(null=True, blank=True)
 
     # Running record of time spent on task
-    time_spent = models.FloatField(null=True, blank=True)
+    #time_spent = models.FloatField(null=True, blank=True)
 
     # Status of Task (0: Running, 1: Paused, 2: Complete)
     status = models.IntegerField(default=0, null=True, blank=True)

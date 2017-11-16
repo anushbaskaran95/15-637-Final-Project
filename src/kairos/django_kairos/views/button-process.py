@@ -30,10 +30,12 @@ def process_button(request, status):
 
 		if status == 'true':
 			task_info.time_spent = (timezone.now() - task_info.continue_time) + task_info.time_spent
+			task_info.status = 1
 			task_info.save()
 
 		if status == 'false':
 			task_info.continue_time = timezone.now()
+			task_info.status = 0
 			task_info.save()
 
 def process_stop(request):
@@ -46,5 +48,7 @@ def process_stop(request):
 
 		task_info.time_spent = (timezone.now() - task_info.continue_time) + task_info.time_spent
 		task_info.stop_time = timezone.now()
+		task_info.status = 2
+		task_info.save()
 
 
