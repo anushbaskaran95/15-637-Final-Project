@@ -29,7 +29,13 @@ def process_button(request, status):
 			raise Http404
 
 		if status == 'true':
-			task_info.time_spent = (timezone.now() - task_info.continue_time) + task_info.time_spent
+			if task_info.continue_time is None:
+				continue_time = datetime.datetime.combine(task_info.start_date, task_info.start_time)
+			if task_info.time_spent not None:
+				task_info.time_spent = (timezone.now() - task_info.continue_time) + task_info.time_spent
+			else:
+				task_info.time_spent = (timezone.now() - task_info.continue_time)
+
 			task_info.status = 1
 			task_info.save()
 
@@ -46,7 +52,12 @@ def process_stop(request):
 		if not task_info:
 			raise Http404
 
-		task_info.time_spent = (timezone.now() - task_info.continue_time) + task_info.time_spent
+		if task_info.continue_time is None:
+			continue_time = datetime.datetime.combine(task_info.start_date, task_info.start_time)
+		if task_info.time_spent not None:
+				task_info.time_spent = (timezone.now() - task_info.continue_time) + task_info.time_spent
+			else:
+				task_info.time_spent = (timezone.now() - task_info.continue_time)
 		task_info.stop_time = timezone.now()
 		task_info.status = 2
 		task_info.save()
