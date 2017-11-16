@@ -31,7 +31,7 @@ class TaskInfo(models.Model):
     percentage_completion = models.IntegerField(null=True, blank=True)
 
     continue_time = models.DateTimeField(default=timezone.now(), null=True, blank=True)
-    time_spent = models.DateTimeField(default=timezone.now(), null=True, blank=True)
+    time_spent = models.DateTimeField(default=None, null=True, blank=True)
     stop_time = models.DateTimeField(default=timezone.now(), null=True, blank=True)
 
     status = models.IntegerField(default=0, null=True, blank=True)

@@ -35,6 +35,41 @@ def dashboard(request):
     context['research_tasks'] = Research.objects.exclude(task_info__status=2)
     context['routine_tasks'] = Misc.objects.exclude(task_info__status=2)
     context['username'] = request.user.username
+
+    if(info == 'switch'):
+        task_info = get_object_or_404(TaskInfo, pk=task_id)
+        if not task_info:
+            raise Http404
+
+        if status == 'true':
+            if task_info.time_spent is not None:
+                task_info.time_spent = (timezone.now() - task_info.continue_time) + task_info.time_spent
+            else:
+                task_info.time_spent = (timezone.now() - task_info.continue_time)
+
+            task_info.status = 1
+            task_info.save()
+
+        if status == 'false':
+            task_info.continue_time = timezone.now()
+            task_info.status = 0
+            task_info.save()
+            
+    elif info == 'stop button':
+        task_id = request.POST.get('task_id')
+
+        task_info = get_object_or_404(TaskInfo, pk = task_id)
+        if not task_info:
+            raise Http404
+
+        if task_info.time_spent is not None:
+            task_info.time_spent = (timezone.now() - task_info.continue_time) + task_info.time_spent
+        else:
+            task_info.time_spent = (timezone.now() - task_info.continue_time)
+        task_info.stop_time = timezone.now()
+        task_info.status = 2
+        task_info.save()
+
     return render(request, 'dashboard/current_tasks.html', context)
 
 

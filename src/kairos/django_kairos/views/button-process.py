@@ -19,7 +19,7 @@ import datetime
 from django.utils import timezone
 
 
-def process_button(request, status):
+def process_button(request):
 	if request.method == 'POST':
 		task_id = request.POST.get('task_id')
 		status = request.POST.get('status')
@@ -29,8 +29,6 @@ def process_button(request, status):
 			raise Http404
 
 		if status == 'true':
-			if task_info.continue_time is None:
-				continue_time = datetime.datetime.combine(task_info.start_date, task_info.start_time)
 			if task_info.time_spent not None:
 				task_info.time_spent = (timezone.now() - task_info.continue_time) + task_info.time_spent
 			else:
@@ -52,8 +50,6 @@ def process_stop(request):
 		if not task_info:
 			raise Http404
 
-		if task_info.continue_time is None:
-			continue_time = datetime.datetime.combine(task_info.start_date, task_info.start_time)
 		if task_info.time_spent not None:
 				task_info.time_spent = (timezone.now() - task_info.continue_time) + task_info.time_spent
 			else:
