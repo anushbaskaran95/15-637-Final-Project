@@ -194,6 +194,10 @@ class ResearchForm(forms.ModelForm):
 
     def clean_topic(self):
         topic = self.cleaned_data.get('topic')
+        if self.instance.pk:
+            if self.instance.topic == topic:
+                return self.instance.topic
+
         if Research.objects.filter(topic__iexact=topic):
             raise forms.ValidationError("This research topic already exists")
         else:
@@ -219,6 +223,7 @@ class EditForm(forms.ModelForm):
         cleaned_data = super(EditForm, self).clean()
         return cleaned_data
 
+    @staticmethod
     def check_username(self, cleaned_data, user_id):
         form_username = cleaned_data.get('username')
         user = User.objects.get(pk__exact=user_id)

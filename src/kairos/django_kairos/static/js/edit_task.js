@@ -94,21 +94,28 @@ $('body').on('submit', '#edit-research-task-form', function(e) {
 
 $('body').on('submit', '#edit-routine-task-form', function(e) {
     e.preventDefault();
-    console.log($(this).find('button').attr('id'));
-//    $.post( "/add-course", $( "#edit-course-task-form" ).serialize())
-//        .done(function(data) {
-//            clear_errors();
-//            if(data['status'] == 'fail') {
-//                $('#course-name-error').html(data['errors'][0]['course_name']);
-//            }
-//            else {
-//                $('#add-course-modal').modal('close');
-//                location.reload();
-//            }
-//        })
-//        .fail(function() {
-//            alert( "An error occurred when submitting the form" );
-//        })
+    ids = $(this).find('.modal-action').attr('id').split('/');
+    task_id = ids[0]
+    task_info_id = ids[1]
+    $.post( "/edit-routine-task", {'form': $( "#edit-routine-task-form" ).serialize(),
+                                  'task_id': task_id, 'task_info_id': task_info_id})
+        .done(function(data) {
+            clear_errors_edit_form();
+            if(data['status'] == 'fail') {
+                errors = data['errors'];
+                for (var key in errors) {
+                    $('.edit-routine-task-modal').find('#'+key).html(errors[key]);
+                }
+                $('.edit-routine-task-modal').find('#errors-note').html('Check errors above');
+            }
+            else {
+                $('#edit-routine-task-modal').modal('close');
+                location.reload();
+            }
+        })
+        .fail(function() {
+            alert( "An error occurred" );
+        })
 });
 
 

@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse, Http404
-from django.http import QueryDict
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse, Http404, QueryDict
 
 from django.contrib import messages
 
@@ -115,6 +114,8 @@ def edit_course_task(request):
                 error_list['finish-date-error'] = task_info_form['expected_finish_date'].errors
             if task_info_form['due_date'].errors:
                 error_list['due-date-error'] = task_info_form['due_date'].errors
+            if task_info_form['percentage_completion'].errors:
+                error_list['pc-error'] = task_info_form['percentage_completion'].errors
             return JsonResponse({'status': 'fail', 'errors': error_list})
 
     else:
