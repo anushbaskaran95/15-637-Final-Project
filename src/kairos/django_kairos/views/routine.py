@@ -51,3 +51,8 @@ def add_routine_task(request):
             return JsonResponse({'status': 'fail', 'errors': error_list})
     else:
         return HttpResponseRedirect(reverse('dash'))
+
+
+@login_required
+def edit_routine_task(request):
+    return

@@ -4,14 +4,10 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.template.loader import render_to_string
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 
-from django.contrib import messages
-
 # decorator for built-in auth system
 from django.contrib.auth.decorators import login_required
 
 from django.db import transaction
-
-from django.contrib.auth.models import User
 
 from .. forms import *
 from .. models import *
@@ -52,7 +48,9 @@ def edit_course_modal(request, task_id, task_info_id):
     context = dict()
     context['course_task_form'] = course_task_form
     context['task_info_form'] = task_info_form
-    response = render_to_string('modals/edit_course_modal.html', context)
+    context['task_id'] = task_id
+    context['task_info_id'] = task_info_id
+    response = render_to_string('modals/edit_course_modal.html', context, request=request)
     return HttpResponse(response)
 
 
@@ -70,7 +68,9 @@ def edit_research_modal(request, task_id, task_info_id):
     context = dict()
     context['research_form'] = research_form
     context['task_info_form'] = task_info_form
-    response = render_to_string('modals/edit_research_modal.html', context)
+    context['task_id'] = task_id
+    context['task_info_id'] = task_info_id
+    response = render_to_string('modals/edit_research_modal.html', context, request=request)
     return HttpResponse(response)
 
 
@@ -88,5 +88,7 @@ def edit_routine_modal(request, task_id, task_info_id):
     context = dict()
     context['routine_form'] = routine_form
     context['task_info_form'] = task_info_form
-    response = render_to_string('modals/edit_routine_modal.html', context)
+    context['task_id'] = task_id
+    context['task_info_id'] = task_info_id
+    response = render_to_string('modals/edit_routine_modal.html', context, request=request)
     return HttpResponse(response)

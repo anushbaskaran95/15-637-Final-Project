@@ -64,3 +64,8 @@ def add_research_task(request):
             return JsonResponse({'status': 'fail', 'errors': error_list})
     else:
         return HttpResponseRedirect(reverse('dash'))
+
+
+@login_required
+def edit_research_task(request):
+    return

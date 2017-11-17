@@ -141,11 +141,17 @@ class TaskInfoForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(TaskInfoForm, self).clean()
-        start_date = self.cleaned_data.get("start_date")
-        start_time = self.cleaned_data.get("start_time")
-        start_datetime = datetime.datetime.combine(start_date, start_time)
-        if start_datetime < (datetime.datetime.now() - datetime.timedelta(minutes=2)):
-            raise forms.ValidationError({'start_date': "Invalid start time. Enter current or future time."})
+
+        if not self.instance.pk:
+            start_date = self.cleaned_data.get("start_date")
+            start_time = self.cleaned_data.get("start_time")
+            start_datetime = datetime.datetime.combine(start_date, start_time)
+            if start_datetime < (datetime.datetime.now() - datetime.timedelta(minutes=2)):
+                raise forms.ValidationError({'start_date': "Invalid Start time. Enter current or future time."})
+        else:
+            start_date = self.instance.start_date
+            start_time = self.instance.start_time
+            start_datetime = datetime.datetime.combine(start_date, start_time)
 
         expected_finish_date = self.cleaned_data.get("expected_finish_date")
         expected_finish_time = self.cleaned_data.get("expected_finish_time")

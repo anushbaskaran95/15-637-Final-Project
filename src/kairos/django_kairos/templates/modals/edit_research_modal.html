@@ -1,7 +1,6 @@
 <h5>Edit Research Task</h5>
 <form id="edit-research-task-form" method="post" class="mt20">
     {% csrf_token %}
-    <div class="error">{{ task_info_form.non_field_errors }}</div>
     <div id="topic-error" class="error mt30"></div>
     <div class="input-field">
         {{ research_form.topic }}
@@ -46,7 +45,8 @@
     </div>
     <div id="errors-note" class="error"></div>
     <div class="modal-footer">
-        <button type="submit" class="modal-action waves-effect waves-light btn action-btn">
+        <button id="{{task_id}}/{{task_info_id}}"
+                type="submit" class="modal-action waves-effect waves-light btn action-btn">
             Update
         </button>
     </div>

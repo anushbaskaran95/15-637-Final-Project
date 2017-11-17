@@ -66,3 +66,7 @@
 .dropdown-content li>span {
     color: #03a9f4;
 }
+
+.hidden-field {
+    display: none;
+}
