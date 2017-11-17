@@ -24,6 +24,7 @@ def coursework(request):
     context['task_info_form'] = task_info_form
     context['courses'] = Course.objects.all()
     context['username'] = request.user.username
+
     return render(request, 'dashboard/coursework.html', context)
 
 

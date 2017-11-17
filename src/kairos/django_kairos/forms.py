@@ -137,7 +137,7 @@ class TaskInfoForm(forms.ModelForm):
 
     class Meta:
         model = TaskInfo
-        exclude = ('date_paused', 'time_paused', 'status',)
+        exclude = ('continue_time', 'time_spent', 'stop_time', 'status',)
 
     def clean(self):
         cleaned_data = super(TaskInfoForm, self).clean()

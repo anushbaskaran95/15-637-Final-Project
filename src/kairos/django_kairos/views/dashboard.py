@@ -31,6 +31,7 @@ def dashboard(request):
     context['research_tasks'] = Research.objects.exclude(task_info__status=2)
     context['routine_tasks'] = Misc.objects.exclude(task_info__status=2)
     context['username'] = request.user.username
+
     return render(request, 'dashboard/current_tasks.html', context)
 
 

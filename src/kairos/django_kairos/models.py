@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
 from django.db import models
-
+from django.utils import timezone
 
 # Create your models here.
 class Course(models.Model):
@@ -30,14 +30,10 @@ class TaskInfo(models.Model):
     # Task Percent Complete - optional
     percentage_completion = models.IntegerField(null=True, blank=True)
 
-    # Date and time User pauses the task
-    date_paused = models.DateField(null=True, blank=True)
-    time_paused = models.TimeField(null=True, blank=True)
+    continue_time = models.DateTimeField(default=None, null=True, blank=True)
+    time_spent = models.DateTimeField(default=None, null=True, blank=True)
+    stop_time = models.DateTimeField(default=timezone.now(), null=True, blank=True)
 
-    # Running record of time spent on task
-    time_spent = models.FloatField(null=True, blank=True)
-
-    # Status of Task (0: Running, 1: Paused, 2: Complete)
     status = models.IntegerField(default=0, null=True, blank=True)
 
 

@@ -18,8 +18,10 @@ $( document ).ready(function() {  // Runs when the document is ready
        var status = $(this).prop('checked');
        var task_id = $(this).parent().next().val();
        var info = "switch";
-       //console.log(status);
-       //console.log(task_id);
+       console.log(status);
+       console.log(task_id);
+       //console.log(info);
+       //console.log(pathname);
         $.ajax({
            url : pathname,
            type : "post",
@@ -28,7 +30,7 @@ $( document ).ready(function() {  // Runs when the document is ready
              task_id : task_id,
              info : info
            }
-       })
+       });
    });
    /**
     * once user has clicked any of stop button, it will send its id to backend.
@@ -46,7 +48,7 @@ $( document ).ready(function() {  // Runs when the document is ready
          task_id : task_id,
          info : info
        }
-   })
-  })
+   });
+  });
 
 }); // End of $(document).ready
