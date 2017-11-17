@@ -20,9 +20,12 @@ from django.utils import timezone
 
 
 def process_button(request):
+	#print hi
 	if request.method == 'POST':
 		task_id = request.POST.get('task_id')
 		status = request.POST.get('status')
+		#print task_id
+		#print status
 
 		task_info = get_object_or_404(TaskInfo, pk=task_id)
 		if not task_info:
