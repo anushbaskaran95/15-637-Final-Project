@@ -1,7 +1,3 @@
-// The boilerplate code below is copied from the Django 1.10 documentation.
-// It establishes the necessary HTTP header fields and cookies to use
-// Django CSRF protection with jQuery Ajax requests.
-
 $( document ).ready(function() {  // Runs when the document is ready
   /**
    * the current path

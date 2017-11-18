@@ -30,6 +30,9 @@ $(document).ready(function(){
         }
     });
 
+    // get task metrics for D3
+    getTaskMetrics();
+
     $('.button-collapse').sideNav({
         menuWidth: 300, // Default is 300
         edge: 'left', // Choose the horizontal origin
@@ -103,4 +106,14 @@ function initPickers() {
         ampmclickable: true, // make AM PM clickable
         aftershow: function(){} //Function for after opening timepicker
     });
+}
+
+function getTaskMetrics() {
+    $.get( "/get-task-info")
+        .done(function(data) {
+            console.log(data);
+        })
+        .fail(function() {
+            console.log('An error occurred')
+        })
 }
