@@ -111,7 +111,7 @@ function initPickers() {
 function getTaskMetrics() {
     $.get( "/get-task-info")
         .done(function(data) {
-            console.log(data);
+            console.log(data[1]);
         })
         .fail(function() {
             console.log('An error occurred')
