@@ -23,7 +23,7 @@ $( document ).ready(function() {  // Runs when the document is ready
        //console.log(info);
        //console.log(pathname);
         $.ajax({
-           url : '/button_process/',
+           url : 'button_process',
            type : "post",
            data : {
              status : status,
@@ -42,7 +42,7 @@ $( document ).ready(function() {  // Runs when the document is ready
     // console.log(task_id);
     // console.log(info);
     $.ajax({
-       url : '/stop_process/',
+       url : 'stop_process',
        type : "post",
        data : {
          task_id : task_id,
