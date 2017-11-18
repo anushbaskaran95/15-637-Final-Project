@@ -4,9 +4,9 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 
 from .. models import *
-import datetime
 from django.utils import timezone
-from datetime import tzinfo, timedelta, datetime
+import datetime
+
 
 def process_button(request):
     #print ("hi")
