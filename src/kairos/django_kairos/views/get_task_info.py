@@ -17,7 +17,7 @@ def get_task_info(request):
         if task.time_spent is not None:
             time_spent = (datetime.datetime.now() - task.continue_time) + task.time_spent
         else:
-            time_spent = (datetime.datetime.now() - task.continue_time)
+            time_spent = (datetime.datetime.now() - start_datetime)
         time_spent = abs(time_spent).total_seconds() / 3600.0
 
         info = [total_time_in_hours, time_spent, task.percentage_completion]
