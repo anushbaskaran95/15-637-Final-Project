@@ -20,12 +20,15 @@
 {% endblock %}
 
 {% block main-content%}
-{% for course in courses %}
-    <div class="col s12"><p class="course-name">{{course.course_name}}</p></div>
-    {% for task in course.course_tasks.all %}
-        {% include "base/task.html" %}
+<div class="tasks-container">
+    {% for course in courses %}
+    <div class="col s12"><p class="task-headings">{{course.course_name}}</p></div>
+        {% for task in course.course_tasks.all %}
+            {% include "base/task.html" %}
+        {% endfor %}
     {% endfor %}
-{% endfor %}
+</div>
+
 {% endblock %}
 
 {% block modals %}

@@ -12,9 +12,12 @@
 {% endblock %}
 
 {% block main-content%}
-{% for task in research_tasks %}
-    {% include "base/task.html" %}
-{% endfor %}
+<div class="tasks-container">
+    {% for task in research_tasks %}
+        {% include "base/task.html" %}
+    {% endfor %}
+</div>
+
 {% endblock %}
 
 {% block modals %}

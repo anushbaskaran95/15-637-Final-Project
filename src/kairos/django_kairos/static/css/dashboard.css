@@ -1,3 +1,12 @@
+body {
+    background: #efefef;
+}
+
+.tasks-container {
+    margin: 0 auto;
+    width: 85%;
+}
+
 li.float-none {
     float: none !important;
 }
@@ -46,13 +55,21 @@ a.modal-trigger {
     background-color: #81d4fa;
 }
 
-p.course-name {
-    margin: 0;
+p.task-headings {
+    margin-top: 15px;
     font-size: 20px;
     font-weight: 500;
 }
-p.task-headings {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 600;
+
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: #03a9f4 !important;
+}
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: #0277bd !important;
+}
+
+.actions {
+    margin-top: 8px;
+    border-top: 1px solid #ddd;
+    padding-top: 7px !important;
 }

@@ -53,28 +53,28 @@
 {% endblock %}
 
 {% block main-content%}
-<p class="task-headings">Coursework</p>
-{% for course in courses %}
-    <div class="col s12"><p class="course-name">{{course.course_name}}</p></div>
-    {% for task in course.course_tasks.all %}
-        {% include "base/task.html" %}
+<div class="tasks-container">
+    <p class="task-headings">Coursework</p>
+    {% for course in courses %}
+        {% for task in course.course_tasks.all %}
+            {% include "base/task.html" %}
+        {% endfor %}
     {% endfor %}
-{% endfor %}
+    <br/>
 
-<br/>
+    <p class="task-headings">Research</p>
+        {% for task in research_tasks %}
+            {% include "base/task.html" %}
+        {% endfor %}
 
-<p class="task-headings">Research Tasks</p>
-{% for task in research_tasks %}
-    {% include "base/task.html" %}
-{% endfor %}
+    <br/>
 
-<br/>
+    <p class="task-headings">Routine</p>
+        {% for task in routine_tasks %}
+            {% include "base/task.html" %}
+        {% endfor %}
 
-<p class="task-headings">Routine tasks</p>
-{% for task in routine_tasks %}
-    {% include "base/task.html" %}
-{% endfor %}
-
+</div>
 {% endblock %}
 
 {% block modals %}

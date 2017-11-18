@@ -1,47 +1,58 @@
 {% load class_tag %}
 
-<div class="row card pad20">
-    {% if task.name %}
-        <div class="col s6"><h6><b>{{task.name}}</b></h6></div>
-    {% endif %}
+<div class="row card pad10">
+    <div class="col s12">
+        {% if task.name %}
+            <div><h6><b>{{task.course.course_name}}: {{task.name}}</b></h6></div>
+        {% endif %}
 
-    {% if task.topic %}
-        <div class="col s6"><h6><b>{{task.topic}}</b></h6></div>
-    {% endif %}
+        {% if task.topic %}
+            <div><h6><b>{{task.topic}}</b></h6></div>
+        {% endif %}
 
-    {% if task.task_name %}
-        <div class="col s6"><h6><b>{{task.task_name}}</b></h6></div>
-    {% endif %}
+        {% if task.task_name %}
+            <div><h6><b>{{task.task_name}}</b></h6></div>
+        {% endif %}
 
-    <!-- Switch -->
-    <div class="switch col s3">
-        <label>
-            Start
-            <input type="checkbox">
-            <span class="lever"></span>
-            Pause
-        </label>
-        <input type="hidden" name="id" value="{{task.task_info.id}}">
+        <!-- Switch -->
+        <a class="switch right inline mt-25">
+            <label>
+                Pause
+                <input value="{{task.task_info.id}}" type="checkbox" checked>
+                <span class="lever"></span>
+                Start
+            </label>
+        </a>
     </div>
-    <div class="col s3"><button class="stop waves-effect waves-light btn">Stop</button></div>
-    <div class="col s3">
-        <button id="{{task.id}}/{{task.task_info.id}}/{{task|get_class}}"
-                class="edit waves-effect waves-light btn">
+
+    <div class="col s12">
+        <div>Start Date: {{task.task_info.start_date}}</div>
+        <div>Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
+
+        {% if task.task_info.due_date %}
+        <div>Due Date: {{task.task_info.due_date}}</div>
+        {% endif %}
+
+        {% if task.task_info.percentage_completion %}
+        <div>Percentage completion: {{task.task_info.percentage_completion}}</div>
+        {% endif %}
+
+        {% if task.task_info.comments %}
+        <div>Comments: {{task.task_info.comments}}</div>
+        {% endif %}
+    </div>
+
+    <div class="pb-container/{{task.task_info.id}}">
+
+    </div>
+
+    <div class="col s12 actions">
+        <a id="{{task.task_info.id}}" class="stop right">
+            Mark as Completed
+        </a>
+        <a id="{{task.id}}/{{task.task_info.id}}/{{task|get_class}}"
+           class="edit right">
             Edit
-        </button>
+        </a>
     </div>
-    <div class="col s6">Start Date: {{task.task_info.start_date}}</div>
-    <div class="col s6">Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
-
-    {% if task.task_info.due_date %}
-    <div class="col s6">Due Date: {{task.task_info.due_date}}</div>
-    {% endif %}
-
-    {% if task.task_info.comments %}
-    <div class="col s12">Comments: {{task.task_info.comments}}</div>
-    {% endif %}
-
-    {% if task.task_info.percentage_completion %}
-    <div class="col s12">Percentage completion: {{task.task_info.percentage_completion}}</div>
-    {% endif %}
 </div>
