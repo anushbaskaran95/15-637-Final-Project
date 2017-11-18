@@ -9,6 +9,7 @@ from views.research import *
 from views.routine import *
 from views.profile import *
 from views.buttonprocess import *
+from views.get_task_info import *
 
 urlpatterns = [
     url(r'^register/$', register, name='register'),
@@ -51,4 +52,5 @@ urlpatterns = [
         name='edit-routine-modal'),
     url(r'^button_process$', process_button, name='process_button'),
     url(r'^stop_process$', process_stop, name='process_stop'),
+    url(r'^get_task_info$', get_task_info, name='get_task_info'),
 ]

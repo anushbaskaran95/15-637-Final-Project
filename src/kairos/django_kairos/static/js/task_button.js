@@ -7,7 +7,7 @@ $( document ).ready(function() {  // Runs when the document is ready
    * the current path
    *
    */
-  var pathname = window.location.pathname; // Returns path only
+  //var pathname = window.location.pathname; // Returns path only
   /**
    * once user has clicked the switch, it will send the boolean value and corresponding
    * task id to the backend for further processing.
@@ -23,7 +23,7 @@ $( document ).ready(function() {  // Runs when the document is ready
        //console.log(info);
        //console.log(pathname);
         $.ajax({
-           url : pathname,
+           url : "/stop_process",
            type : "post",
            data : {
              status : status,
@@ -42,7 +42,7 @@ $( document ).ready(function() {  // Runs when the document is ready
     // console.log(task_id);
     // console.log(info);
     $.ajax({
-       url : pathname,
+       url : "/button_process",
        type : "post",
        data : {
          task_id : task_id,
