@@ -137,15 +137,21 @@ class TaskInfoForm(forms.ModelForm):
 
     class Meta:
         model = TaskInfo
-        exclude = ('date_paused', 'time_paused', 'status',)
+        exclude = ('continue_time', 'time_spent', 'stop_time', 'status',)
 
     def clean(self):
         cleaned_data = super(TaskInfoForm, self).clean()
-        start_date = self.cleaned_data.get("start_date")
-        start_time = self.cleaned_data.get("start_time")
-        start_datetime = datetime.datetime.combine(start_date, start_time)
-        if start_datetime < (datetime.datetime.now() - datetime.timedelta(minutes=2)):
-            raise forms.ValidationError({'start_date': "Invalid start time. Enter current or future time."})
+
+        if not self.instance.pk:
+            start_date = self.cleaned_data.get("start_date")
+            start_time = self.cleaned_data.get("start_time")
+            start_datetime = datetime.datetime.combine(start_date, start_time)
+            if start_datetime < (datetime.datetime.now() - datetime.timedelta(minutes=2)):
+                raise forms.ValidationError({'start_date': "Invalid Start time. Enter current or future time."})
+        else:
+            start_date = self.instance.start_date
+            start_time = self.instance.start_time
+            start_datetime = datetime.datetime.combine(start_date, start_time)
 
         expected_finish_date = self.cleaned_data.get("expected_finish_date")
         expected_finish_time = self.cleaned_data.get("expected_finish_time")
@@ -188,6 +194,10 @@ class ResearchForm(forms.ModelForm):
 
     def clean_topic(self):
         topic = self.cleaned_data.get('topic')
+        if self.instance.pk:
+            if self.instance.topic == topic:
+                return self.instance.topic
+
         if Research.objects.filter(topic__iexact=topic):
             raise forms.ValidationError("This research topic already exists")
         else:
@@ -213,6 +223,7 @@ class EditForm(forms.ModelForm):
         cleaned_data = super(EditForm, self).clean()
         return cleaned_data
 
+    @staticmethod
     def check_username(self, cleaned_data, user_id):
         form_username = cleaned_data.get('username')
         user = User.objects.get(pk__exact=user_id)

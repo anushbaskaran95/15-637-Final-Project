@@ -10,6 +10,19 @@
 
     <br/>
 
+    <div class="hidden-field">
+        <div id="start-date-error" class="error"></div>
+        <label class="date-label input-label">Start Date</label>
+        <div class="row col s12">
+            <div class="input-field col s6">
+                {{ task_info_form.start_date }}
+            </div>
+            <div class="input-field col s6">
+                {{ task_info_form.start_time }}
+            </div>
+        </div>
+    </div>
+
     <div id="finish-date-error" class="error"></div>
     <label class="date-label input-label">Expected Finish Date</label>
     <div class="row col s12">
@@ -32,6 +45,7 @@
         </div>
     </div>
 
+    <div id="pc-error" class="error"></div>
     <div class="input-field">
         {{ task_info_form.percentage_completion }}
         <label class="input-label"
@@ -45,7 +59,8 @@
     </div>
     <div id="errors-note" class="error"></div>
     <div class="modal-footer">
-        <button type="submit" class="modal-action waves-effect waves-light btn action-btn">
+        <button id="{{task_id}}/{{task_info_id}}"
+                type="submit" class="modal-action waves-effect waves-light btn action-btn">
             Update
         </button>
     </div>

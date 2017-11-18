@@ -52,5 +52,9 @@ urlpatterns = [
         name='edit-routine-modal'),
     url(r'^button_process$', process_button, name='process_button'),
     url(r'^stop_process$', process_stop, name='process_stop'),
+
+    url(r'^edit-course-task$', edit_course_task, name='edit-course-task'),
+    url(r'^edit-research-task$', edit_research_task, name='edit-research-task'),
+    url(r'^edit-routine-task$', edit_routine_task, name='edit-routine-task'),
     url(r'^get_task_info$', get_task_info, name='get_task_info'),
 ]
