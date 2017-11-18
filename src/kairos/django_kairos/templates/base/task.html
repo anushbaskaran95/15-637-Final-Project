@@ -18,14 +18,19 @@
         <a class="switch right inline mt-25">
             <label>
                 Pause
-                <input value="{{task.task_info.id}}" type="checkbox" checked>
+                {% if task.task_info.status == 0 %}
+                    <input value="{{task.task_info.id}}" type="checkbox" checked>
+                {% endif %}
+                {% if task.task_info.status == 1 %}
+                    <input value="{{task.task_info.id}}" type="checkbox">
+                {% endif %}
                 <span class="lever"></span>
                 Start
             </label>
         </a>
     </div>
 
-    <div class="col s12">
+    <div class="col s12 text-data">
         <div>Start Date: {{task.task_info.start_date}}</div>
         <div>Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
 
