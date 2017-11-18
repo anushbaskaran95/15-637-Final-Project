@@ -19,37 +19,25 @@ import datetime
 from django.utils import timezone
 from datetime import tzinfo, timedelta, datetime
 
-ZERO = timedelta(0)
-
-class UTC(tzinfo):
-  def utcoffset(self, dt):
-    return ZERO
-  def tzname(self, dt):
-    return "UTC"
-  def dst(self, dt):
-    return ZERO
-
-utc = UTC()
-
 def process_button(request):
 	#print ("hi")
 	if request.method == 'POST':
 		task_id = request.POST.get('task_id')
 		status = request.POST.get('status')
 		#print task_id
-		#print status
+		print status
 
 		task_info = get_object_or_404(TaskInfo, pk=task_id)
 		if not task_info:
 			raise Http404
-        now = datetime.now(utc)
+
         if status == 'true':
 			if task_info.continue_time is None:
 				task_info.continue_time = datetime.datetime.combine(task_info.start_date, task_info.start_time)
 			if task_info.time_spent is not None:
-				task_info.time_spent = (now - task_info.continue_time) + task_info.time_spent
+				task_info.time_spent = (timezone.now() - task_info.continue_time) + task_info.time_spent
 			else:
-				task_info.time_spent = (now - task_info.continue_time)
+				task_info.time_spent = (timezone.now() - task_info.continue_time)
 
 			task_info.status = 1
 			task_info.save()
