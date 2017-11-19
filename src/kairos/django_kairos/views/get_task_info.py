@@ -9,7 +9,11 @@ from django.http import JsonResponse
 # This function returns a dictionary containing {task id: [total time, time spent, percentage completion]}
 def get_task_info(request):
     context = {}
-    tasks = TaskInfo.objects.exclude(status=2)
+    # get all task related information from database
+    course_tasks = TaskInfo.objects.filter(coursetask__course__user=request.user).exclude(status=2)
+    research_tasks = TaskInfo.objects.filter(research__user=request.user).exclude(status=2)
+    misc_tasks = TaskInfo.objects.filter(misc__user=request.user).exclude(status=2)
+    tasks = course_tasks | research_tasks | misc_tasks
     for task in tasks:
 
         start_datetime = datetime.datetime.combine(task.start_date, task.start_time)
