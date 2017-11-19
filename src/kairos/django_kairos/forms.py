@@ -121,15 +121,15 @@ class CourseForm(forms.ModelForm):
 class TaskInfoForm(forms.ModelForm):
 
     start_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'datepicker', 'placeholder': 'Start Date'},
-                                                        format='%d %B, %Y'))
+                                                        format='%d %B, %Y'), required=True)
     start_time = forms.TimeField(widget=forms.TimeInput(attrs={'class': 'timepicker', 'placeholder': 'Start Time'},
-                                                        format='%H:%M'))
+                                                        format='%H:%M'), required=True)
     expected_finish_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'datepicker',
                                                                          'placeholder': 'Expected Finish Date'},
-                                                                  format='%d %B, %Y'))
+                                                                  format='%d %B, %Y'), required=True)
     expected_finish_time = forms.TimeField(widget=forms.TimeInput(attrs={'class': 'timepicker',
                                                                          'placeholder': 'Expected Finish Time'},
-                                                                  format='%H:%M'))
+                                                                  format='%H:%M'), required=True)
     due_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'datepicker', 'placeholder': 'Due Date'},
                                                       format='%d %B, %Y'), required=False)
     due_time = forms.TimeField(widget=forms.TimeInput(attrs={'class': 'timepicker', 'placeholder': 'Due Time'},
@@ -143,6 +143,7 @@ class TaskInfoForm(forms.ModelForm):
         cleaned_data = super(TaskInfoForm, self).clean()
 
         if not self.instance.pk:
+            print cleaned_data
             start_date = self.cleaned_data.get("start_date")
             start_time = self.cleaned_data.get("start_time")
             start_datetime = datetime.datetime.combine(start_date, start_time)
