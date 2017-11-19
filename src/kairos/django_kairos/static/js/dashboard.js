@@ -30,9 +30,6 @@ $(document).ready(function(){
         }
     });
 
-    // get task metrics for D3
-    getTaskMetrics();
-
     $('.button-collapse').sideNav({
         menuWidth: 300, // Default is 300
         edge: 'left', // Choose the horizontal origin
@@ -82,6 +79,9 @@ $(document).ready(function(){
                 console.log('Invalid task type');
         }
     });
+
+    // get task metrics for D3
+    getTaskMetrics();
 });
 
 function initPickers() {
@@ -109,9 +109,66 @@ function initPickers() {
 }
 
 function getTaskMetrics() {
+    var settingsPB = {
+        diameter: 120,
+        stroke: {
+            width: 15,
+            gap: 2
+        },
+        shadow: {
+            width: 1
+        },
+        round: true,
+        series: [
+            {
+                value: 0,
+                // if specifying a background is not necessary you can use these shortcuts
+                color: ['#000000', '#448aff']
+            }
+        ],
+        // simple center text
+        center: {
+            content: [function(value) {
+                        return value
+                      }, ' Hrs'],
+        }
+    }
+
+    var settingsPC = {
+        diameter: 120,
+        stroke: {
+            width: 15,
+            gap: 2
+        },
+        shadow: {
+            width: 1
+        },
+        round: true,
+        max: 100,
+        series: [
+            {
+                value: 0,
+                // if specifying a background is not necessary you can use these shortcuts
+                color: '#4caf50'
+            }
+        ],
+        // simple center text
+        center: function(p) {
+             return p + ' %'
+        }
+    }
+
     $.get( "/get-task-info")
         .done(function(data) {
-            console.log(data[1]);
+//            for (var key in data) {
+//                var chart = new RadialProgressChart('#pb-container/1', settings);
+//                chart.update
+//            }
+              settingsPB['max'] = data[1][0]
+              var chart1 = new RadialProgressChart('.pb-container-1', settingsPB);
+              chart1.update(data[1][1])
+              var chart2 = new RadialProgressChart('.pc-container-1', settingsPC);
+              chart2.update(data[1][2])
         })
         .fail(function() {
             console.log('An error occurred')

@@ -13,6 +13,14 @@
 }
 
 .stop {
+    background: #eee;
+    padding: 3px 9px 3px 9px;
+    cursor: pointer;
+    margin-right: -2px;
+    font-size: 14px;
+    margin-top: 12px;
+}
+.view-details {
     cursor: pointer;
 }
 .edit {
@@ -74,10 +82,18 @@
     margin-left: 20px;
 }
 
+.fs14 {
+    font-size: 14px;
+}
+
 .dropdown-content li>span {
     color: #03a9f4;
 }
 
 .hidden-field {
     display: none;
+}
+
+.svg-container {
+    max-width: 200px;
 }

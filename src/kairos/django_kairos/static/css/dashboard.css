@@ -4,7 +4,12 @@ body {
 
 .tasks-container {
     margin: 0 auto;
-    width: 85%;
+    width: 75%;
+}
+
+.task-name {
+    font-weight: 600;
+    font-size: 17px;
 }
 
 li.float-none {

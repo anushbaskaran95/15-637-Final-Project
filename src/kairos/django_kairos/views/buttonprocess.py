@@ -9,27 +9,22 @@ from django.utils import timezone
 
 
 def process_button(request):
-    #print ("hi")
     if request.method == 'POST':
         task_id = request.POST.get('task_id')
         status = request.POST.get('status')
-        #print task_id
-        print status
 
         task_info = get_object_or_404(TaskInfo, pk=task_id)
         if not task_info:
             raise Http404
 
-        print type(timezone.now())
-        print type(task_info.continue_time)
-        print task_info.continue_time
-        print task_info.time_spent
-
         if status == 'false':
             if task_info.continue_time is None:
                 task_info.continue_time = datetime.datetime.combine(task_info.start_date, task_info.start_time)
-            
-            task_info.time_spent = (timezone.now() - task_info.continue_time).total_seconds() + task_info.time_spent
+
+            if task_info.time_spent is None:
+                task_info.time_spent = (timezone.now() - task_info.continue_time).total_seconds()
+            else:
+                task_info.time_spent = (timezone.now() - task_info.continue_time).total_seconds() + task_info.time_spent
 
             task_info.status = 1
             task_info.save()
