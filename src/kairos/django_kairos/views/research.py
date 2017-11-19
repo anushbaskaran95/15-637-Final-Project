@@ -23,7 +23,7 @@ def research(request):
     task_info_form = TaskInfoForm()
     context['research_form'] = research_form
     context['task_info_form'] = task_info_form
-    context['research_tasks'] = Research.objects.all()
+    context['research_tasks'] = Research.objects.filter(user=request.user)
     context['username'] = request.user.username
     return render(request, 'dashboard/research.html', context)
 
