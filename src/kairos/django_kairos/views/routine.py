@@ -24,7 +24,7 @@ def routine(request):
     task_info_form = TaskInfoForm()
     context['routine_form'] = routine_form
     context['task_info_form'] = task_info_form
-    context['routine_tasks'] = Misc.objects.filter(user=request.user)
+    context['routine_tasks'] = Misc.objects.filter(user=request.user).order_by('-task_info__expected_finish_date')
     context['username'] = request.user.username
     return render(request, 'dashboard/routine.html', context)
 
