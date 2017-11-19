@@ -27,9 +27,9 @@ def dashboard(request):
     context['research_form'] = research_form
     context['routine_form'] = routine_form
     context['task_info_form'] = task_info_form
-    context['courses'] = Course.objects.exclude(course_tasks__task_info__status=2)
-    context['research_tasks'] = Research.objects.exclude(task_info__status=2)
-    context['routine_tasks'] = Misc.objects.exclude(task_info__status=2)
+    context['courses'] = Course.objects.filter(user=request.user).exclude(course_tasks__task_info__status=2)
+    context['research_tasks'] = Research.objects.filter(user=request.user).exclude(task_info__status=2)
+    context['routine_tasks'] = Misc.objects.filter(user=request.user).exclude(task_info__status=2)
     context['username'] = request.user.username
 
     return render(request, 'dashboard/current_tasks.html', context)

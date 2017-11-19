@@ -22,7 +22,7 @@ def coursework(request):
     context['add_course_form'] = add_course_form
     context['course_task_form'] = course_task_form
     context['task_info_form'] = task_info_form
-    context['courses'] = Course.objects.all()
+    context['courses'] = Course.objects.filter(user=request.user)
     context['username'] = request.user.username
 
     return render(request, 'dashboard/coursework.html', context)
@@ -121,4 +121,3 @@ def edit_course_task(request):
 
     else:
         return HttpResponseRedirect(reverse('dash'))
-
