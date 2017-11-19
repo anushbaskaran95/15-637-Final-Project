@@ -143,7 +143,6 @@ class TaskInfoForm(forms.ModelForm):
         cleaned_data = super(TaskInfoForm, self).clean()
 
         if not self.instance.pk:
-            print cleaned_data
             start_date = self.cleaned_data.get("start_date")
             start_time = self.cleaned_data.get("start_time")
             start_datetime = datetime.datetime.combine(start_date, start_time)
