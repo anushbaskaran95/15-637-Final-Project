@@ -7,6 +7,10 @@ body {
     width: 75%;
 }
 
+.task-pad {
+    padding: 15px 10px 10px 5px;
+}
+
 .task-name {
     font-weight: 600;
     font-size: 17px;
@@ -67,7 +71,7 @@ p.task-headings {
 }
 
 .text-data {
-    font-size: small;
+    font-size: 14px;
 }
 
 .switch label input[type=checkbox]:checked+.lever {
@@ -77,8 +81,10 @@ p.task-headings {
     background-color: #0277bd !important;
 }
 
-.actions {
-    margin-top: 8px;
-    border-top: 1px solid #ddd;
-    padding-top: 7px !important;
+.no-borders {
+    box-shadow: none !important;
+    border: none !important;
+}
+.no-pad {
+    padding: 0 !important;
 }

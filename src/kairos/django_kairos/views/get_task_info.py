@@ -26,9 +26,9 @@ def get_task_info(request):
 
         if task.time_spent is not None:
             if task.continue_time is not None:
-                time_spent = (datetime.datetime.now() - task.continue_time).total_seconds() / 3600.0 + task.time_spent
+                time_spent = ((datetime.datetime.now() - task.continue_time).total_seconds() + task.time_spent) / 3600.0
             else:
-                time_spent = (datetime.datetime.now() - start_datetime).total_seconds() / 3600.0 + task.time_spent
+                time_spent = ((datetime.datetime.now() - start_datetime).total_seconds() + task.time_spent) / 3600.0
         else:
             time_spent = (datetime.datetime.now() - start_datetime).total_seconds() / 3600.0
 

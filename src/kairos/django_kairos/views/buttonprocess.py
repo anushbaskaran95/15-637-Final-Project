@@ -46,7 +46,7 @@ def process_stop(request):
             raise Http404
 
         if task_info.continue_time is None:
-                task_info.continue_time = datetime.datetime.combine(task_info.start_date, task_info.start_time)
+            task_info.continue_time = datetime.datetime.combine(task_info.start_date, task_info.start_time)
         
         task_info.time_spent = (timezone.now() - task_info.continue_time).total_seconds() + task_info.time_spent
     

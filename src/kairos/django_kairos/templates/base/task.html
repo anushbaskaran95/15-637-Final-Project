@@ -1,21 +1,27 @@
 {% load class_tag %}
 
-<div class="row card pad10">
+<div class="row card task-pad">
     <div class="col s12">
         {% if task.name %}
-        <div><span class="task-name">{{task.course.course_name}}: {{task.name}}</span></div>
+        <span class="task-name">{{task.course.course_name}}: {{task.name}}</span>
         {% endif %}
 
         {% if task.topic %}
-        <div><span class="task-name">{{task.topic}}</span></div>
+        <span class="task-name">{{task.topic}}</span>
         {% endif %}
 
         {% if task.task_name %}
-        <div><span class="task-name">{{task.task_name}}</span></div>
+        <span class="task-name">{{task.task_name}}</span>
         {% endif %}
+        <span>
+            <a id="{{task.id}}/{{task.task_info.id}}/{{task|get_class}}"
+               class="edit">
+                Edit
+            </a>
+        </span>
 
         <!-- Switch -->
-        <a class="switch right mt-25">
+        <a class="switch right">
             <label class="fs14">
                 Pause
                 {% if task.task_info.status == 0 %}
@@ -28,6 +34,7 @@
                 Start
             </label>
         </a>
+        <br/>
         <a id="{{task.task_info.id}}" class="stop right">
             Finish Task
         </a>
@@ -35,43 +42,46 @@
 
     <div class="row">
         {% if task.task_info.percentage_completion %}
-            <div class="col s4 offset-s2">
-                <div class="svg-container pb-container-{{task.task_info.id}}"></div>
-            </div>
-            <div class="col s4">
-                <div class="svg-container pc-container-{{task.task_info.id}}"></div>
-            </div>
+        <div class="col s4 offset-s2">
+            <div class="svg-container pb-container-{{task.task_info.id}}"></div>
+        </div>
+        <div class="col s4">
+            <div class="svg-container pc-container-{{task.task_info.id}}"></div>
+        </div>
         {% else %}
-            <div class="col s12">
-                <div class="svg-container pb-container-{{task.task_info.id}}"></div>
-            </div>
+        <div class="col s4 offset-s4">
+            <div class="svg-container pb-container-{{task.task_info.id}}"></div>
+        </div>
         {% endif %}
     </div>
-</div>
-<ul class="collapsible actions">
-    <li>
-        <div class="collapsible-header">
-            <a class="view-details left">
-                View Details
-            </a>
-            <a id="{{task.id}}/{{task.task_info.id}}/{{task|get_class}}"
-               class="edit right">
-                Edit
-            </a>
-        </div>
-        <div class="collapsible-body">
-            <div class="col s12 text-data">
-                <div>Start Date: {{task.task_info.start_date}}</div>
-                <div>Expected Finish Date: {{task.task_info.expected_finish_date}}</div>
 
-                {% if task.task_info.due_date %}
-                <div>Due Date: {{task.task_info.due_date}}</div>
-                {% endif %}
-
-                {% if task.task_info.comments %}
-                <div>Comments: {{task.task_info.comments}}</div>
-                {% endif %}
+    <ul class="collapsible no-borders m0">
+        <li>
+            <div class="collapsible-header no-borders">
+                <a class="view-details right">
+                    View Details
+                </a>
             </div>
-        </div>
-    </li>
-</ul>
+            <div class="collapsible-body no-borders no-pad">
+                <div class="col s12 text-data">
+                    <div>Start Date: {{task.task_info.start_date}} {{task.task_info.start_time}}</div>
+                    <div>Expected Finish Date: {{task.task_info.expected_finish_date}} {{task.task_info.expected_finish_time}}</div>
+
+                    {% if task.task_info.due_date %}
+                    <div>
+                        <span>Due Date: {{task.task_info.due_date}}</span>
+                        {% if task.task_info.due_date %}
+                            <span>{{task.task_info.due_time}}</span>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    {% if task.task_info.comments %}
+                    <div>Comments: {{task.task_info.comments}}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </li>
+    </ul>
+
+</div>

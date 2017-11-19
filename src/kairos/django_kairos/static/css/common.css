@@ -17,15 +17,25 @@
     padding: 3px 9px 3px 9px;
     cursor: pointer;
     margin-right: -2px;
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 12px;
+}
+.stop:hover {
+    background: #ddd;
 }
 .view-details {
     cursor: pointer;
 }
 .edit {
+    background: #eee;
+    padding: 3px 9px 3px 9px;
     cursor: pointer;
-    margin-right: 30px;
+    margin-left: 20px;
+    font-size: 16px;
+    margin-top: 12px;
+}
+.edit:hover {
+    background: #ddd;
 }
 
 .error {
@@ -81,7 +91,9 @@
 .ml20 {
     margin-left: 20px;
 }
-
+.m0 {
+    margin: 0;
+}
 .fs14 {
     font-size: 14px;
 }

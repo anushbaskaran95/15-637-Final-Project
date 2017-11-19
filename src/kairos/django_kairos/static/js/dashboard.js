@@ -123,7 +123,7 @@ function getTaskMetrics() {
             {
                 value: 0,
                 // if specifying a background is not necessary you can use these shortcuts
-                color: ['#000000', '#448aff']
+                color: '#0277bd'
             }
         ],
         // simple center text
@@ -160,15 +160,13 @@ function getTaskMetrics() {
 
     $.get( "/get-task-info")
         .done(function(data) {
-//            for (var key in data) {
-//                var chart = new RadialProgressChart('#pb-container/1', settings);
-//                chart.update
-//            }
-              settingsPB['max'] = data[1][0]
-              var chart1 = new RadialProgressChart('.pb-container-1', settingsPB);
-              chart1.update(data[1][1])
-              var chart2 = new RadialProgressChart('.pc-container-1', settingsPC);
-              chart2.update(data[1][2])
+            for (var key in data) {
+                settingsPB['max'] = data[key][0]
+                var chart1 = new RadialProgressChart('.pb-container-'+key, settingsPB);
+                chart1.update(data[key][1])
+                var chart2 = new RadialProgressChart('.pc-container-'+key, settingsPC);
+                chart2.update(data[key][2])
+            }
         })
         .fail(function() {
             console.log('An error occurred')
