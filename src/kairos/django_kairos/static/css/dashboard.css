@@ -4,16 +4,16 @@ body {
 
 .tasks-container {
     margin: 0 auto;
-    width: 75%;
+    width: 70%;
 }
 
 .task-pad {
-    padding: 15px 10px 10px 5px;
+    padding: 15px 10px 12px 5px;
 }
 
 .task-name {
     font-weight: 600;
-    font-size: 17px;
+    font-size: 16px;
 }
 
 li.float-none {

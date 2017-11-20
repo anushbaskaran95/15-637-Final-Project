@@ -161,6 +161,15 @@ function getTaskMetrics() {
     $.get( "/get-task-info")
         .done(function(data) {
             for (var key in data) {
+                if (data[key][3] == '1') {
+                    var hrs = Math.round(data[key][1] * 100) / 100;
+                    if (hrs > 1) {
+                        $('.task-message-'+key).html('Task starts in' + hrs + 'Hour(s)');
+                    } else {
+                        $('.task-message-'+key).html('Task starts in ' + Math.round(hrs * 60) + ' Minutes');
+                    }
+                    continue;
+                }
                 settingsPB['max'] = data[key][0]
                 var chart1 = new RadialProgressChart('.pb-container-'+key, settingsPB);
                 chart1.update(data[key][1])

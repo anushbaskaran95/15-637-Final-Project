@@ -9,10 +9,15 @@
                 <label class="input-label"
                        for="{{ routine_form.task_name.id_for_label }}">Task Name</label>
             </div>
-            <br/>
+
+            <div id="time-needed-error" class="error"></div>
+            <div class="input-field">
+                {{ task_info_form.time_needed }}
+                <label class="input-label"
+                       for="{{ task_info_form.time_needed.id_for_label }}">Time Needed in Hrs</label>
+            </div>
 
             <div id="start-date-error" class="error"></div>
-            <label class="date-label input-label">Start Date</label>
             <div class="row col s12">
                 <div class="input-field col s6">
                     {{ task_info_form.start_date }}
@@ -23,7 +28,6 @@
             </div>
 
             <div id="finish-date-error" class="error"></div>
-            <label class="date-label input-label">Expected Finish Date</label>
             <div class="row col s12">
                 <div class="input-field col s6">
                     {{ task_info_form.expected_finish_date }}

@@ -24,6 +24,9 @@ class TaskInfo(models.Model):
     due_date = models.DateField(null=True, blank=True)
     due_time = models.TimeField(null=True, blank=True)
 
+    # approximate time (in hrs) to complete task
+    time_needed = models.FloatField()
+
     # Task comments - optional
     comments = models.CharField(max_length=450, null=True, blank=True)
 

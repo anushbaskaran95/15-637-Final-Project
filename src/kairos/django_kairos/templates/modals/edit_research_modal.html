@@ -21,6 +21,13 @@
                 {{ task_info_form.start_time }}
             </div>
         </div>
+
+        <div id="time-needed-error" class="error"></div>
+        <div class="input-field">
+            {{ task_info_form.time_needed }}
+            <label class="input-label"
+                   for="{{ task_info_form.time_needed.id_for_label }}">Time Needed in Hrs</label>
+        </div>
     </div>
 
     <div id="finish-date-error" class="error"></div>

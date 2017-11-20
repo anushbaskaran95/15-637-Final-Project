@@ -169,6 +169,15 @@ class TaskInfoForm(forms.ModelForm):
 
         return cleaned_data
 
+    def clean_time_needed(self):
+        time_needed = self.cleaned_data.get('time_needed')
+        if time_needed < 0:
+            forms.ValidationError("Invalid Time")
+        elif time_needed > 200:
+            forms.ValidationError("Value is too high for a task")
+        else:
+            return time_needed
+
     def clean_percentage_completion(self):
         percentage_completion = self.cleaned_data.get('percentage_completion')
         if percentage_completion < 0 or percentage_completion > 100:

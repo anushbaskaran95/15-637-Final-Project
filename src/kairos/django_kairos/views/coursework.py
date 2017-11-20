@@ -71,6 +71,8 @@ def add_course_task(request):
             return JsonResponse({'status': 'ok', 'errors': []})
         else:
             error_list = dict()
+            if task_info_form['time_needed'].errors:
+                error_list['time_needed-error'] = task_info_form['time_needed'].errors
             if task_info_form['start_date'].errors:
                 error_list['start-date-error'] = task_info_form['start_date'].errors
             if task_info_form['expected_finish_date'].errors:
@@ -109,6 +111,8 @@ def edit_course_task(request):
             return JsonResponse({'status': 'ok', 'errors': []})
         else:
             error_list = dict()
+            if task_info_form['time_needed'].errors:
+                error_list['time_needed-error'] = task_info_form['time_needed'].errors
             if task_info_form['start_date'].errors:
                 error_list['start-date-error'] = task_info_form['start_date'].errors
             if task_info_form['expected_finish_date'].errors:

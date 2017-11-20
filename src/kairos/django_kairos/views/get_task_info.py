@@ -18,12 +18,6 @@ def get_task_info(request):
 
         start_datetime = datetime.datetime.combine(task.start_date, task.start_time)
 
-        if start_datetime > datetime.datetime.now():
-            continue
-
-        expected_finish_datetime = datetime.datetime.combine(task.expected_finish_date, task.expected_finish_time)
-        total_time_in_hours = abs(expected_finish_datetime - start_datetime).total_seconds() / 3600.0
-
         if task.time_spent is not None:
             if task.continue_time is not None:
                 time_spent = ((datetime.datetime.now() - task.continue_time).total_seconds() + task.time_spent) / 3600.0
@@ -32,7 +26,11 @@ def get_task_info(request):
         else:
             time_spent = (datetime.datetime.now() - start_datetime).total_seconds() / 3600.0
 
-        info = [total_time_in_hours, time_spent, task.percentage_completion]
+        if start_datetime > datetime.datetime.now():
+            info = [task.time_needed, abs(time_spent), task.percentage_completion, '1']
+        else:
+            info = [task.time_needed, time_spent, task.percentage_completion, '0']
+
         context[task.id] = info
 
     return JsonResponse(context)

@@ -17,8 +17,8 @@
     padding: 3px 9px 3px 9px;
     cursor: pointer;
     margin-right: -2px;
-    font-size: 16px;
-    margin-top: 12px;
+    font-size: 14px;
+    margin-top: 17px;
 }
 .stop:hover {
     background: #ddd;
@@ -30,9 +30,8 @@
     background: #eee;
     padding: 3px 9px 3px 9px;
     cursor: pointer;
-    margin-left: 20px;
-    font-size: 16px;
-    margin-top: 12px;
+    margin-left: 15px;
+    font-size: 14px;
 }
 .edit:hover {
     background: #ddd;
@@ -78,11 +77,24 @@
 .pad10 {
     padding: 10px;
 }
+.pad-ch {
+    padding-left: 10px !important;
+    padding-bottom: 0px !important;
+}
 .mt30{
    margin-top: 30px;
 }
+.mt10{
+   margin-top: 10px;
+}
+.ml5{
+   margin-left: 5px;
+}
 .mt-25{
    margin-top: -25px;
+}
+.mt-20{
+   margin-top: -20px;
 }
 
 .mr30 {
@@ -91,11 +103,14 @@
 .ml20 {
     margin-left: 20px;
 }
+.ml10 {
+    margin-left: 10px;
+}
 .m0 {
     margin: 0;
 }
-.fs14 {
-    font-size: 14px;
+.mb0 {
+    margin-bottom: 0 !important;
 }
 
 .dropdown-content li>span {
@@ -107,5 +122,5 @@
 }
 
 .svg-container {
-    max-width: 200px;
+    max-width: 180px;
 }

@@ -22,7 +22,7 @@
 
         <!-- Switch -->
         <a class="switch right">
-            <label class="fs14">
+            <label>
                 Pause
                 {% if task.task_info.status == 0 %}
                 <input value="{{task.task_info.id}}" type="checkbox" checked>
@@ -40,7 +40,8 @@
         </a>
     </div>
 
-    <div class="row">
+    <div class="row mb0">
+        <div class="col s6 offset-s4 task-name task-message-{{task.task_info.id}}"></div>
         {% if task.task_info.percentage_completion %}
         <div class="col s4 offset-s2">
             <div class="svg-container pb-container-{{task.task_info.id}}"></div>
@@ -57,29 +58,46 @@
 
     <ul class="collapsible no-borders m0">
         <li>
-            <div class="collapsible-header no-borders">
-                <a class="view-details right">
-                    View Details
-                </a>
+            <div class="collapsible-header no-borders pad-ch">
+                <a>Toggle Details</a>
             </div>
             <div class="collapsible-body no-borders no-pad">
-                <div class="col s12 text-data">
-                    <div>Start Date: {{task.task_info.start_date}} {{task.task_info.start_time}}</div>
-                    <div>Expected Finish Date: {{task.task_info.expected_finish_date}} {{task.task_info.expected_finish_time}}</div>
-
-                    {% if task.task_info.due_date %}
-                    <div>
-                        <span>Due Date: {{task.task_info.due_date}}</span>
+                <table class="centered">
+                    <thead>
+                    <tr>
+                        <th>Start Date</th>
+                        <th>Expected Finish Date</th>
                         {% if task.task_info.due_date %}
-                            <span>{{task.task_info.due_time}}</span>
+                            <th>Due Date</th>
                         {% endif %}
-                    </div>
-                    {% endif %}
+                    </tr>
+                    </thead>
 
-                    {% if task.task_info.comments %}
-                    <div>Comments: {{task.task_info.comments}}</div>
-                    {% endif %}
+                    <tbody>
+                    <tr>
+                        <td>
+                            <span>{{task.task_info.start_date}}</span>
+                            <span class="ml10">{{task.task_info.start_time}}</span>
+                        </td>
+                        <td>
+                            <span>{{task.task_info.expected_finish_date}}</span>
+                            <span class="ml10">{{task.task_info.expected_finish_time}}</span>
+                        </td>
+                        {% if task.task_info.due_date %}
+                        <td>
+                            <span>{{task.task_info.due_date}}</span>
+                            <span class="ml10">{{task.task_info.due_time}}</span>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    </tbody>
+                </table>
+
+                {% if task.task_info.comments %}
+                <div class="mt10 ml5"><b>Comments:</b>
+                    <span class="ml10">{{task.task_info.comments}}</span>
                 </div>
+                {% endif %}
             </div>
         </li>
     </ul>
