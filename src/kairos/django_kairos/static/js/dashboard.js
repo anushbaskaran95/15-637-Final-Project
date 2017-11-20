@@ -119,19 +119,8 @@ function getTaskMetrics() {
             width: 1
         },
         round: true,
-        series: [
-            {
-                value: 0,
-                // if specifying a background is not necessary you can use these shortcuts
-                color: '#0277bd'
-            }
-        ],
-        // simple center text
-        center: {
-            content: [function(value) {
-                        return value
-                      }, ' Hrs'],
-        }
+        series: [{value: 0}],
+        center: []
     }
 
     var settingsPC = {
@@ -161,7 +150,7 @@ function getTaskMetrics() {
     $.get( "/get-task-info")
         .done(function(data) {
             for (var key in data) {
-                if (data[key][3] == '1') {
+                if (data[key][5] == '1') {
                     var hrs = Math.round(data[key][1] * 100) / 100;
                     if (hrs > 1) {
                         $('.task-message-'+key).html('Task starts in' + hrs + 'Hour(s)');
@@ -170,11 +159,23 @@ function getTaskMetrics() {
                     }
                     continue;
                 }
-                settingsPB['max'] = data[key][0]
-                var chart1 = new RadialProgressChart('.pb-container-'+key, settingsPB);
-                chart1.update(data[key][1])
-                var chart2 = new RadialProgressChart('.pc-container-'+key, settingsPC);
-                chart2.update(data[key][2])
+                if (data[key][3] > 0) {
+                    settingsPB['max'] = data[key][4]
+                    settingsPB['series'][0]['color'] = '#f44336'
+                    settingsPB['center'] = [function(value) {return ('> '+ value + ' Hrs');}]
+                    var chart3 = new RadialProgressChart('.pb-container-'+key, settingsPB);
+                    chart3.update(data[key][3])
+                } else {
+                    settingsPB['max'] = data[key][0]
+                    settingsPB['series'][0]['color'] = '#0277bd'
+                    settingsPB['center'] = [function(value) {return (value + ' Hrs');}]
+                    var chart1 = new RadialProgressChart('.pb-container-'+key, settingsPB);
+                    chart1.update(data[key][1])
+                }
+                if (data[key][2] != null) {
+                    var chart2 = new RadialProgressChart('.pc-container-'+key, settingsPC);
+                    chart2.update(data[key][2])
+                }
             }
         })
         .fail(function() {

@@ -13,7 +13,8 @@
 }
 
 .stop {
-    background: #eee;
+    background: #0277bd;
+    color: #fff;
     padding: 3px 9px 3px 9px;
     cursor: pointer;
     margin-right: -2px;
@@ -21,7 +22,7 @@
     margin-top: 17px;
 }
 .stop:hover {
-    background: #ddd;
+    background: #01579b;
 }
 .view-details {
     cursor: pointer;
