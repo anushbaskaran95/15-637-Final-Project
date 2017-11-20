@@ -36,7 +36,8 @@ $( document ).ready(function() {  // Runs when the document is ready
                 task_id : task_id,
                 info : info
             }
+        }).done(function() {
+            location.reload();
         });
     });
-
 }); // End of $(document).ready

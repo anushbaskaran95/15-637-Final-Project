@@ -1,45 +1,50 @@
 {% load class_tag %}
 
 <div class="row card task-pad">
-    <div class="col s12">
-        {% if task.name %}
-        <span class="task-name">{{task.course.course_name}}: {{task.name}}</span>
-        {% endif %}
 
-        {% if task.topic %}
-        <span class="task-name">{{task.topic}}</span>
-        {% endif %}
+    {% if task.name %}
+    <span class="task-name">{{task.course.course_name}}: {{task.name}}</span>
+    {% endif %}
 
-        {% if task.task_name %}
-        <span class="task-name">{{task.task_name}}</span>
-        {% endif %}
-        <span>
-            <a id="{{task.id}}/{{task.task_info.id}}/{{task|get_class}}"
-               class="edit">
-                Edit
-            </a>
-        </span>
+    {% if task.topic %}
+    <span class="task-name">{{task.topic}}</span>
+    {% endif %}
 
-        <!-- Switch -->
-        <a class="switch right">
-            <label>
-                Pause
-                {% if task.task_info.status == 0 %}
-                <input value="{{task.task_info.id}}" type="checkbox" checked>
-                {% endif %}
-                {% if task.task_info.status == 1 %}
-                <input value="{{task.task_info.id}}" type="checkbox">
-                {% endif %}
-                <span class="lever"></span>
-                Start
-            </label>
+    {% if task.task_name %}
+    <span class="task-name">{{task.task_name}}</span>
+    {% endif %}
+
+    {% if task.task_info.status != 2 %}
+    <span>
+        <a id="{{task.id}}/{{task.task_info.id}}/{{task|get_class}}"
+           class="edit">
+            Edit
         </a>
-        <br/>
-        <a id="{{task.task_info.id}}" class="stop right">
-            Finish Task
-        </a>
-    </div>
+    </span>
+    {% endif %}
 
+    {% if task.task_info.status != 2 %}
+    <!-- Switch -->
+    <a class="switch right">
+        <label>
+            Pause
+            {% if task.task_info.status == 0 %}
+            <input value="{{task.task_info.id}}" type="checkbox" checked>
+            {% endif %}
+            {% if task.task_info.status == 1 %}
+            <input value="{{task.task_info.id}}" type="checkbox">
+            {% endif %}
+            <span class="lever"></span>
+            Start
+        </label>
+    </a>
+    <br/>
+    <a id="{{task.task_info.id}}" class="stop right">
+        Finish Task
+    </a>
+    {% endif %}
+
+    {% if task.task_info.status != 2 %}
     <div class="row mb0">
         <div class="col s6 offset-s4 task-name task-message-{{task.task_info.id}}"></div>
         {% if task.task_info.percentage_completion %}
@@ -55,6 +60,13 @@
         </div>
         {% endif %}
     </div>
+    {% endif %}
+
+    {% if task.task_info.status == 2 %}
+        <div class="fin-task align-center mt10">
+            Task Completed on {{task.task_info.stop_time}}
+        </div>
+    {% endif %}
 
     <ul class="collapsible no-borders m0">
         <li>
@@ -68,7 +80,7 @@
                         <th>Start Date</th>
                         <th>Expected Finish Date</th>
                         {% if task.task_info.due_date %}
-                            <th>Due Date</th>
+                        <th>Due Date</th>
                         {% endif %}
                     </tr>
                     </thead>
@@ -104,5 +116,4 @@
             </div>
         </li>
     </ul>
-
 </div>

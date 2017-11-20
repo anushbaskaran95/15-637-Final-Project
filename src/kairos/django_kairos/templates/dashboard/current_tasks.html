@@ -54,7 +54,6 @@
 
 {% block main-content%}
 <div class="tasks-container">
-    <p class="task-headings">Coursework</p>
     {% for course in courses %}
         {% for task in course.course_tasks.all %}
             {% include "base/task.html" %}
@@ -62,17 +61,15 @@
     {% endfor %}
     <br/>
 
-    <p class="task-headings">Research</p>
-        {% for task in research_tasks %}
-            {% include "base/task.html" %}
-        {% endfor %}
+    {% for task in research_tasks %}
+        {% include "base/task.html" %}
+    {% endfor %}
 
     <br/>
 
-    <p class="task-headings">Routine</p>
-        {% for task in routine_tasks %}
-            {% include "base/task.html" %}
-        {% endfor %}
+    {% for task in routine_tasks %}
+        {% include "base/task.html" %}
+    {% endfor %}
 
 </div>
 {% endblock %}

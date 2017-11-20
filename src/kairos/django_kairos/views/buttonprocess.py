@@ -47,8 +47,11 @@ def process_stop(request):
 
         if task_info.continue_time is None:
             task_info.continue_time = datetime.datetime.combine(task_info.start_date, task_info.start_time)
-        
-        task_info.time_spent = (timezone.now() - task_info.continue_time).total_seconds() + task_info.time_spent
+
+        if task_info.time_spent is None:
+            task_info.time_spent = (timezone.now() - task_info.continue_time).total_seconds()
+        else:
+            task_info.time_spent += (timezone.now() - task_info.continue_time).total_seconds()
     
         task_info.stop_time = timezone.now()
         task_info.status = 2
