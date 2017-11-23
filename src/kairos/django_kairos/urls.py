@@ -10,6 +10,7 @@ from views.routine import *
 from views.profile import *
 from views.buttonprocess import *
 from views.get_task_info import *
+from views.get_notification import *
 
 urlpatterns = [
     url(r'^register/$', register, name='register'),
@@ -57,4 +58,6 @@ urlpatterns = [
     url(r'^edit-research-task$', edit_research_task, name='edit-research-task'),
     url(r'^edit-routine-task$', edit_routine_task, name='edit-routine-task'),
     url(r'^get-task-info$', get_task_info, name='get-task-info'),
+
+    url(r'^get-notification$', get_notification, name='get-notification'),
 ]
