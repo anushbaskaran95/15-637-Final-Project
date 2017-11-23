@@ -19,7 +19,9 @@ $( document ).ready(function() {  // Runs when the document is ready
                 task_id : task_id,
                 info : info
            }
-       });
+       }).done(function() {
+            location.reload();
+        });
     });
     /**
      * once user has clicked any of stop button, it will send its id to backend.

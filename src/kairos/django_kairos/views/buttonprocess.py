@@ -34,7 +34,7 @@ def process_button(request):
             task_info.status = 0
             task_info.save()
 
-            print TaskInfo.objects.exclude(pk=task_id)
+            print TaskInfo.objects.exclude(pk=task_id).filter(status=0)
             alltasks = TaskInfo.objects.exclude(pk=task_id).filter(status=0)
             print alltasks
             if alltasks is not None:
