@@ -41,30 +41,43 @@ $( document ).ready(function() {  // Runs when the document is ready
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+ d.toUTCString();
     console.log(task_id);
-    document.cookie += expires + ";path=/;" + "task_shown=" + task_id;
+    document.cookie = expires + ";path=/;" + "task_shown=" + task_id;
     console.log(document.cookie);
 }
 
 function checkCookie(task_id) {
-    var task_id_shown = getCookie("task_shown");
-    console.log(task_id_shown);
-    if (task_id_shown == null ||task_id_shown == "") {
-        return false;
+  $.ajax({
+    type:"POST",
+    url:"/check-cookie",
+    data: {
+      'task_id':task_id
     }
-    console.log(task_id_shown);
-    for (var i = 0; i < task_id_shown.length; i++) {
-      if (task_id == parseInt(task_id_shown.charAt(i))) {
-        return true;
-      }
+  }).done(function(data){
+    if (data == 'true') {
+      return true;
+    } else {
+      return false;
     }
-
-    return false;
+  })
+    // var task_id_shown = getCookie("task_shown");
+    // console.log(task_id_shown);
+    // if (task_id_shown == null ||task_id_shown == "") {
+    //     return false;
+    // }
+    // console.log(task_id_shown);
+    // for (var i = 0; i < task_id_shown.length; i++) {
+    //   if (task_id == parseInt(task_id_shown.charAt(i))) {
+    //     return true;
+    //   }
+    // }
+    //
+    // return false;
 }
 
 
 
   // Periodically check if a task is approaching the deadline
-  //window.setInterval(getNotification, 5000);
+  window.setInterval(getNotification, 5000);
 
 
   function getNotification(data) {
@@ -76,11 +89,13 @@ function checkCookie(task_id) {
       //console.log("finish get notification");
       if (data) {
         for (var key in data) {
-          if (!checkCookie(key)) {
-            var message = data[key];
-            Materialize.toast(message, 3000, 'rounded') // 'rounded' is the class I'm applying to the toast
-            setCookie(1, key);
-          }
+          // if (!checkCookie(key)) {
+          //   var message = data[key];
+          //   Materialize.toast(message, 3000, 'rounded') // 'rounded' is the class I'm applying to the toast
+          //   //setCookie(1, key);
+          // }
+          var message = data[key];
+          Materialize.toast(message, 3000, 'rounded') // 'rounded' is the class I'm applying to the toast
         }
       }
     }).fail(function(xhr, status, errorThrown) {

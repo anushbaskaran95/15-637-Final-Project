@@ -19,7 +19,9 @@ def get_notification(request):
         time_difference = expected_finish_datetime - datetime.datetime.now()
         time_difference_hour = time_difference.days * 24 + time_difference.seconds / 3600.0
         course_task = CourseTask.objects.get(task_info__id = task.id)
-        if time_difference_hour > 0 and time_difference_hour <= 24:
+        if time_difference_hour > 0 and time_difference_hour <= 24 and not task.notified:
+            task.notified = True
+            task.save()
             context[task.id] = course_task.name + " is approaching expected finish time"
 
     for task in research_tasks:
@@ -27,7 +29,9 @@ def get_notification(request):
         time_difference = expected_finish_datetime - datetime.datetime.now()
         time_difference_hour = time_difference.days * 24 + time_difference.seconds / 3600.0
         research_task =  Research.objects.get(task_info__id= task.id)
-        if time_difference_hour > 0 and time_difference_hour <= 24:
+        if time_difference_hour > 0 and time_difference_hour <= 24 and not task.notified:
+            task.notified = True
+            task.save()
             context[task.id] = research_task.topic + " is approaching expected finish time"
 
     for task in misc_tasks:
@@ -35,7 +39,9 @@ def get_notification(request):
         time_difference = expected_finish_datetime - datetime.datetime.now()
         time_difference_hour = time_difference.days * 24 + time_difference.seconds / 3600.0
         misc_task = Misc.objects.get(task_info__id=task.id)
-        if time_difference_hour > 0 and time_difference_hour <= 24:
+        if time_difference_hour > 0 and time_difference_hour <= 24 and not task.notified:
+            task.notified = True
+            task.save()
             context[task.id] = misc_task.task_name + " is approaching expected finish time"
 
 

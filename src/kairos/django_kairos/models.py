@@ -45,6 +45,9 @@ class TaskInfo(models.Model):
     # Status of task (0: ongoing, 1: paused, 2: stopped)
     status = models.IntegerField(default=0, null=True, blank=True)
 
+    # status of whether this task has been notified to user
+    notified = models.BooleanField(default=False)
+
 
 class CourseTask(models.Model):
     # Course under which this task is added
