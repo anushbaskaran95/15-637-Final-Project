@@ -36,10 +36,35 @@ $( document ).ready(function() {  // Runs when the document is ready
       }
   });
 
+  function setCookie(exdays, task_id) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    console.log(task_id);
+    document.cookie += expires + ";path=/;" + "task_shown=" + task_id;
+    console.log(document.cookie);
+}
+
+function checkCookie(task_id) {
+    var task_id_shown = getCookie("task_shown");
+    console.log(task_id_shown);
+    if (task_id_shown == null ||task_id_shown == "") {
+        return false;
+    }
+    console.log(task_id_shown);
+    for (var i = 0; i < task_id_shown.length; i++) {
+      if (task_id == parseInt(task_id_shown.charAt(i))) {
+        return true;
+      }
+    }
+
+    return false;
+}
+
 
 
   // Periodically check if a task is approaching the deadline
-  window.setInterval(getNotification, 5000);
+  //window.setInterval(getNotification, 5000);
 
 
   function getNotification(data) {
@@ -50,18 +75,13 @@ $( document ).ready(function() {  // Runs when the document is ready
     }).done(function(data){
       //console.log("finish get notification");
       if (data) {
-        //console.log("now in getNotification");
         for (var key in data) {
-          //console.log(data[key]);
-          var message = data[key];
-          message.concat(" is approaching expected finish time");
-          console.log(message);
-          // var test = "hi, ";
-          // test.concat("i am fine");
-          // console.log(test);
-          Materialize.toast(message, 3000, 'rounded') // 'rounded' is the class I'm applying to the toast
+          if (!checkCookie(key)) {
+            var message = data[key];
+            Materialize.toast(message, 3000, 'rounded') // 'rounded' is the class I'm applying to the toast
+            setCookie(1, key);
+          }
         }
-
       }
     }).fail(function(xhr, status, errorThrown) {
           alert("error");
