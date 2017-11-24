@@ -76,6 +76,7 @@ def edit_research_task(request):
         if research_task_form.is_valid() and task_info_form.is_valid():
             task = research_task_form.save()
             task_info = task_info_form.save()
+            task_info.notified = False
             task.task_info = task_info
             task.save()
             return JsonResponse({'status': 'ok', 'errors': []})
