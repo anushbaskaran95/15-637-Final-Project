@@ -36,44 +36,6 @@ $( document ).ready(function() {  // Runs when the document is ready
       }
   });
 
-  function setCookie(exdays, task_id) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+ d.toUTCString();
-    console.log(task_id);
-    document.cookie = expires + ";path=/;" + "task_shown=" + task_id;
-    console.log(document.cookie);
-}
-
-function checkCookie(task_id) {
-  $.ajax({
-    type:"POST",
-    url:"/check-cookie",
-    data: {
-      'task_id':task_id
-    }
-  }).done(function(data){
-    if (data == 'true') {
-      return true;
-    } else {
-      return false;
-    }
-  })
-    // var task_id_shown = getCookie("task_shown");
-    // console.log(task_id_shown);
-    // if (task_id_shown == null ||task_id_shown == "") {
-    //     return false;
-    // }
-    // console.log(task_id_shown);
-    // for (var i = 0; i < task_id_shown.length; i++) {
-    //   if (task_id == parseInt(task_id_shown.charAt(i))) {
-    //     return true;
-    //   }
-    // }
-    //
-    // return false;
-}
-
 
 
   // Periodically check if a task is approaching the deadline
@@ -83,17 +45,30 @@ function checkCookie(task_id) {
   function getNotification(data) {
     //console.log("in getNotification");
     $.ajax({
-      url: '/get-notification',
+      url: '/get-notification-expected-finish',
       type: 'GET',
     }).done(function(data){
       //console.log("finish get notification");
       if (data) {
         for (var key in data) {
-          // if (!checkCookie(key)) {
-          //   var message = data[key];
-          //   Materialize.toast(message, 3000, 'rounded') // 'rounded' is the class I'm applying to the toast
-          //   //setCookie(1, key);
-          // }
+          var message = data[key];
+          Materialize.toast(message, 3000, 'rounded') // 'rounded' is the class I'm applying to the toast
+        }
+      }
+    }).fail(function(xhr, status, errorThrown) {
+          alert("error");
+          console.log("error" + errorThrown);
+          console.log("status" + status);
+          console.dir(xhr);
+    });
+
+    $.ajax({
+      url: '/get-notification-due',
+      type: 'GET',
+    }).done(function(data){
+      //console.log("finish get notification");
+      if (data) {
+        for (var key in data) {
           var message = data[key];
           Materialize.toast(message, 3000, 'rounded') // 'rounded' is the class I'm applying to the toast
         }

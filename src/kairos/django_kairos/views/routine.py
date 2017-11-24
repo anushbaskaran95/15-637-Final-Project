@@ -39,7 +39,8 @@ def add_routine_task(request):
             task_info = task_info_form.save()
             routine_task = routine_form.save(commit=False)
             routine_task.user = request.user
-            task_info.notified = False
+            task_info.expected_finish_notified = False
+            task_info.due_notified = False
             routine_task.task_info = task_info
             routine_task.save()
             return JsonResponse({'status': 'ok', 'errors': []})

@@ -59,5 +59,6 @@ urlpatterns = [
     url(r'^edit-routine-task$', edit_routine_task, name='edit-routine-task'),
     url(r'^get-task-info$', get_task_info, name='get-task-info'),
 
-    url(r'^get-notification$', get_notification, name='get-notification'),
+    url(r'^get-notification-expected-finish$', get_notification_expected_finish, name='get-notification-expected-finish'),
+    url(r'^get-notification-due$', get_notification_due, name='get-notification-due')
 ]

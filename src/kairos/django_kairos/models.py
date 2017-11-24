@@ -46,7 +46,8 @@ class TaskInfo(models.Model):
     status = models.IntegerField(default=0, null=True, blank=True)
 
     # status of whether this task has been notified to user
-    notified = models.BooleanField(default=False)
+    expected_finish_notified = models.BooleanField(default=False)
+    due_notified = models.BooleanField(default=False)
 
 
 class CourseTask(models.Model):
