@@ -9,7 +9,6 @@ from django.http import JsonResponse
 
 
 def get_notification(request):
-    print("hi")
     context = {}
     course_tasks = TaskInfo.objects.filter(coursetask__course__user=request.user).exclude(status=2)
     research_tasks = TaskInfo.objects.filter(research__user=request.user).exclude(status=2)
@@ -21,7 +20,7 @@ def get_notification(request):
         time_difference_hour = time_difference.days * 24 + time_difference.seconds / 3600.0
         course_task = CourseTask.objects.get(task_info__id = task.id)
         if time_difference_hour > 0 and time_difference_hour <= 24:
-            context[task.id] = course_task.name
+            context[task.id] = course_task.name + " is approaching expected finish time"
 
     for task in research_tasks:
         expected_finish_datetime = datetime.datetime.combine(task.expected_finish_date, task.expected_finish_time)
@@ -29,7 +28,7 @@ def get_notification(request):
         time_difference_hour = time_difference.days * 24 + time_difference.seconds / 3600.0
         research_task =  Research.objects.get(task_info__id= task.id)
         if time_difference_hour > 0 and time_difference_hour <= 24:
-            context[task.id] = research_task.topic
+            context[task.id] = research_task.topic + " is approaching expected finish time"
 
     for task in misc_tasks:
         expected_finish_datetime = datetime.datetime.combine(task.expected_finish_date, task.expected_finish_time)
@@ -37,7 +36,7 @@ def get_notification(request):
         time_difference_hour = time_difference.days * 24 + time_difference.seconds / 3600.0
         misc_task = Misc.objects.get(task_info__id=task.id)
         if time_difference_hour > 0 and time_difference_hour <= 24:
-            context[task.id] = misc_task.task_name
+            context[task.id] = misc_task.task_name + " is approaching expected finish time"
 
 
     return JsonResponse(context)
