@@ -12,6 +12,7 @@ def get_course_analytics(request):
     time_per_course = 0.0
     cummulative_time_courses = 0.0
     courses = Course.objects.all()
+    context = {}
 
     for course in courses:
         course_tasks = CourseTask.objects.filter(course=course)
@@ -22,11 +23,12 @@ def get_course_analytics(request):
             print time_per_course 
             print "-------------"
 
+        context[course.course_name] = time_per_course
         cummulative_time_courses += time_per_course
         
-    print cummulative_time_courses
+    context['time_taken_by_courses'] = cummulative_time_courses
 
-    return HttpResponse('')
+    return JsonResponse(context)
 
 def get_research_analytics(request):
     total_time_for_research = 0.0
