@@ -8,16 +8,12 @@ $( document ).ready(function() {  // Runs when the document is ready
     $(".switch").find("input[type=checkbox]").on("change",function() {
         var status = $(this).prop('checked');
         var task_id = $(this).val();
-        var info = "switch";
-        //console.log(status);
-        //console.log(task_id);
         $.ajax({
             url : 'button_process',
             type : "post",
             data : {
                 status : status,
-                task_id : task_id,
-                info : info
+                task_id : task_id
            }
        }).done(function() {
             location.reload();

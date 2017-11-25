@@ -68,7 +68,7 @@ def add_course_task(request):
             task.task_info = task_info
             task.course = course
             task.save()
-            return JsonResponse({'status': 'ok', 'errors': []})
+            return JsonResponse({'status': 'ok', 'errors': [], 'task_id': task_info.id})
         else:
             error_list = dict()
             if task_info_form['time_needed'].errors:

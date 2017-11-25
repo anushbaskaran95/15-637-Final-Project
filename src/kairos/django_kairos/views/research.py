@@ -40,7 +40,7 @@ def add_research_task(request):
             research_task.user = request.user
             research_task.task_info = task_info
             research_task.save()
-            return JsonResponse({'status': 'ok', 'errors': []})
+            return JsonResponse({'status': 'ok', 'errors': [], 'task_id': task_info.id})
         else:
             error_list = dict()
             if research_form['topic'].errors:

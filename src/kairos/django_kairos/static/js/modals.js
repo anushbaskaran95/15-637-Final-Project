@@ -30,8 +30,17 @@ $('#course-task-form').on('submit', function(e) {
                 $('#errors-note').html('Check errors above');
             }
             else {
-                $('#course-task-modal').modal('close');
-                location.reload();
+                $.ajax({
+                    url : 'button_process',
+                    type : "post",
+                    data : {
+                        status : 'true',
+                        task_id : data['task_id']
+                    }
+                }).done(function() {
+                    $('#course-task-modal').modal('close');
+                    location.reload();
+                });
             }
         })
         .fail(function() {
@@ -53,8 +62,17 @@ $('#research-task-form').on('submit', function(e) {
                 $('#errors-note').html('Check errors above');
             }
             else {
-                $('#research-task-modal').modal('close');
-                location.reload();
+                $.ajax({
+                    url : 'button_process',
+                    type : "post",
+                    data : {
+                        status : 'true',
+                        task_id : data['task_id']
+                    }
+                }).done(function() {
+                    $('#course-task-modal').modal('close');
+                    location.reload();
+                });
             }
         })
         .fail(function() {
@@ -76,8 +94,17 @@ $('#routine-task-form').on('submit', function(e) {
                 $('#errors-note').html('Check errors above');
             }
             else {
-                $('#routine-task-modal').modal('close');
-                location.reload();
+                $.ajax({
+                    url : 'button_process',
+                    type : "post",
+                    data : {
+                        status : 'true',
+                        task_id : data['task_id']
+                    }
+                }).done(function() {
+                    $('#course-task-modal').modal('close');
+                    location.reload();
+                });
             }
         })
         .fail(function() {

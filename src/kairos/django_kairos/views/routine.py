@@ -43,7 +43,7 @@ def add_routine_task(request):
             task_info.due_notified = False
             routine_task.task_info = task_info
             routine_task.save()
-            return JsonResponse({'status': 'ok', 'errors': []})
+            return JsonResponse({'status': 'ok', 'errors': [], 'task_id': task_info.id})
         else:
             error_list = dict()
             if task_info_form['time_needed'].errors:

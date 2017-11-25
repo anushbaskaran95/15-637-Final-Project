@@ -19,7 +19,9 @@ def process_button(request):
 
         if status == 'false':
             if task_info.continue_time is None:
-                task_info.continue_time = datetime.datetime.combine(task_info.start_date, task_info.start_time)
+                task_info.continue_time = datetime.datetime.combine(task_info.start_date,
+                                                                    task_info.start_time.replace(
+                                                                        tzinfo=timezone.get_current_timezone()))
 
             if task_info.time_spent is None:
                 task_info.time_spent = (timezone.now() - task_info.continue_time).total_seconds()
@@ -34,14 +36,13 @@ def process_button(request):
             task_info.status = 0
             task_info.save()
 
-            print TaskInfo.objects.exclude(pk=task_id).filter(status=0)
             alltasks = TaskInfo.objects.exclude(pk=task_id).filter(status=0)
-            print alltasks
+
             if alltasks is not None:
                 for task in alltasks:
-                    print CourseTask.objects.get(task_info=task).name
                     if task.continue_time is None:
-                        task.continue_time = datetime.datetime.combine(task.start_date, task.start_time)
+                        task.continue_time = datetime.datetime.combine(task.start_date,
+                                                                       task.start_time.replace(tzinfo=timezone.get_current_timezone()))
 
                     if task.time_spent is None:
                         task.time_spent = (timezone.now() - task.continue_time).total_seconds()
@@ -50,7 +51,6 @@ def process_button(request):
 
                     task.status = 1
                     task.save()
-
 
     return HttpResponse('')
 

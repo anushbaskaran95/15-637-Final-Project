@@ -4,41 +4,51 @@ from __future__ import unicode_literals
 from .. models import *
 import datetime
 from django.http import JsonResponse
+from django.utils import timezone
 
 
 # This function returns a dictionary containing {task id: [total time, time spent, percentage completion]}
 def get_task_info(request):
     context = {}
+    now = timezone.now()
+
     # get all task related information from database
     course_tasks = TaskInfo.objects.filter(coursetask__course__user=request.user).exclude(status=2)
     research_tasks = TaskInfo.objects.filter(research__user=request.user).exclude(status=2)
     misc_tasks = TaskInfo.objects.filter(misc__user=request.user).exclude(status=2)
     tasks = course_tasks | research_tasks | misc_tasks
+
     for task in tasks:
 
-        start_datetime = datetime.datetime.combine(task.start_date, task.start_time)
-        expected_finish_datetime = datetime.datetime.combine(task.expected_finish_date, task.expected_finish_time)
+        start_datetime = datetime.datetime.combine(task.start_date,
+                                                   task.start_time.replace(tzinfo=timezone.get_current_timezone()))
+
+        expected_finish_datetime = datetime.datetime.combine(task.expected_finish_date,
+                                                             task.expected_finish_time
+                                                             .replace(tzinfo=timezone.get_current_timezone()))
+
         total_time_in_hours = (expected_finish_datetime - start_datetime).total_seconds() / 3600.0
 
         if task.time_spent is not None:
             if task.continue_time is not None:
-                time_spent = ((datetime.datetime.now() - task.continue_time).total_seconds() + task.time_spent) / 3600.0
+                time_spent = ((now - task.continue_time).total_seconds()
+                              + task.time_spent) / 3600.0
             else:
-                time_spent = ((datetime.datetime.now() - start_datetime).total_seconds() + task.time_spent) / 3600.0
+                time_spent = ((now - start_datetime).total_seconds() + task.time_spent) / 3600.0
         else:
-            time_spent = (datetime.datetime.now() - start_datetime).total_seconds() / 3600.0
+            time_spent = (now - start_datetime).total_seconds() / 3600.0
 
         if task.status == 1:
             time_spent = task.time_spent / 3600.0
 
-        if start_datetime > datetime.datetime.now():
+        if start_datetime > now:
             info = [task.time_needed, abs(time_spent), task.percentage_completion,
                     (time_spent - task.time_needed), total_time_in_hours, '1']
         else:
             info = [task.time_needed, time_spent, task.percentage_completion,
                     (time_spent - task.time_needed), total_time_in_hours, '0']
 
-        if datetime.datetime.now() > expected_finish_datetime:
+        if now > expected_finish_datetime:
             info = [task.time_needed, time_spent, task.percentage_completion,
                     (time_spent - task.time_needed), total_time_in_hours, '2']
 

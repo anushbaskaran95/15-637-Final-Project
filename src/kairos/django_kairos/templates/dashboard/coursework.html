@@ -23,7 +23,9 @@
 <div class="tasks-container">
     <div class="row">
         {% for course in courses %}
-            <div class="col s12"><p class="task-headings">{{course.course_name}}</p></div>
+            {% if course.course_tasks.all %}
+                <div class="col s12"><p class="task-headings">{{course.course_name}}</p></div>
+            {% endif %}
             {% for task in course.course_tasks.all %}
                 <div class="col s6">
                     {% include "base/task.html" %}
