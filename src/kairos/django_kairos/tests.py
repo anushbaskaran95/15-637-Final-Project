@@ -8,6 +8,8 @@ from .models import *
 # Create your tests here.
 class TestUrls(TestCase):
 
+    fixtures = ['db']
+
     def test_login(self):
         client = Client()
         response = client.get('/login')

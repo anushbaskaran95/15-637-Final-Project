@@ -29,6 +29,7 @@ def research(request):
 
 
 @login_required
+@transaction.atomic
 def add_research_task(request):
     if request.method == 'POST':
         research_form = ResearchForm(request.POST)
@@ -59,6 +60,7 @@ def add_research_task(request):
 
 
 @login_required
+@transaction.atomic
 def edit_research_task(request):
     if request.method == 'POST':
         task = get_object_or_404(Research, pk=request.POST['task_id'])

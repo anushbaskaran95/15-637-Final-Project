@@ -30,6 +30,7 @@ def routine(request):
 
 
 @login_required
+@transaction.atomic
 def add_routine_task(request):
     if request.method == 'POST':
         routine_form = MiscForm(request.POST)
@@ -58,6 +59,7 @@ def add_routine_task(request):
 
 
 @login_required
+@transaction.atomic
 def edit_routine_task(request):
     if request.method == 'POST':
         task = get_object_or_404(Misc, pk=request.POST['task_id'])

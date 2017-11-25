@@ -35,3 +35,4 @@ nosetests.xml
 .DS_Store
 src/kairos/kairos/secrets.py
 src/kairos/db.sqlite3
+src/kairos/db.json

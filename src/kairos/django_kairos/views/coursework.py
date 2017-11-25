@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse, Http404, QueryDict
 
-from django.contrib import messages
+from django.db import transaction
 
 # decorator for built-in auth system
 from django.contrib.auth.decorators import login_required
@@ -29,6 +29,7 @@ def coursework(request):
 
 
 @login_required
+@transaction.atomic
 def add_course(request):
     context = {}
     if request.method == 'POST':
@@ -45,6 +46,7 @@ def add_course(request):
 
 
 @login_required
+@transaction.atomic
 def add_course_task(request):
     if request.method == 'POST':
         course_name = request.POST.get('course_name')
@@ -85,6 +87,7 @@ def add_course_task(request):
 
 
 @login_required
+@transaction.atomic
 def edit_course_task(request):
     if request.method == 'POST':
         task = get_object_or_404(CourseTask, pk=request.POST['task_id'])
