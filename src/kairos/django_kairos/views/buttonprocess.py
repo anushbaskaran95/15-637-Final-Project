@@ -64,6 +64,7 @@ def process_stop(request):
             task_info.time_spent += (timezone.now() - task_info.continue_time).total_seconds()
     
         task_info.stop_time = timezone.now()
+        task_info.percentage_completion = 100
         task_info.status = 2
         task_info.save()
 
