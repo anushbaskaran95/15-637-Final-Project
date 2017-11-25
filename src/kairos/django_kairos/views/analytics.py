@@ -83,3 +83,35 @@ def get_tree_analytics(request):
             
             
     return JsonResponse(context)
+
+def grace_days(request):
+    context = {}
+    index = 0
+    courses = Course.objects.all()
+    research_work = Research.objects.all()
+    context['research'] = []
+
+    for course in courses:
+        context[course.course_name] = []
+
+    for research in research_work:
+        if research.task_info.status == 2:
+            expected_finish_datetime = datetime.datetime.combine(research.task_info.expected_finish_date, research.task_info.expected_finish_time)
+            if research.task_info.stop_time > expected_finish_datetime:
+                context['research'].append({'time_exceeded_tasks':{'research_id': research.id, 'research_topic': research.topic}})
+            else:
+                context['research'].append({'on_time_tasks':{'research_id': research.id, 'research_topic': research.topic}})
+    for course in courses:
+        course_tasks = CourseTask.objects.filter(course=course)
+        for course_task in course_tasks: 
+            if course_task.task_info.status == 2:
+                expected_finish_datetime = datetime.datetime.combine(course_task.task_info.expected_finish_date, course_task.task_info.expected_finish_time)
+                if course_task.task_info.stop_time > expected_finish_datetime:
+                    context[course.course_name].append({'time_exceeded_tasks':{'task_id': course_task.id, 'task_name': course_task.name}})
+                else:
+                    context[course.course_name].append({'on_time_tasks':{'task_id': course_task.id, 'task_name': course_task.name}})
+
+    return JsonResponse(context)
+
+
+
