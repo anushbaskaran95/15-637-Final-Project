@@ -44,13 +44,15 @@ def get_research_analytics(request):
 
 def get_misc_analytics(request):
     total_time_for_misc = 0.0
+    context = {}
     misc_work = Misc.objects.all()
 
     for misc in misc_work:
         total_time_for_misc += misc.task_info.time_spent/3600.0
 
     print total_time_for_misc
-    return HttpResponse('')
+    context['time_taken_by_misc'] = total_time_for_misc
+    return JsonResponse(context)
 
 def get_tree_analytics(request):
     username = request.user.username
