@@ -32,13 +32,15 @@ def get_course_analytics(request):
 
 def get_research_analytics(request):
     total_time_for_research = 0.0
+    context = {}
     research_work = Research.objects.all()
 
     for research in research_work:
         total_time_for_research += research.task_info.time_spent/3600.0
 
     print total_time_for_research
-    return HttpResponse('')
+    context['time_taken_by_research'] = total_time_for_research
+    return JsonResponse(context)
 
 def get_misc_analytics(request):
     total_time_for_misc = 0.0
