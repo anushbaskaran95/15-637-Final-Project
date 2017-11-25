@@ -13,9 +13,13 @@
 
 {% block main-content%}
 <div class="tasks-container">
-{% for task in routine_tasks %}
-    {% include "base/task.html" %}
-{% endfor %}
+    <div class="row">
+        {% for task in routine_tasks %}
+        <div class="col s6">
+            {% include "base/task.html" %}
+        </div>
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}

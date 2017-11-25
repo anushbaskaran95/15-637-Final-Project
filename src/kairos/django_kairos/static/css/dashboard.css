@@ -4,7 +4,7 @@ body {
 
 .tasks-container {
     margin: 0 auto;
-    width: 70%;
+    width: 90%;
 }
 
 .task-pad {
@@ -13,7 +13,12 @@ body {
 
 .task-name {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 15px;
+}
+
+.alert-msg {
+    color: #f44336;
+    font-size: 15px;
 }
 
 .fin-task {

@@ -18,7 +18,7 @@ def get_task_info(request):
 
         start_datetime = datetime.datetime.combine(task.start_date, task.start_time)
         expected_finish_datetime = datetime.datetime.combine(task.expected_finish_date, task.expected_finish_time)
-        total_time_in_hours = abs(expected_finish_datetime - start_datetime).total_seconds() / 3600.0
+        total_time_in_hours = (expected_finish_datetime - start_datetime).total_seconds() / 3600.0
 
         if task.time_spent is not None:
             if task.continue_time is not None:
@@ -28,12 +28,19 @@ def get_task_info(request):
         else:
             time_spent = (datetime.datetime.now() - start_datetime).total_seconds() / 3600.0
 
+        if task.status == 1:
+            time_spent = task.time_spent / 3600.0
+
         if start_datetime > datetime.datetime.now():
             info = [task.time_needed, abs(time_spent), task.percentage_completion,
                     (time_spent - task.time_needed), total_time_in_hours, '1']
         else:
             info = [task.time_needed, time_spent, task.percentage_completion,
                     (time_spent - task.time_needed), total_time_in_hours, '0']
+
+        if datetime.datetime.now() > expected_finish_datetime:
+            info = [task.time_needed, time_spent, task.percentage_completion,
+                    (time_spent - task.time_needed), total_time_in_hours, '2']
 
         context[task.id] = info
 

@@ -1,7 +1,6 @@
 {% load class_tag %}
 
-<div class="row card task-pad">
-
+<div class="card task-pad">
     {% if task.name %}
     <span class="task-name">{{task.course.course_name}}: {{task.name}}</span>
     {% endif %}
@@ -45,8 +44,9 @@
     {% endif %}
 
     {% if task.task_info.status != 2 %}
-    <div class="row mb0">
-        <div class="col s6 offset-s4 task-name task-message-{{task.task_info.id}}"></div>
+    <div class="row mb0 mt10">
+        <div class="col s8 task-name task-message-{{task.task_info.id}}"></div>
+        <div class="col s8 alert-msg task-alert-{{task.task_info.id}}"></div>
         {% if task.task_info.percentage_completion %}
         <div class="col s4 offset-s2">
             <div class="svg-container pb-container-{{task.task_info.id}}"></div>

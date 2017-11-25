@@ -13,11 +13,14 @@
 
 {% block main-content%}
 <div class="tasks-container">
-    {% for task in research_tasks %}
-        {% include "base/task.html" %}
-    {% endfor %}
+    <div class="row">
+        {% for task in research_tasks %}
+        <div class="col s6">
+            {% include "base/task.html" %}
+        </div>
+        {% endfor %}
+    </div>
 </div>
-
 {% endblock %}
 
 {% block modals %}

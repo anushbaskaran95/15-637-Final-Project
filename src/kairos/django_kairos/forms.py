@@ -173,8 +173,8 @@ class TaskInfoForm(forms.ModelForm):
         time_needed = self.cleaned_data.get('time_needed')
         if time_needed < 0:
             forms.ValidationError("Invalid Time")
-        elif time_needed > 200:
-            forms.ValidationError("Value is too high for a task")
+        elif time_needed > 100:
+            forms.ValidationError("Value is too high for a task. Try splitting your task into sub-tasks")
         else:
             return time_needed
 

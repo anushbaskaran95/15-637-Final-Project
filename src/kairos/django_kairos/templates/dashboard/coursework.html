@@ -21,12 +21,16 @@
 
 {% block main-content%}
 <div class="tasks-container">
-    {% for course in courses %}
-    <div class="col s12"><p class="task-headings">{{course.course_name}}</p></div>
-        {% for task in course.course_tasks.all %}
-            {% include "base/task.html" %}
+    <div class="row">
+        {% for course in courses %}
+            <div class="col s12"><p class="task-headings">{{course.course_name}}</p></div>
+            {% for task in course.course_tasks.all %}
+                <div class="col s6">
+                    {% include "base/task.html" %}
+                </div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
