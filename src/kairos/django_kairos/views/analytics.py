@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonResponse
 
 from .. models import *
 import datetime
@@ -47,3 +47,33 @@ def get_misc_analytics(request):
 
     print total_time_for_misc
     return HttpResponse('')
+
+def get_tree_analytics(request):
+    username = request.user.username
+    courses = Course.objects.all()
+    context = {}
+    context['name'] = request.user.username
+    context['children'] = []
+    index = 0
+
+    for course in courses:
+        course_name = course.course_name
+        context['children'].append({'name': course_name, 'children': []})
+        
+    while index <= (len(context['children']) - 1):
+        for course in courses:
+            course_tasks = CourseTask.objects.filter(course=course)
+            for course_task in course_tasks: 
+                if course_task.task_info.status == 0:
+                    context['children'][index]['children'].append({'name': course_task.name, 'status': 'ongoing'})
+                elif course_task.task_info.status == 1:
+                    context['children'][index]['children'].append({'name': course_task.name, 'status': 'paused'})
+                elif course_task.task_info.status == 2:
+                    context['children'][index]['children'].append({'name': course_task.name, 'status': 'stopped'})
+
+            index = index + 1
+            if index == len(courses):
+                break
+            
+            
+    return JsonResponse(context)
