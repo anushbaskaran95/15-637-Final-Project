@@ -113,5 +113,25 @@ def grace_days(request):
 
     return JsonResponse(context)
 
+def single_task_taken(request):
+    context = {}
+    index = 0
+    courses = Course.objects.all()
+    research_work = Research.objects.all()
+    context['research'] = []
+
+    for course in courses:
+        context[course.course_name] = []
+
+    for research in research_work:
+        context['research'].append({'topic':research.topic, 'time_taken': research.task_info.time_spent})
+            
+    course_tasks = CourseTask.objects.filter(course=course)
+    for course_task in course_tasks: 
+        context[course.course_name].append({'task_id': course_task.id, 'task_name': course_task.name, 'time_taken': course_task.task_info.time_spent})
+
+    return JsonResponse(context)
+                
+
 
 
