@@ -37,7 +37,7 @@ class TaskInfo(models.Model):
     continue_time = models.DateTimeField(default=None, null=True, blank=True)
 
     # cumulative time spent on the task
-    time_spent = models.FloatField(default=0, null=True, blank=True)
+    time_spent = models.FloatField(default=None, null=True, blank=True)
 
     # time task is stopped
     stop_time = models.DateTimeField(default=None, null=True, blank=True)

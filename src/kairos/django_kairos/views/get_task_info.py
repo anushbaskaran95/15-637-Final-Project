@@ -29,15 +29,13 @@ def get_task_info(request):
 
         total_time_in_hours = (expected_finish_datetime - start_datetime).total_seconds() / 3600.0
 
+        # calculate time spent on ongoing task
         if task.time_spent is not None:
-            if task.continue_time is not None:
-                time_spent = ((now - task.continue_time).total_seconds()
-                              + task.time_spent) / 3600.0
-            else:
-                time_spent = ((now - start_datetime).total_seconds() + task.time_spent) / 3600.0
+            time_spent = ((now - task.continue_time).total_seconds() + task.time_spent) / 3600.0
         else:
-            time_spent = (now - start_datetime).total_seconds() / 3600.0
+            time_spent = (now - task.continue_time).total_seconds() / 3600.0
 
+        # time spent on paused task is set in DB
         if task.status == 1:
             time_spent = task.time_spent / 3600.0
 

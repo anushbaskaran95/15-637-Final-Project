@@ -18,10 +18,6 @@ def process_button(request):
             raise Http404
 
         if status == 'false':
-            if task_info.continue_time is None:
-                task_info.continue_time = datetime.datetime.combine(task_info.start_date,
-                                                                    task_info.start_time.replace(
-                                                                        tzinfo=timezone.get_current_timezone()))
 
             if task_info.time_spent is None:
                 task_info.time_spent = (timezone.now() - task_info.continue_time).total_seconds()
@@ -40,10 +36,6 @@ def process_button(request):
 
             if alltasks is not None:
                 for task in alltasks:
-                    if task.continue_time is None:
-                        task.continue_time = datetime.datetime.combine(task.start_date,
-                                                                       task.start_time.replace(tzinfo=timezone.get_current_timezone()))
-
                     if task.time_spent is None:
                         task.time_spent = (timezone.now() - task.continue_time).total_seconds()
                     else:
