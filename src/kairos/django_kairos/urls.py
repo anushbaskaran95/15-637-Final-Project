@@ -67,4 +67,5 @@ urlpatterns = [
     url(r'^get-misc-analytics$', get_misc_analytics, name='get-misc-analytics'),
     url(r'^get-tree-analytics$', get_tree_analytics, name='get-tree-analytics'),
     url(r'^grace-days$', grace_days, name='grace-days'),
+    url(r'^single-task-taken$', single_task_taken, name='single-task-taken'),
 ]
