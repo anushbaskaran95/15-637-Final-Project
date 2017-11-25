@@ -22,7 +22,7 @@ def coursework(request):
     context['add_course_form'] = add_course_form
     context['course_task_form'] = course_task_form
     context['task_info_form'] = task_info_form
-    context['finished_task'] = []
+    context['finished_tasks'] = []
     context['other_tasks'] = []
 
     courses = Course.objects.filter(user=request.user)
@@ -30,7 +30,7 @@ def coursework(request):
         tasks = CourseTask.objects.filter(course=course)
         for task in tasks:
             if task.task_info.status == 2:
-                context['finished_task'].append(task)
+                context['finished_tasks'].append(task)
             else:
                 context['other_tasks'].append(task)
 

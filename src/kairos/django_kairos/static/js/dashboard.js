@@ -80,6 +80,8 @@ $(document).ready(function(){
         }
     });
 
+    $('.carousel').carousel();
+
     // get task metrics for D3
     getTaskMetrics();
 });
