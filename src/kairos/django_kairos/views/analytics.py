@@ -16,5 +16,10 @@ def get_course_analytics(request):
         course_tasks = CourseTask.objects.filter(course=course)
         for course_task in course_tasks:
             time_per_course += course_task.task_info.time_spent
+            print course.course_name
+            print course_task.name
+            print time_per_course 
+            print "-------------"
 
+    print time_per_course
     return HttpResponse('')

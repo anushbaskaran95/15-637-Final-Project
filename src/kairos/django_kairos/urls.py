@@ -11,6 +11,7 @@ from views.profile import *
 from views.buttonprocess import *
 from views.get_task_info import *
 from views.get_notification import *
+from views.analytics import *
 
 urlpatterns = [
     url(r'^register/$', register, name='register'),
@@ -60,5 +61,6 @@ urlpatterns = [
     url(r'^get-task-info$', get_task_info, name='get-task-info'),
 
     url(r'^get-notification-expected-finish$', get_notification_expected_finish, name='get-notification-expected-finish'),
-    url(r'^get-notification-due$', get_notification_due, name='get-notification-due')
+    url(r'^get-notification-due$', get_notification_due, name='get-notification-due'),
+    url(r'^get-course-analytics$', get_course_analytics, name='get-course-analytics'),
 ]
