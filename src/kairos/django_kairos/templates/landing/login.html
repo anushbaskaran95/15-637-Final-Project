@@ -7,42 +7,53 @@
 
 {% block content %}
 
-<h4 class="tagline-text center-align"> Manage Your Time with Kairos </h4>
-<div class="card login-container z-depth-3">
-    <h5 class="welcome-text">Welcome back</h5>
-    <br/>
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        <div class="error">{{ errors }}</div>
-        <div class="error">{{ form.non_field_errors }}</div>
+<div class="row login-container">
+    <div class="col s4">
+        <div class="tagline-text"> Manage Your Time with Kairos </div>
+        <ul class="features">
+            <li class="feature">Keep track of multiple tasks</li>
+            <li class="feature">Pause and start tasks as you work on them</li>
+            <li class="feature">View analytics to keep yourself focused</li>
+        </ul>
+    </div>
+    <div class="col s6 offset-s1">
+        <div class="card pad20">
+            <h5 class="welcome-text">Welcome back</h5>
+            <br/>
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="error">{{ errors }}</div>
+                <div class="error">{{ form.non_field_errors }}</div>
 
-        <div class="error">{{ form.username.errors }}</div>
-        <div class="input-field">
-            {{ form.username }}
-            <label class="input-label"
-                   for="{{ form.username.id_for_label }}">Username</label>
-        </div>
+                <div class="error">{{ form.username.errors }}</div>
+                <div class="input-field">
+                    {{ form.username }}
+                    <label class="input-label"
+                           for="{{ form.username.id_for_label }}">Username</label>
+                </div>
 
-        <div class="error">{{ form.password.errors }}</div>
-        <div class="input-field">
-            {{ form.password }}
-            <label class="input-label"
-                   for="{{ form.password.id_for_label }}">Password</label>
-        </div>
+                <div class="error">{{ form.password.errors }}</div>
+                <div class="input-field">
+                    {{ form.password }}
+                    <label class="input-label"
+                           for="{{ form.password.id_for_label }}">Password</label>
+                </div>
 
-        <div class="row center-align">
-            <button class="btn-large action-btn login-btn waves-effect waves-light" type="submit" name="action">Login
-            </button>
-            <br/><br/>
-            <a class="forgot-text" href="{% url 'password_reset' %}">
-                Forgot Password ?
-            </a>
+                <div class="row center-align">
+                    <button class="btn-large action-btn login-btn waves-effect waves-light" type="submit" name="action">Login
+                    </button>
+                    <br/><br/>
+                    <a class="forgot-text" href="{% url 'password_reset' %}">
+                        Forgot Password ?
+                    </a>
+                </div>
+            </form>
+            <div class="center-align">
+                <a class="sign-up-text" href="{% url 'register' %}">
+                    Don't have an account? Sign Up
+                </a>
+            </div>
         </div>
-    </form>
-    <div class="center-align">
-        <a class="btn-flat sign-up-text" href="{% url 'register' %}">
-            Don't have an account? Sign Up
-        </a>
     </div>
 </div>
 {% endblock %}

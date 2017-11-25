@@ -11,9 +11,6 @@ body, html {
      top: 20%;
      right: 0;
      left: 0;
-     width: 60%;
-     max-width: 500px;
-     padding: 20px;
 }
 
 .register-container {
@@ -28,12 +25,20 @@ body, html {
 }
 
 .tagline-text {
-     position: absolute;
-     margin: auto;
-     top: 10%;
-     right: 0;
-     left: 0;
+     font-size: 25px;
      color: #fff;
+     margin-left: 30px;
+     font-weight: 600;
+}
+
+.features {
+    margin-left: 30px;
+    font-size: 18px;
+    color: #fff;
+}
+
+.feature {
+    margin-top: 15px;
 }
 
 .welcome-text {
@@ -47,6 +52,7 @@ body, html {
 }
 
 .forgot-text {
+    font-size: 12px !important;
     color: #999;
 }
 
@@ -54,6 +60,7 @@ body, html {
     color: #0277bd;
     font-size: 16px !important;
     text-transform: none !important;
+    cursor: pointer;
 }
 
 .info-text {

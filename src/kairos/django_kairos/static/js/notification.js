@@ -56,7 +56,6 @@ $( document ).ready(function() {  // Runs when the document is ready
         }
       }
     }).fail(function(xhr, status, errorThrown) {
-          alert("error");
           console.log("error" + errorThrown);
           console.log("status" + status);
           console.dir(xhr);
@@ -74,7 +73,6 @@ $( document ).ready(function() {  // Runs when the document is ready
         }
       }
     }).fail(function(xhr, status, errorThrown) {
-          alert("error");
           console.log("error" + errorThrown);
           console.log("status" + status);
           console.dir(xhr);

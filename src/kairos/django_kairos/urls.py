@@ -14,7 +14,7 @@ from views.get_notification import *
 from views.analytics import *
 
 urlpatterns = [
-    url(r'^register/$', register, name='register'),
+    url(r'^register$', register, name='register'),
     url(r'^confirm-registration/(?P<user_id>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         confirm_registration, name='confirm-registration'),
     url(r'^password_reset/$', password_reset, {'template_name': 'registration/confirm_email.html',
