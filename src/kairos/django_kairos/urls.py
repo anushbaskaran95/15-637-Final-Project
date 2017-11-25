@@ -64,4 +64,5 @@ urlpatterns = [
     url(r'^get-notification-due$', get_notification_due, name='get-notification-due'),
     url(r'^get-course-analytics$', get_course_analytics, name='get-course-analytics'),
     url(r'^get-research-analytics$', get_research_analytics, name='get-research-analytics'),
+    url(r'^get-misc-analytics$', get_misc_analytics, name='get-misc-analytics'),
 ]
