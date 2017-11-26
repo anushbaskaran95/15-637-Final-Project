@@ -32,19 +32,20 @@ def get_course_analytics(request):
     now = timezone.now()
     for course in courses:
         course_tasks = CourseTask.objects.filter(course=course)
+        context[course.course_name] = []
+
         for task in course_tasks:
-            if task.task_info.time_spent is not None:
-                time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
-            else:
-                time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
-
-            # time spent on paused task is set in DB
-            if task.task_info.status == 1:
+            # time spent on paused or stopped task is set in DB
+            if task.task_info.status == 1 or task.task_info.status == 2:
                 time_spent = task.task_info.time_spent / 3600.0
-
-            time_per_course += time_spent
+            else:
+                if task.task_info.time_spent is not None:
+                    time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
+                else:
+                    time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
 
             context[course.course_name].append({'task_id': task.id, 'task_name': task.name, 'time_spent': time_spent})
+            time_per_course += time_spent
 
         context[course.course_name + '_total_time'] = time_per_course
         total_time_courses += time_per_course
@@ -61,14 +62,14 @@ def get_research_analytics(request):
     research_work = Research.objects.filter(user=request.user)
 
     for task in research_work:
-        if task.task_info.time_spent is not None:
-            time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
-        else:
-            time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
-
-        # time spent on paused task is set in DB
-        if task.task_info.status == 1:
+        # time spent on paused or stopped task is set in DB
+        if task.task_info.status == 1 or task.task_info.status == 2:
             time_spent = task.task_info.time_spent / 3600.0
+        else:
+            if task.task_info.time_spent is not None:
+                time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
+            else:
+                time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
 
         context[task.topic] = time_spent
 
@@ -89,40 +90,41 @@ def get_overall_analytics(request):
     courses = Course.objects.filter(user=request.user)
 
     for task in misc_work:
-        if task.task_info.time_spent is not None:
-            time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
-        else:
-            time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
-
-        # time spent on paused task is set in DB
-        if task.task_info.status == 1:
+        # time spent on paused or stopped task is set in DB
+        if task.task_info.status == 1 or task.task_info.status == 2:
             time_spent = task.task_info.time_spent / 3600.0
+        else:
+            if task.task_info.time_spent is not None:
+                time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
+            else:
+                time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
 
         total_time_misc += time_spent
 
     for task in research_work:
-        if task.task_info.time_spent is not None:
-            time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
-        else:
-            time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
-
-        # time spent on paused task is set in DB
-        if task.task_info.status == 1:
+        # time spent on paused or stopped task is set in DB
+        if task.task_info.status == 1 or task.task_info.status == 2:
             time_spent = task.task_info.time_spent / 3600.0
+        else:
+            if task.task_info.time_spent is not None:
+                time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
+            else:
+                time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
 
         total_time_research += time_spent
 
     for course in courses:
         course_tasks = CourseTask.objects.filter(course=course)
         for task in course_tasks:
-            if task.task_info.time_spent is not None:
-                time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
-            else:
-                time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
-
-            # time spent on paused task is set in DB
-            if task.task_info.status == 1:
+            # time spent on paused or stopped task is set in DB
+            if task.task_info.status == 1 or task.task_info.status == 2:
                 time_spent = task.task_info.time_spent / 3600.0
+            else:
+                if task.task_info.time_spent is not None:
+                    time_spent = ((
+                                  now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
+                else:
+                    time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
 
             total_time_courses += time_spent
 

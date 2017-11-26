@@ -63,6 +63,10 @@ urlpatterns = [
     url(r'^get-notification-due$', get_notification_due, name='get-notification-due'),
 
     url(r'^analytics$', analytics, name='analytics'),
+    url(r'^course-analytics$', course_analytics, name='course-analytics'),
+    url(r'^research-analytics$', research_analytics, name='research-analytics'),
+    url(r'^overall-analytics$', overall_analytics, name='overall-analytics'),
+
     url(r'^get-course-analytics$', get_course_analytics, name='get-course-analytics'),
     url(r'^get-research-analytics$', get_research_analytics, name='get-research-analytics'),
     url(r'^get-overall-analytics$', get_overall_analytics, name='get-overall-analytics'),
