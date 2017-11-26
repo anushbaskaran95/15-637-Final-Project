@@ -7,7 +7,7 @@
             <div class="input-field">
                 <select name="course_name" class="required">
                     <option value="" disabled selected></option>
-                    {% for course in courses %}
+                    {% for course in course_names %}
                     <option value="{{course.course_name}}">{{course.course_name}}</option>
                     {% endfor %}
                 </select>

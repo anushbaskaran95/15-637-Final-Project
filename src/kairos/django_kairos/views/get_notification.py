@@ -5,7 +5,6 @@ from .. models import *
 import datetime
 
 from django.http import JsonResponse
-#from django.contrib import messages
 
 
 def get_notification_expected_finish(request):
@@ -20,32 +19,33 @@ def get_notification_expected_finish(request):
         time_difference_hour = time_difference.days * 24 + time_difference.seconds / 3600.0
 
         course_task = CourseTask.objects.get(task_info__id = task.id)
-        if time_difference_hour > 0 and time_difference_hour <= 24 and not task.expected_finish_notified:
+
+        if (0 < time_difference_hour <= 24) and not task.expected_finish_notified:
             task.expected_finish_notified = True
             task.save()
-            context[task.id] = course_task.name + " is approaching expected finish time"
-
+            context[task.id] = course_task.name + " is approaching the set expected finish time"
 
     for task in research_tasks:
         expected_finish_datetime = datetime.datetime.combine(task.expected_finish_date, task.expected_finish_time)
         time_difference = expected_finish_datetime - datetime.datetime.now()
         time_difference_hour = time_difference.days * 24 + time_difference.seconds / 3600.0
         research_task =  Research.objects.get(task_info__id= task.id)
-        if time_difference_hour > 0 and time_difference_hour <= 24 and not task.expected_finish_notified:
+
+        if (0 < time_difference_hour <= 24) and not task.expected_finish_notified:
             task.expected_finish_notified = True
             task.save()
-            context[task.id] = research_task.topic + " is approaching expected finish time"
+            context[task.id] = research_task.topic + " is approaching set expected finish time"
 
     for task in misc_tasks:
         expected_finish_datetime = datetime.datetime.combine(task.expected_finish_date, task.expected_finish_time)
         time_difference = expected_finish_datetime - datetime.datetime.now()
         time_difference_hour = time_difference.days * 24 + time_difference.seconds / 3600.0
         misc_task = Misc.objects.get(task_info__id=task.id)
-        if time_difference_hour > 0 and time_difference_hour <= 24 and not task.expected_finish_notified:
+
+        if (0 < time_difference_hour <= 24) and not task.expected_finish_notified:
             task.expected_finish_notified = True
             task.save()
-            context[task.id] = misc_task.task_name + " is approaching expected finish time"
-
+            context[task.id] = misc_task.task_name + " is approaching set expected finish time"
 
     return JsonResponse(context)
 
@@ -63,12 +63,10 @@ def get_notification_due(request):
                 time_difference_hour = time_difference.days * 24 + time_difference.seconds / 3600.0
 
                 course_task = CourseTask.objects.get(task_info__id = task.id)
-                if time_difference_hour > 0 and time_difference_hour <= 24 and not task.due_notified:
+                if 0 < time_difference_hour <= 24 and not task.due_notified:
                     task.due_notified = True
                     task.save()
-                    context[task.id] = course_task.name + " is approaching due date time"
-
-
+                    context[task.id] = course_task.name + " is approaching the due date"
 
         for task in research_tasks:
             if task.due_date and task.due_time:
@@ -76,11 +74,10 @@ def get_notification_due(request):
                 time_difference = due_datetime - datetime.datetime.now()
                 time_difference_hour = time_difference.days * 24 + time_difference.seconds / 3600.0
                 research_task =  Research.objects.get(task_info__id= task.id)
-                if time_difference_hour > 0 and time_difference_hour <= 24 and not task.due_notified:
+                if 0 < time_difference_hour <= 24 and not task.due_notified:
                     task.due_notified = True
                     task.save()
-                    context[task.id] = research_task.topic + " is approaching due date time"
-
+                    context[task.id] = research_task.topic + " is approaching the due date"
 
         for task in misc_tasks:
             if task.due_date and task.due_time:
@@ -88,9 +85,9 @@ def get_notification_due(request):
                 time_difference = due_datetime - datetime.datetime.now()
                 time_difference_hour = time_difference.days * 24 + time_difference.seconds / 3600.0
                 misc_task = Misc.objects.get(task_info__id=task.id)
-                if time_difference_hour > 0 and time_difference_hour <= 24 and not task.due_notified:
+                if 0 < time_difference_hour <= 24 and not task.due_notified:
                     task.due_notified = True
                     task.save()
-                    context[task.id] = misc_task.task_name + " is approaching due date time"
+                    context[task.id] = misc_task.task_name + " is approaching the due date"
 
         return JsonResponse(context)

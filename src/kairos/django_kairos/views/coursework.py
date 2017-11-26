@@ -26,6 +26,8 @@ def coursework(request):
     context['other_tasks'] = []
 
     courses = Course.objects.filter(user=request.user)
+    context['course_names'] = courses
+
     for course in courses:
         tasks = CourseTask.objects.filter(course=course)
         for task in tasks:

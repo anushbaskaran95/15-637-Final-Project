@@ -36,11 +36,8 @@ $( document ).ready(function() {  // Runs when the document is ready
       }
   });
 
-
-
   // Periodically check if a task is approaching the deadline
-  window.setInterval(getNotification, 5000);
-
+  window.setInterval(getNotification, 1000 * 60 * 60);
 
   function getNotification(data) {
     //console.log("in getNotification");
@@ -78,7 +75,4 @@ $( document ).ready(function() {  // Runs when the document is ready
           console.dir(xhr);
     });
   }
-
-
-
 }); // End of $(document).ready

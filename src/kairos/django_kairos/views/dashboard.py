@@ -27,7 +27,16 @@ def dashboard(request):
     context['research_form'] = research_form
     context['routine_form'] = routine_form
     context['task_info_form'] = task_info_form
-    context['courses'] = Course.objects.filter(user=request.user).exclude(course_tasks__task_info__status=2)
+    courses = Course.objects.filter(user=request.user)
+    context['course_names'] = courses
+    context['course_tasks'] = []
+
+    for course in courses:
+        tasks = CourseTask.objects.filter(course=course)
+        for task in tasks:
+            if task.task_info.status != 2:
+                context['course_tasks'].append(task)
+
     context['research_tasks'] = Research.objects.filter(user=request.user).exclude(task_info__status=2)
     context['routine_tasks'] = Misc.objects.filter(user=request.user).exclude(task_info__status=2)
     context['username'] = request.user.username
