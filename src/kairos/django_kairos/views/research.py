@@ -23,8 +23,17 @@ def research(request):
     task_info_form = TaskInfoForm()
     context['research_form'] = research_form
     context['task_info_form'] = task_info_form
-    context['research_tasks'] = list(Research.objects.filter(user=request.user).order_by('-task_info__expected_finish_date'))
     context['username'] = request.user.username
+    context['finished_tasks'] = []
+    context['other_tasks'] = []
+
+    tasks = Research.objects.filter(user=request.user)
+    for task in tasks:
+        if task.task_info.status == 2:
+            context['finished_tasks'].append(task)
+        else:
+            context['other_tasks'].append(task)
+
     return render(request, 'dashboard/research.html', context)
 
 

@@ -14,11 +14,27 @@
 {% block main-content%}
 <div class="tasks-container">
     <div class="row">
-        {% for task in routine_tasks %}
-        <div class="col s6 m12 l6">
-            {% include "base/task.html" %}
-        </div>
+        {% if other_tasks %}
+            <h5>Current Tasks</h5>
+        {% endif %}
+        {% for task in other_tasks %}
+            <div class="col s12 m12 l6">
+                {% include "base/task.html" %}
+            </div>
         {% endfor %}
+    </div>
+
+    <div class="row">
+        {% if finished_tasks %}
+            <h5>Completed Tasks</h5>
+        {% endif %}
+        <div class="carousel center">
+            {% for task in finished_tasks %}
+                <div class="carousel-item">
+                    {% include "base/task.html" %}
+                </div>
+        {% endfor %}
+        </div>
     </div>
 </div>
 

@@ -14,7 +14,12 @@
         <a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li class="mr30"><a href="{% url 'profile' %}">{{ username }}</a></li>
+            <li class="mr30 light-blue darken-1">
+                <a class="profile-link" href="{% url 'profile' %}" >
+                    <i class="material-icons mr">person_outline</i>
+                    <span class="ml10">{{ username }}</span>
+                </a>
+            </li>
             <li class="mr30"><a href="{% url 'logout' %}"><i class="large material-icons">exit_to_app</i></a></li>
         </ul>
 

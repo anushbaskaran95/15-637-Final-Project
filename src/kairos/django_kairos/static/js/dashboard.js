@@ -144,8 +144,10 @@ function getTaskMetrics() {
             }
         ],
         // simple center text
-        center: function(p) {
-             return p + ' %'
+        center: {
+            content: [function(p) {
+                         return p + ' %'
+            }, 'complete']
         }
     }
 
@@ -161,22 +163,27 @@ function getTaskMetrics() {
                     $('.task-alert-'+key).html('Task has exceeded Expected Finish Date');
                     continue;
                 }
+
                 if (data[key][3] > 0) {
                     settingsPB['max'] = data[key][4]
                     settingsPB['series'][0]['color'] = '#f44336'
-                    settingsPB['center'] = [function(value) {return ('> '+ value + ' Hrs');}]
-                    var chart3 = new RadialProgressChart('.pb-container-'+key, settingsPB);
-                    chart3.update(data[key][3])
+                    settingsPB['center'] = [function(value) {return (value + ' Hrs')}, 'spent']
+                    var chart1 = new RadialProgressChart('.pb-container-'+key, settingsPB);
+                    chart1.update(data[key][1])
                 } else {
                     settingsPB['max'] = data[key][0]
                     settingsPB['series'][0]['color'] = '#0277bd'
-                    settingsPB['center'] = [function(value) {return (value + ' Hrs');}]
-                    var chart1 = new RadialProgressChart('.pb-container-'+key, settingsPB);
-                    chart1.update(data[key][1])
+                    settingsPB['center'] = [function(value) {return (value + ' Hrs')}, 'spent']
+                    var chart2 = new RadialProgressChart('.pb-container-'+key, settingsPB);
+                    chart2.update(data[key][1])
                 }
+
+                var chart3 = new RadialProgressChart('.pc-container-'+key, settingsPC);
                 if (data[key][2] != null) {
-                    var chart2 = new RadialProgressChart('.pc-container-'+key, settingsPC);
-                    chart2.update(data[key][2])
+                    chart3.update(data[key][2]);
+                }
+                if (data[key][2] == null) {
+                    chart3.update(0.1);
                 }
             }
         })

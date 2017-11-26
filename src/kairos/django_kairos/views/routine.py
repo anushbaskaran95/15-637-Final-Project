@@ -24,8 +24,17 @@ def routine(request):
     task_info_form = TaskInfoForm()
     context['routine_form'] = routine_form
     context['task_info_form'] = task_info_form
-    context['routine_tasks'] = Misc.objects.filter(user=request.user).order_by('-task_info__expected_finish_date')
     context['username'] = request.user.username
+    context['finished_tasks'] = []
+    context['other_tasks'] = []
+
+    tasks = Misc.objects.filter(user=request.user)
+    for task in tasks:
+        if task.task_info.status == 2:
+            context['finished_tasks'].append(task)
+        else:
+            context['other_tasks'].append(task)
+
     return render(request, 'dashboard/routine.html', context)
 
 

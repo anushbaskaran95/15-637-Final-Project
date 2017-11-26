@@ -48,19 +48,12 @@
         <div class="col s8 task-name task-message-{{task.task_info.id}}"></div>
         <div class="col s8 alert-msg task-alert-{{task.task_info.id}}"></div>
 
-        {% if task.task_info.percentage_completion %}
         <div class="col s4 offset-s1">
             <div class="svg-container pb-container-{{task.task_info.id}}"></div>
         </div>
         <div class="col s4">
             <div class="svg-container pc-container-{{task.task_info.id}}"></div>
         </div>
-        {% else %}
-
-        <div class="col s4 offset-s4">
-            <div class="svg-container pb-container-{{task.task_info.id}}"></div>
-        </div>
-        {% endif %}
     </div>
     {% endif %}
 

@@ -108,10 +108,15 @@ p.task-headings {
 .carousel-item {
     width: auto !important;
     height: auto !important;
+    margin-top: -30px;
 }
 .indicator-item {
     background-color: #ccc !important;
 }
 .indicator-item.active {
     background-color: #999 !important;
+}
+
+.profile-link {
+    display: flex !important;
 }
