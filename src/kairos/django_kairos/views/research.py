@@ -32,7 +32,7 @@ def research(request):
 @transaction.atomic
 def add_research_task(request):
     if request.method == 'POST':
-        research_form = ResearchForm(request.POST)
+        research_form = ResearchForm(request.POST, user=request.user)
         task_info_form = TaskInfoForm(request.POST)
 
         if research_form.is_valid() and task_info_form.is_valid():
@@ -72,7 +72,7 @@ def edit_research_task(request):
             raise Http404
 
         form = QueryDict(request.POST['form'].encode('ASCII'))
-        research_task_form = ResearchForm(form, instance=task)
+        research_task_form = ResearchForm(form, instance=task, user=request.user)
         task_info_form = TaskInfoForm(form, instance=task_info)
 
         if research_task_form.is_valid() and task_info_form.is_valid():

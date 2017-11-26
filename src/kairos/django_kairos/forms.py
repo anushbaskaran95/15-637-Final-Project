@@ -3,7 +3,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import *
 
-#from datetime import datetime, timedelta
 import datetime
 
 
@@ -110,9 +109,13 @@ class CourseForm(forms.ModelForm):
         model = Course
         fields = ('course_name',)
 
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super(CourseForm, self).__init__(*args, **kwargs)
+
     def clean_course_name(self):
         course_name = self.cleaned_data.get('course_name')
-        if Course.objects.filter(course_name__iexact=course_name):
+        if Course.objects.filter(user=self.user, course_name__iexact=course_name):
             raise forms.ValidationError("Course already exists")
         else:
             return course_name
@@ -201,13 +204,17 @@ class ResearchForm(forms.ModelForm):
         model = Research
         fields = ('topic',)
 
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super(ResearchForm, self).__init__(*args, **kwargs)
+
     def clean_topic(self):
         topic = self.cleaned_data.get('topic')
         if self.instance.pk:
             if self.instance.topic == topic:
                 return self.instance.topic
 
-        if Research.objects.filter(topic__iexact=topic):
+        if Research.objects.filter(user=self.user, topic__iexact=topic):
             raise forms.ValidationError("This research topic already exists")
         else:
             return topic
@@ -233,7 +240,7 @@ class EditForm(forms.ModelForm):
         return cleaned_data
 
     @staticmethod
-    def check_username(self, cleaned_data, user_id):
+    def check_username(cleaned_data, user_id):
         form_username = cleaned_data.get('username')
         user = User.objects.get(pk__exact=user_id)
         if form_username == user.username:
