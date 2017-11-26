@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonResponse
 
 from .. models import *
@@ -10,8 +9,8 @@ from django.utils import timezone
 
 def get_course_analytics(request):
     time_per_course = 0.0
-    cummulative_time_courses = 0.0
-    courses = Course.objects.all()
+    cumulative_time_courses = 0.0
+    courses = Course.objects.filter(user=request.user)
     context = {}
 
     for course in courses:
@@ -24,16 +23,17 @@ def get_course_analytics(request):
             print "-------------"
 
         context[course.course_name] = time_per_course
-        cummulative_time_courses += time_per_course
+        cumulative_time_courses += time_per_course
         
-    context['time_taken_by_courses'] = cummulative_time_courses
+    context['time_taken_by_courses'] = cumulative_time_courses
 
     return JsonResponse(context)
+
 
 def get_research_analytics(request):
     total_time_for_research = 0.0
     context = {}
-    research_work = Research.objects.all()
+    research_work = Research.objects.filter(user=request.user)
 
     for research in research_work:
         total_time_for_research += research.task_info.time_spent/3600.0
@@ -42,10 +42,11 @@ def get_research_analytics(request):
     context['time_taken_by_research'] = total_time_for_research
     return JsonResponse(context)
 
+
 def get_misc_analytics(request):
     total_time_for_misc = 0.0
     context = {}
-    misc_work = Misc.objects.all()
+    misc_work = Misc.objects.filter(user=request.user)
 
     for misc in misc_work:
         total_time_for_misc += misc.task_info.time_spent/3600.0
@@ -54,10 +55,10 @@ def get_misc_analytics(request):
     context['time_taken_by_misc'] = total_time_for_misc
     return JsonResponse(context)
 
+
 def get_tree_analytics(request):
-    username = request.user.username
-    courses = Course.objects.all()
-    context = {}
+    courses = Course.objects.filter(user=request.user)
+    context = dict()
     context['name'] = request.user.username
     context['children'] = []
     index = 0
@@ -80,15 +81,14 @@ def get_tree_analytics(request):
             index = index + 1
             if index == len(courses):
                 break
-            
-            
+
     return JsonResponse(context)
+
 
 def grace_days(request):
     context = {}
-    index = 0
-    courses = Course.objects.all()
-    research_work = Research.objects.all()
+    courses = Course.objects.filter(user=request.user)
+    research_work = Research.objects.filter(user=request.user)
     context['research'] = []
 
     for course in courses:
@@ -113,22 +113,22 @@ def grace_days(request):
 
     return JsonResponse(context)
 
+
 def single_task_taken(request):
     context = {}
-    index = 0
-    courses = Course.objects.all()
-    research_work = Research.objects.all()
+    courses = Course.objects.filter(user=request.user)
+    research_work = Research.objects.filter(user=request.user)
     context['research'] = []
 
     for course in courses:
         context[course.course_name] = []
+        course_tasks = CourseTask.objects.filter(course=course)
+        for course_task in course_tasks:
+            context[course.course_name].append({'task_id': course_task.id, 'task_name': course_task.name,
+                                                'time_taken': course_task.task_info.time_spent})
 
     for research in research_work:
-        context['research'].append({'topic':research.topic, 'time_taken': research.task_info.time_spent})
-            
-    course_tasks = CourseTask.objects.filter(course=course)
-    for course_task in course_tasks: 
-        context[course.course_name].append({'task_id': course_task.id, 'task_name': course_task.name, 'time_taken': course_task.task_info.time_spent})
+        context['research'].append({'topic': research.topic, 'time_taken': research.task_info.time_spent})
 
     return JsonResponse(context)
                 
