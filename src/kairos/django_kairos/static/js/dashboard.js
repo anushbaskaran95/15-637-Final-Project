@@ -153,12 +153,7 @@ function getTaskMetrics() {
         .done(function(data) {
             for (var key in data) {
                 if (data[key][5] == '1') {
-                    var hrs = Math.round(data[key][1] * 100) / 100;
-                    if (hrs > 1) {
-                        $('.task-message-'+key).html('Task starts in ' + hrs + ' Hour(s)');
-                    } else {
-                        $('.task-message-'+key).html('Task starts in ' + Math.round(hrs * 60) + ' Minutes');
-                    }
+                    $('.task-message-'+key).html('Task starts on ' + data[key][0] + ' at ' + data[key][1]);
                     continue;
                 }
                 if (data[key][5] == '2') {

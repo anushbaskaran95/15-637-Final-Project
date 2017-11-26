@@ -8,27 +8,8 @@
 
 {% block main-content %}
 <div class="container">
-    <h5>Courses Added</h5>
-    <ol class="collection pad20">
-        {% for course in courses %}
-        <li class="collection-header"><h6>{{course.course_name}}</h6></li>
-        <ul class="collection">
-            {% for task in course.course_tasks.all %}
-                <li class="collection-item">{{task.name}}</li>
-            {% endfor %}
-        </ul>
-        {% endfor %}
-    </ol>
-    <h5>Research Topics</h5>
-    <ul class="collection">
-        {% for task in research_tasks %}
-            <li class="collection-item">{{task.topic}}</li>
-        {% endfor %}
-    </ul>
-
-
     <div class="collapsible_tree">
-      <h5>Overview of course task</h5>
+      <h5>Coursework Overview</h5>
     </div>
 </div>
 {% endblock %}

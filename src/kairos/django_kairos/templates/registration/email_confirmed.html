@@ -6,8 +6,13 @@
 {% endblock %}
 
 {% block content %}
-<div class="pad20">
-    <p class="info-text">Thank you for the email confirmation. You can now <a href="{% url 'login' %}">Login</a>.
-    </p>
+<div class="login-container-2">
+    <div class="card info-text pad20">
+        <h5>Congratulations, you're all set! </h5>
+        <div class="divider"></div>
+        <p>
+            Thank you for the email confirmation. You can now <a href="{% url 'login' %}">Login</a>.
+        </p>
+    </div>
 </div>
 {% endblock %}
