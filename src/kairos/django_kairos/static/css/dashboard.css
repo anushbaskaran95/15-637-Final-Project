@@ -102,8 +102,8 @@ p.task-headings {
 }
 
 .carousel {
-    height: 500px !important;
-    overflow: auto;
+    height: 250px !important;
+    overflow: unset;
 }
 .carousel-item {
     width: auto !important;

@@ -36,7 +36,7 @@
         {% if finished_tasks %}
             <h5>Completed Tasks</h5>
         {% endif %}
-        <div class="carousel center" data-indicators="true">
+        <div class="carousel center">
             {% for task in finished_tasks %}
                 <div class="carousel-item">
                     {% include "base/task.html" %}

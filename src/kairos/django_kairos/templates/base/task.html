@@ -107,14 +107,17 @@
                     </tbody>
                 </table>
 
-                <div class="mt10 ml5"><b>Time Needed:</b>
-                    <span class="ml10">{{task.task_info.time_needed}} Hrs</span>
-                </div>
-                {% if  task.task_info.time_spent %}
-                    <div class="mt10 ml5"><b>Time Spent:</b>
-                        <span class="ml10">{{task.task_info.time_spent | calc_time }} Hrs</span>
+                <div class="row">
+                    <div class="mt10 col s6"><b>Time Needed:</b>
+                        <span>{{task.task_info.time_needed}} Hrs</span>
                     </div>
-                {% endif %}
+                    {% if  task.task_info.time_spent %}
+                        <div class="mt10 col s6"><b>Time Spent:</b>
+                            <span>{{task.task_info.time_spent | calc_time }} Hrs</span>
+                        </div>
+                    {% endif %}
+                </div>
+
                 {% if task.task_info.comments %}
                 <div class="mt10 ml5"><b>Comments:</b>
                     <span class="ml10">{{task.task_info.comments}}</span>
