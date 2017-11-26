@@ -2,7 +2,7 @@ $( document ).ready(function() {  // Runs when the document is ready
 
   url = "/get-tree-analytics"
 
-  var margin = {top: 20, right: 120, bottom: 20, left: 120},
+  var margin = {top: 0, right: 120, bottom: 20, left: 120},
       width = 960 - margin.right - margin.left,
       height = 800 - margin.top - margin.bottom;
 
@@ -39,6 +39,8 @@ $( document ).ready(function() {  // Runs when the document is ready
 
     root.children.forEach(collapse);
     update(root);
+
+    onLinkClick();
   });
 
   d3.select(self.frameElement).style("height", "800px");
@@ -147,8 +149,9 @@ $( document ).ready(function() {  // Runs when the document is ready
     update(d);
   }
 
+  // jump to the collapsible tree when the page load
+  function onLinkClick() {
+    document.getElementsByClassName("collapsible_tree")[0].scrollIntoView();
+  }
+
 }); // End of $(document).ready
-
-function collapsible_tree(data) {
-
-}
