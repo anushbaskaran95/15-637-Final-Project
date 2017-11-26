@@ -84,6 +84,9 @@ $(document).ready(function(){
 
     // get task metrics for D3
     getTaskMetrics();
+
+    // Periodically check if a task is approaching the deadline
+    window.setInterval(getNotification, 1000 * 60 * 60);
 });
 
 function initPickers() {

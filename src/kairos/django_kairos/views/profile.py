@@ -14,18 +14,6 @@ from .. import forms
 
 
 @login_required
-def profile(request):
-    context = dict()
-    context['username'] = request.user.username
-    courses = Course.objects.filter(user=request.user)
-    research_tasks = Research.objects.filter(user=request.user)
-    context['courses'] = courses
-    context['research_tasks'] = research_tasks
-
-    return render(request, 'profile/profile.html', context)
-
-
-@login_required
 def edit_profile(request, user_id):
     # redirect to user's profile if another user's edit profile is accessed
     if str(user_id) != str(request.user.id):

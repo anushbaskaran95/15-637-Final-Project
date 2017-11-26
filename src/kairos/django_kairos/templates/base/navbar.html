@@ -14,13 +14,25 @@
         <a href="" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li class="mr30"><a href="{% url 'dash' %}">Dashboard</a></li>
-            <li class="mr30"><a href="{% url 'profile' %}">{{ username }}</a></li>
+            <li class="mr30 light-blue darken-1">
+                <a class="navbar-link" href="{% url 'dash' %}">
+                    <i class="material-icons">dashboard</i>
+                    <span class="ml10">Dashboard</span>
+                </a>
+            </li>
+            <li class="mr30 light-blue darken-1">
+                <a class="navbar-link" href="{% url 'analytics' %}">
+                    <i class="material-icons">pie_chart</i>
+                    <span class="ml10">Analytics</span>
+                </a>
+            </li>
             <li class="mr30"><a href="{% url 'logout' %}"><i class="large material-icons">exit_to_app</i></a></li>
         </ul>
 
         <ul class="side-nav" id="mobile-demo">
-            <li><a href="{% url 'profile' %}">{{ username }}</a></li>
+            <li><a href="{% url 'dash' %}">Dashboard</a></li>
+            <li><a href="{% url 'analytics' %}">Analytics</a></li>
+            <li><a href="{% url 'edit-profile' user.pk %}">{{ username }}</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
         </ul>
     </div>

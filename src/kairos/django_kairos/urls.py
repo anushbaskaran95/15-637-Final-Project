@@ -36,7 +36,6 @@ urlpatterns = [
     url(r'^course-work$', coursework, name='coursework'),
     url(r'^research$', research, name='research'),
     url(r'^routine$', routine, name='routine'),
-    url(r'^profile$', profile, name='profile'),
 
     url(r'^edit-profile/(?P<user_id>\d+)$', edit_profile, name='edit-profile'),
     url(r'^change-password$', change_password, name='change-password'),
@@ -62,10 +61,11 @@ urlpatterns = [
 
     url(r'^get-notification-expected-finish$', get_notification_expected_finish, name='get-notification-expected-finish'),
     url(r'^get-notification-due$', get_notification_due, name='get-notification-due'),
+
+    url(r'^analytics$', analytics, name='analytics'),
     url(r'^get-course-analytics$', get_course_analytics, name='get-course-analytics'),
     url(r'^get-research-analytics$', get_research_analytics, name='get-research-analytics'),
-    url(r'^get-misc-analytics$', get_misc_analytics, name='get-misc-analytics'),
+    url(r'^get-overall-analytics$', get_overall_analytics, name='get-overall-analytics'),
     url(r'^get-tree-analytics$', get_tree_analytics, name='get-tree-analytics'),
-    url(r'^grace-days$', grace_days, name='grace-days'),
-    url(r'^single-task-taken$', single_task_taken, name='single-task-taken'),
+    url(r'^get-on-time-late-tasks$', get_on_time_late_tasks, name='get-on-time-late-tasks'),
 ]

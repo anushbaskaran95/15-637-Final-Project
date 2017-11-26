@@ -7,11 +7,6 @@
 {% endblock %}
 
 {% block main-content %}
-<div class="back-link">
-    <a href="{% url 'profile' %}">
-        <i class="material-icons">arrow_back</i>
-    </a>
-</div>
 {% if user.is_authenticated %}
 <div class="form-container">
     <h4>Edit Profile</h4>

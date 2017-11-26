@@ -29,6 +29,10 @@
     color: #ff5252;
 }
 
+.navbar-link {
+    display: flex !important;
+}
+
 
 
 .node {

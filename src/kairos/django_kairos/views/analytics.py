@@ -1,58 +1,135 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.http import HttpResponseRedirect, HttpResponse, Http404, JsonResponse
+from django.http import JsonResponse
+from django.shortcuts import render
 
 from .. models import *
 import datetime
 from django.utils import timezone
 
 
+def analytics(request):
+    return render(request, 'analytics/tree.html', context={'username': request.user.username})
+
+
+def course_analytics(request):
+    return render(request, 'analytics/course_analytics.html', context={'username': request.user.username})
+
+
+def research_analytics(request):
+    return render(request, 'analytics/research_analytics.html', context={'username': request.user.username})
+
+
+def overall_analytics(request):
+    return render(request, 'analytics/overall_analytics.html', context={'username': request.user.username})
+
+
 def get_course_analytics(request):
     time_per_course = 0.0
-    cumulative_time_courses = 0.0
+    total_time_courses = 0.0
     courses = Course.objects.filter(user=request.user)
     context = {}
-
+    now = timezone.now()
     for course in courses:
         course_tasks = CourseTask.objects.filter(course=course)
-        for course_task in course_tasks:
-            time_per_course += course_task.task_info.time_spent/3600.0
-            print course.course_name
-            print course_task.name
-            print time_per_course 
-            print "-------------"
+        for task in course_tasks:
+            if task.task_info.time_spent is not None:
+                time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
+            else:
+                time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
 
-        context[course.course_name] = time_per_course
-        cumulative_time_courses += time_per_course
+            # time spent on paused task is set in DB
+            if task.task_info.status == 1:
+                time_spent = task.task_info.time_spent / 3600.0
+
+            time_per_course += time_spent
+
+            context[course.course_name].append({'task_id': task.id, 'task_name': task.name, 'time_spent': time_spent})
+
+        context[course.course_name + '_total_time'] = time_per_course
+        total_time_courses += time_per_course
         
-    context['time_taken_by_courses'] = cumulative_time_courses
+    context['total_time_courses'] = total_time_courses
 
     return JsonResponse(context)
 
 
 def get_research_analytics(request):
-    total_time_for_research = 0.0
+    total_time_research = 0.0
     context = {}
+    now = timezone.now()
     research_work = Research.objects.filter(user=request.user)
 
-    for research in research_work:
-        total_time_for_research += research.task_info.time_spent/3600.0
+    for task in research_work:
+        if task.task_info.time_spent is not None:
+            time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
+        else:
+            time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
 
-    print total_time_for_research
-    context['time_taken_by_research'] = total_time_for_research
+        # time spent on paused task is set in DB
+        if task.task_info.status == 1:
+            time_spent = task.task_info.time_spent / 3600.0
+
+        context[task.topic] = time_spent
+
+        total_time_research += time_spent
+
+    context['total_time_research'] = total_time_research
     return JsonResponse(context)
 
 
-def get_misc_analytics(request):
-    total_time_for_misc = 0.0
+def get_overall_analytics(request):
+    total_time_misc = 0.0
+    total_time_research = 0.0
+    total_time_courses = 0.0
     context = {}
+    now = timezone.now()
     misc_work = Misc.objects.filter(user=request.user)
+    research_work = Research.objects.filter(user=request.user)
+    courses = Course.objects.filter(user=request.user)
 
-    for misc in misc_work:
-        total_time_for_misc += misc.task_info.time_spent/3600.0
+    for task in misc_work:
+        if task.task_info.time_spent is not None:
+            time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
+        else:
+            time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
 
-    print total_time_for_misc
-    context['time_taken_by_misc'] = total_time_for_misc
+        # time spent on paused task is set in DB
+        if task.task_info.status == 1:
+            time_spent = task.task_info.time_spent / 3600.0
+
+        total_time_misc += time_spent
+
+    for task in research_work:
+        if task.task_info.time_spent is not None:
+            time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
+        else:
+            time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
+
+        # time spent on paused task is set in DB
+        if task.task_info.status == 1:
+            time_spent = task.task_info.time_spent / 3600.0
+
+        total_time_research += time_spent
+
+    for course in courses:
+        course_tasks = CourseTask.objects.filter(course=course)
+        for task in course_tasks:
+            if task.task_info.time_spent is not None:
+                time_spent = ((now - task.task_info.continue_time).total_seconds() + task.task_info.time_spent) / 3600.0
+            else:
+                time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
+
+            # time spent on paused task is set in DB
+            if task.task_info.status == 1:
+                time_spent = task.task_info.time_spent / 3600.0
+
+            total_time_courses += time_spent
+
+    context['total_time_courses'] = total_time_courses
+    context['total_time_research'] = total_time_research
+    context['total_time_misc'] = total_time_misc
+
     return JsonResponse(context)
 
 
@@ -85,7 +162,7 @@ def get_tree_analytics(request):
     return JsonResponse(context)
 
 
-def grace_days(request):
+def get_on_time_late_tasks(request):
     context = {}
     courses = Course.objects.filter(user=request.user)
     research_work = Research.objects.filter(user=request.user)
@@ -96,41 +173,31 @@ def grace_days(request):
 
     for research in research_work:
         if research.task_info.status == 2:
-            expected_finish_datetime = datetime.datetime.combine(research.task_info.expected_finish_date, research.task_info.expected_finish_time)
+            expected_finish_datetime = datetime.datetime.combine(research.task_info.expected_finish_date,
+                                                                 research.task_info.expected_finish_time
+                                                                 .replace(tzinfo=timezone.get_current_timezone()))
             if research.task_info.stop_time > expected_finish_datetime:
-                context['research'].append({'time_exceeded_tasks':{'research_id': research.id, 'research_topic': research.topic}})
+                context['research'].append({'time_exceeded_tasks': {'research_id': research.id,
+                                                                    'research_topic': research.topic}})
             else:
-                context['research'].append({'on_time_tasks':{'research_id': research.id, 'research_topic': research.topic}})
+                context['research'].append({'on_time_tasks': {'research_id': research.id,
+                                                              'research_topic': research.topic}})
     for course in courses:
         course_tasks = CourseTask.objects.filter(course=course)
         for course_task in course_tasks: 
             if course_task.task_info.status == 2:
-                expected_finish_datetime = datetime.datetime.combine(course_task.task_info.expected_finish_date, course_task.task_info.expected_finish_time)
+                expected_finish_datetime = datetime.datetime.combine(course_task.task_info.expected_finish_date,
+                                                                     course_task.task_info.expected_finish_time
+                                                                     .replace(tzinfo=timezone.get_current_timezone()))
                 if course_task.task_info.stop_time > expected_finish_datetime:
-                    context[course.course_name].append({'time_exceeded_tasks':{'task_id': course_task.id, 'task_name': course_task.name}})
+                    context[course.course_name].append({'time_exceeded_tasks': {'task_id': course_task.id,
+                                                                                'task_name': course_task.name}})
                 else:
-                    context[course.course_name].append({'on_time_tasks':{'task_id': course_task.id, 'task_name': course_task.name}})
+                    context[course.course_name].append({'on_time_tasks': {'task_id': course_task.id,
+                                                                          'task_name': course_task.name}})
 
     return JsonResponse(context)
 
-
-def single_task_taken(request):
-    context = {}
-    courses = Course.objects.filter(user=request.user)
-    research_work = Research.objects.filter(user=request.user)
-    context['research'] = []
-
-    for course in courses:
-        context[course.course_name] = []
-        course_tasks = CourseTask.objects.filter(course=course)
-        for course_task in course_tasks:
-            context[course.course_name].append({'task_id': course_task.id, 'task_name': course_task.name,
-                                                'time_taken': course_task.task_info.time_spent})
-
-    for research in research_work:
-        context['research'].append({'topic': research.topic, 'time_taken': research.task_info.time_spent})
-
-    return JsonResponse(context)
                 
 
 

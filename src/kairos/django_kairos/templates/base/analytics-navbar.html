@@ -4,6 +4,7 @@
 
 {% block child_css %}
 <link href="{% static 'css/dashboard.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'css/profile.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 {% endblock %}
 
 {% block content %}
@@ -15,9 +16,9 @@
 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li class="mr30 light-blue darken-1">
-                <a class="navbar-link" href="{% url 'analytics' %}">
-                    <i class="material-icons">pie_chart</i>
-                    <span class="ml10">Analytics</span>
+                <a class="navbar-link" href="{% url 'dash' %}">
+                    <i class="material-icons">dashboard</i>
+                    <span class="ml10">Dashboard</span>
                 </a>
             </li>
             <li class="mr30 light-blue darken-1">
@@ -30,27 +31,33 @@
         </ul>
 
         <ul class="side-nav" id="mobile-demo">
-            <li><a href="{% url 'analytics' %}">Analytics</a></li>
+            <li><a href="{% url 'dash' %}">Dashboard</a></li>
             <li><a href="{% url 'edit-profile' user.pk %}">{{ username }}</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
         </ul>
     </div>
 
-    <div class="nav-content center-align">
+    <div class="center-align">
         <ul id="tabs" class="tabs">
-            <li class="tab col s3 float-none"><a id="current_tasks" target="_self" href="{% url 'dash' %}">Current Tasks</a></li>
-            <li class="tab col s3 float-none"><a id="course-work" target="_self" href="{% url 'coursework' %}">Course Work</a></li>
-            <li class="tab col s3 float-none"><a id="research" target="_self" href="{% url 'research' %}">Research</a></li>
-            <li class="tab col s3 float-none"><a id="routine" target="_self" href="{% url 'routine' %}">Routine</a></li>
+            <li class="tab col s3 float-none">
+                <a id="analytics" target="_self" href="{% url 'analytics' %}">Coursework Tree</a>
+            </li>
+            <li class="tab col s3 float-none">
+                <a id="get-course-analytics" target="_self" href="{% url 'get-course-analytics' %}">Courses</a>
+            </li>
+            <li class="tab col s3 float-none">
+                <a id="get-research-analytics" target="_self" href="{% url 'get-research-analytics' %}">Research</a>
+            </li>
+            <li class="tab col s3 float-none">
+                <a id="get-overall-analytics" target="_self" href="{% url 'get-overall-analytics' %}">Overall</a>
+            </li>
         </ul>
     </div>
 </nav>
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'js/dashboard.js' %}"></script>
-<script src="{% static 'js/modals.js' %}"></script>
-<script src="{% static 'js/task_button.js' %}"></script>
-<script src="{% static 'js/edit_task.js' %}"></script>
+<script src="{% static 'js/analytics.js' %}"></script>
+<script src="{% static 'js/collapsible_tree.js' %}"></script>
 <script src ="{% static 'js/notification.js' %}"></script>
 {% endblock %}
