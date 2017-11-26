@@ -47,14 +47,16 @@
     <div class="row mb0 mt10">
         <div class="col s8 task-name task-message-{{task.task_info.id}}"></div>
         <div class="col s8 alert-msg task-alert-{{task.task_info.id}}"></div>
+
         {% if task.task_info.percentage_completion %}
-        <div class="col s4 offset-s2">
+        <div class="col s4 offset-s1">
             <div class="svg-container pb-container-{{task.task_info.id}}"></div>
         </div>
         <div class="col s4">
             <div class="svg-container pc-container-{{task.task_info.id}}"></div>
         </div>
         {% else %}
+
         <div class="col s4 offset-s4">
             <div class="svg-container pb-container-{{task.task_info.id}}"></div>
         </div>
@@ -108,9 +110,11 @@
                 <div class="mt10 ml5"><b>Time Needed:</b>
                     <span class="ml10">{{task.task_info.time_needed}} Hrs</span>
                 </div>
-                <div class="mt10 ml5"><b>Time Needed:</b>
-                    <span class="ml10">{{task.task_info.time_spent | calc_time }} Hrs</span>
-                </div>
+                {% if  task.task_info.time_spent %}
+                    <div class="mt10 ml5"><b>Time Spent:</b>
+                        <span class="ml10">{{task.task_info.time_spent | calc_time }} Hrs</span>
+                    </div>
+                {% endif %}
                 {% if task.task_info.comments %}
                 <div class="mt10 ml5"><b>Comments:</b>
                     <span class="ml10">{{task.task_info.comments}}</span>
