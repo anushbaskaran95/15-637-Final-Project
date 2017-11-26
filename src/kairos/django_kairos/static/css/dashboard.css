@@ -100,3 +100,18 @@ p.task-headings {
 .no-pad {
     padding: 0 !important;
 }
+
+.carousel {
+    height: 500px !important;
+    overflow: auto;
+}
+.carousel-item {
+    width: auto !important;
+    height: auto !important;
+}
+.indicator-item {
+    background-color: #ccc !important;
+}
+.indicator-item.active {
+    background-color: #999 !important;
+}

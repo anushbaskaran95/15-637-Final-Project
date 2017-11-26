@@ -13,6 +13,16 @@ body, html {
      left: 0;
 }
 
+.login-container-2 {
+     position: absolute;
+     margin: 0 auto;
+     top: 20%;
+     right: 0;
+     left: 0;
+     width: 50%;
+     padding: 20px;
+}
+
 .register-container {
      position: absolute;
      margin: 0 auto;
