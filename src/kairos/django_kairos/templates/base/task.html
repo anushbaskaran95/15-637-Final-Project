@@ -24,7 +24,7 @@
 
     {% if task.task_info.status != 2 %}
     <!-- Switch -->
-    <a class="switch right">
+    <a class="switch right" id="switch-{{task.task_info.id}}">
         <label>
             Pause
             {% if task.task_info.status == 0 %}
@@ -111,7 +111,7 @@
                     <div class="mt10 col s6"><b>Time Needed:</b>
                         <span>{{task.task_info.time_needed}} Hrs</span>
                     </div>
-                    {% if  task.task_info.time_spent %}
+                    {% if task.task_info.time_spent and task.task_info.status == 2 %}
                         <div class="mt10 col s6"><b>Time Spent:</b>
                             <span>{{task.task_info.time_spent | calc_time }} Hrs</span>
                         </div>

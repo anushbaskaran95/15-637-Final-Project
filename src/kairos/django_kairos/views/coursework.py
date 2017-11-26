@@ -46,7 +46,7 @@ def coursework(request):
 def add_course(request):
     context = {}
     if request.method == 'POST':
-        course_form = CourseForm(request.POST)
+        course_form = CourseForm(request.POST, user=request.user)
         context['form'] = course_form
 
         if course_form.is_valid():
@@ -63,7 +63,7 @@ def add_course(request):
 def add_course_task(request):
     if request.method == 'POST':
         course_name = request.POST.get('course_name')
-        course = Course.objects.filter(course_name__exact=course_name)[0]
+        course = Course.objects.filter(user=request.user, course_name__exact=course_name)[0]
 
         if not course:
             return JsonResponse({'status': 'fail', 'errors': [{'course-name-error': 'Course does not exist'}]})

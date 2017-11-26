@@ -40,7 +40,7 @@ def get_task_info(request):
             time_spent = task.time_spent / 3600.0
 
         if start_datetime > now:
-            info = [task.start_date, task.start_time, 0, 0, 0, '1']
+            info = [task.start_date.strftime("%B %d, %Y"), task.start_time.strftime('%H:%M'), 0, 0, 0, '1']
         else:
             info = [task.time_needed, time_spent, task.percentage_completion,
                     (time_spent - task.time_needed), total_time_in_hours, '0']

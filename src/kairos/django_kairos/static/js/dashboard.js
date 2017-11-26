@@ -153,6 +153,7 @@ function getTaskMetrics() {
         .done(function(data) {
             for (var key in data) {
                 if (data[key][5] == '1') {
+                    $('#switch-'+key).hide();
                     $('.task-message-'+key).html('Task starts on ' + data[key][0] + ' at ' + data[key][1]);
                     continue;
                 }
