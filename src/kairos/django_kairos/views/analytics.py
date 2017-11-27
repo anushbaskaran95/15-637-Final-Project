@@ -13,7 +13,10 @@ def analytics(request):
 
 
 def course_analytics(request):
-    return render(request, 'analytics/course_analytics.html', context={'username': request.user.username})
+    context = {'username': request.user.username}
+    courses = Course.objects.filter(user=request.user)
+    context['courses'] = courses
+    return render(request, 'analytics/course_analytics.html', context)
 
 
 def research_analytics(request):
@@ -46,7 +49,8 @@ def get_course_analytics(request):
                 else:
                     time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
 
-            context[course.course_name].append({'task_id': task.id, 'task_name': task.name, 'time_spent': time_spent})
+            context[course.course_name].append({'course_id': course.id, 'task_name': task.name,
+                                                'time_spent': time_spent, 'time_needed': task.task_info.time_needed})
             time_per_course += time_spent
 
         time_per_course_dict[course.course_name] = time_per_course
@@ -204,8 +208,3 @@ def get_on_time_late_tasks(request):
                                                                           'task_name': course_task.name}})
 
     return JsonResponse(context)
-
-                
-
-
-

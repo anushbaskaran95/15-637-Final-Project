@@ -4,8 +4,18 @@
 {% block title %}Course Analytics{% endblock %}
 
 {% block main-content %}
+<div class="row ml10">
+        <h5 class="col s6">Time Spent per Course</h5>
+    </div>
 <div class="center-align time_per_course mt30">
 </div>
+{% for course in courses %}
+    <div class="row ml10">
+        <h5 class="col s6">Time spent for {{course.course_name}}</h5>
+    </div>
+
+    <div class="center-align course_{{course.id}} mt30"></div>
+{% endfor %}
 {% endblock %}
 
 {% block scripts %}
