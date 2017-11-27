@@ -174,37 +174,74 @@ def get_tree_analytics(request):
 
 
 def get_on_time_late_tasks(request):
+    # context = {}
+    # courses = Course.objects.filter(user=request.user)
+    # research_work = Research.objects.filter(user=request.user)
+    # context['research'] = []
+
+    # for course in courses:
+    #     context[course.course_name] = []
+
+    # for research in research_work:
+    #     if research.task_info.status == 2:
+    #         expected_finish_datetime = datetime.datetime.combine(research.task_info.expected_finish_date,
+    #                                                              research.task_info.expected_finish_time
+    #                                                              .replace(tzinfo=timezone.get_current_timezone()))
+    #         if research.task_info.stop_time > expected_finish_datetime:
+    #             context['research'].append({'time_exceeded_tasks': {'research_id': research.id,
+    #                                                                 'research_topic': research.topic}})
+    #         else:
+    #             context['research'].append({'on_time_tasks': {'research_id': research.id,
+    #                                                           'research_topic': research.topic}})
+    # for course in courses:
+    #     course_tasks = CourseTask.objects.filter(course=course)
+    #     for course_task in course_tasks: 
+    #         if course_task.task_info.status == 2:
+    #             expected_finish_datetime = datetime.datetime.combine(course_task.task_info.expected_finish_date,
+    #                                                                  course_task.task_info.expected_finish_time
+    #                                                                  .replace(tzinfo=timezone.get_current_timezone()))
+    #             if course_task.task_info.stop_time > expected_finish_datetime:
+    #                 context[course.course_name].append({'time_exceeded_tasks': {'task_id': course_task.id,
+    #                                                                             'task_name': course_task.name}})
+    #             else:
+    #                 context[course.course_name].append({'on_time_tasks': {'task_id': course_task.id,
+    #                                                                       'task_name': course_task.name}})
+
+    # return JsonResponse(context)
     context = {}
     courses = Course.objects.filter(user=request.user)
     research_work = Research.objects.filter(user=request.user)
-    context['research'] = []
-
-    for course in courses:
-        context[course.course_name] = []
+    context['content'] = []
+    tasks_done_on_time = 0
+    tasks_not_done_by_schedule = 0
 
     for research in research_work:
         if research.task_info.status == 2:
             expected_finish_datetime = datetime.datetime.combine(research.task_info.expected_finish_date,
-                                                                 research.task_info.expected_finish_time
-                                                                 .replace(tzinfo=timezone.get_current_timezone()))
+                                                                research.task_info.expected_finish_time
+                                                                .replace(tzinfo=timezone.get_current_timezone()))
             if research.task_info.stop_time > expected_finish_datetime:
-                context['research'].append({'time_exceeded_tasks': {'research_id': research.id,
-                                                                    'research_topic': research.topic}})
+                tasks_not_done_by_schedule = tasks_not_done_by_schedule + 1
             else:
-                context['research'].append({'on_time_tasks': {'research_id': research.id,
-                                                              'research_topic': research.topic}})
+                tasks_done_on_time = tasks_done_on_time + 1
+
     for course in courses:
         course_tasks = CourseTask.objects.filter(course=course)
         for course_task in course_tasks: 
             if course_task.task_info.status == 2:
                 expected_finish_datetime = datetime.datetime.combine(course_task.task_info.expected_finish_date,
-                                                                     course_task.task_info.expected_finish_time
-                                                                     .replace(tzinfo=timezone.get_current_timezone()))
+                                                                      course_task.task_info.expected_finish_time
+                                                                      .replace(tzinfo=timezone.get_current_timezone()))
                 if course_task.task_info.stop_time > expected_finish_datetime:
-                    context[course.course_name].append({'time_exceeded_tasks': {'task_id': course_task.id,
-                                                                                'task_name': course_task.name}})
+                    tasks_not_done_by_schedule = tasks_not_done_by_schedule + 1
                 else:
-                    context[course.course_name].append({'on_time_tasks': {'task_id': course_task.id,
-                                                                          'task_name': course_task.name}})
+                    tasks_done_on_time = tasks_done_on_time + 1
+
+    context['content'].append({'label': "Tasks Done On Time", 'value': tasks_done_on_time})
+    context['content'].append({'label': "Tasks Not Done by Schedule", 'value': tasks_not_done_by_schedule})
 
     return JsonResponse(context)
+
+
+                
+
