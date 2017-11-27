@@ -1,0 +1,28 @@
+{% extends "base/navbar.html" %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+{% block child_css %}
+<link href="{% static 'css/profile.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+{% endblock %}
+
+{% block main-content %}
+<div class="container">
+    <div class="collapsible_tree">
+      <h5>Coursework Overview</h5>
+    </div>
+</div>
+{% endblock %}
+
+{% block fab %}
+<div class="fixed-action-btn">
+    <a class="btn light-blue darken-3 waves-effect waves-light" href="{% url 'edit-profile' user.pk %}">
+        Edit User Info
+    </a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+<script src="{% static 'js/collapsible_tree.js' %}"></script>
+{% endblock %}
