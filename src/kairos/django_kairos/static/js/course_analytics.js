@@ -25,11 +25,11 @@ function plotCourseTimes(data) {
                 return t.course
               });
 
-    var margin = {top: 5, right: 5, bottom: 50, left: 50};
+    var margin = {top: 5, right: 5, bottom: 100, left: 50};
     // here, we want the full chart to be 700x200, so we determine
     // the width and height by subtracting the margins from those values
     var fullWidth = 350;
-    var fullHeight = 400;
+    var fullHeight = 450;
     // the width and height values will be used in the ranges of our scales
     var width = fullWidth - margin.right - margin.left;
     var height = fullHeight - margin.top - margin.bottom;
@@ -67,7 +67,11 @@ function plotCourseTimes(data) {
       .attr('transform', 'translate(0,' + height + ')')
       .style("font-size", 15)
       // call the axis function on the selection
-      .call(xAxis);
+      .call(xAxis)
+      .selectAll("text")
+      .style("text-anchor", "end")
+      .attr("dx", "-.8em")
+      .attr("transform", "rotate(-45)");
 
     var yAxisEle = svg.append('g')
                       .classed('y axis', true)
