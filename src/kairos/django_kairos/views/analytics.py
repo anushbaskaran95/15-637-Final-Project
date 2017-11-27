@@ -62,6 +62,8 @@ def get_research_analytics(request):
     total_time_research = 0.0
     context = {}
     now = timezone.now()
+    context['time_per_research'] = []
+    time_per_research_dict = {}
     research_work = Research.objects.filter(user=request.user)
 
     for task in research_work:
@@ -74,11 +76,11 @@ def get_research_analytics(request):
             else:
                 time_spent = (now - task.task_info.continue_time).total_seconds() / 3600.0
 
-        context[task.topic] = time_spent
-
+        time_per_research_dict[task.topic] = time_spent
         total_time_research += time_spent
 
     context['total_time_research'] = total_time_research
+    context['time_per_research'] = time_per_research_dict
     return JsonResponse(context)
 
 
