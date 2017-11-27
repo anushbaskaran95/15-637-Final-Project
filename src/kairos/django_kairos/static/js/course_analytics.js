@@ -8,7 +8,7 @@ function getCourseData() {
     $.get( "/get-course-analytics")
         .done(function(data) {
             for (var x in data['time_per_course']) {
-                time_per_course.push({'course':x, 'time': data['time_per_course'][x]});
+                time_per_course.push({'course':x, 'time': data['time_per_course'][x] });
             }
             delete data['time_per_course'];
             total_time = data['total_time_courses'];
@@ -71,7 +71,7 @@ function plotCourseTimes(data) {
       .selectAll("text")
       .style("text-anchor", "end")
       .attr("dx", "-.8em")
-      .attr("transform", "rotate(-45)");
+      .attr("transform", "rotate(-35)");
 
     var yAxisEle = svg.append('g')
                       .classed('y axis', true)

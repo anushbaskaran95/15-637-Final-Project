@@ -71,7 +71,7 @@ function plotResearchTimes(data) {
       .selectAll("text")
       .style("text-anchor", "end")
       .attr("dx", "-.8em")
-      .attr("transform", "rotate(-45)");
+      .attr("transform", "rotate(-35)");
 
     var yAxisEle = svg.append('g')
                       .classed('y axis', true)
