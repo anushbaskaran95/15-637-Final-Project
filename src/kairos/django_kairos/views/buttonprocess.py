@@ -56,13 +56,12 @@ def process_stop(request):
 
         # time spent on paused task is set in DB
         if task_info.status == 1:
-            time_spent = task_info.time_spent / 3600.0
+            time_spent = task_info.time_spent
         else:
             if task_info.time_spent is not None:
-                time_spent = ((timezone.now() - task_info.continue_time).total_seconds()
-                              + task_info.time_spent) / 3600.0
+                time_spent = (timezone.now() - task_info.continue_time).total_seconds() + task_info.time_spent
             else:
-                time_spent = (timezone.now() - task_info.continue_time).total_seconds() / 3600.0
+                time_spent = (timezone.now() - task_info.continue_time).total_seconds()
 
         task_info.time_spent = time_spent
         task_info.stop_time = timezone.now()
