@@ -5,6 +5,7 @@
 {% block child_css %}
 <link href="{% static 'css/dashboard.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 <link href="{% static 'css/profile.css' %}" type="text/css" rel="stylesheet" media="screen"/>
+<link href="{% static 'css/analytics.css' %}" type="text/css" rel="stylesheet" media="screen"/>
 {% endblock %}
 
 {% block content %}
@@ -54,10 +55,4 @@
         </ul>
     </div>
 </nav>
-{% endblock %}
-
-{% block scripts %}
-<script src="{% static 'js/analytics.js' %}"></script>
-<script src="{% static 'js/collapsible_tree.js' %}"></script>
-<script src ="{% static 'js/notification.js' %}"></script>
 {% endblock %}

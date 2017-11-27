@@ -102,13 +102,13 @@ p.task-headings {
 }
 
 .carousel {
-    height: 250px !important;
+    height: 300px !important;
     overflow: unset;
 }
 .carousel-item {
-    width: auto !important;
-    height: auto !important;
-    margin-top: -30px;
+    width: 400px !important;
+    height: 300px !important;
+    margin-top: 30px;
 }
 .indicator-item {
     background-color: #ccc !important;

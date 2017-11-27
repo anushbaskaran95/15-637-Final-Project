@@ -25,12 +25,14 @@ def overall_analytics(request):
 
 
 def get_course_analytics(request):
-    time_per_course = 0.0
     total_time_courses = 0.0
     courses = Course.objects.filter(user=request.user)
     context = {}
     now = timezone.now()
+    context['time_per_course'] = []
+    time_per_course_dict = {}
     for course in courses:
+        time_per_course = 0.0
         course_tasks = CourseTask.objects.filter(course=course)
         context[course.course_name] = []
 
@@ -47,10 +49,11 @@ def get_course_analytics(request):
             context[course.course_name].append({'task_id': task.id, 'task_name': task.name, 'time_spent': time_spent})
             time_per_course += time_spent
 
-        context[course.course_name + '_total_time'] = time_per_course
+        time_per_course_dict[course.course_name] = time_per_course
         total_time_courses += time_per_course
         
     context['total_time_courses'] = total_time_courses
+    context['time_per_course'] = time_per_course_dict
 
     return JsonResponse(context)
 
