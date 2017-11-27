@@ -160,11 +160,11 @@ def get_tree_analytics(request):
             course_tasks = CourseTask.objects.filter(course=course)
             for course_task in course_tasks: 
                 if course_task.task_info.status == 0:
-                    context['children'][index]['children'].append({'name': course_task.name, 'status': 'ongoing'})
+                    context['children'][index]['children'].append({'name': course_task.name, 'status': 'Ongoing'})
                 elif course_task.task_info.status == 1:
-                    context['children'][index]['children'].append({'name': course_task.name, 'status': 'paused'})
+                    context['children'][index]['children'].append({'name': course_task.name, 'status': 'Paused'})
                 elif course_task.task_info.status == 2:
-                    context['children'][index]['children'].append({'name': course_task.name, 'status': 'stopped'})
+                    context['children'][index]['children'].append({'name': course_task.name, 'status': 'Complete'})
 
             index = index + 1
             if index == len(courses):
