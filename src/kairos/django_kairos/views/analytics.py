@@ -208,10 +208,9 @@ def get_on_time_late_tasks(request):
     #                                                                       'task_name': course_task.name}})
 
     # return JsonResponse(context)
-    context = {}
+    #context = {[]}
     courses = Course.objects.filter(user=request.user)
     research_work = Research.objects.filter(user=request.user)
-    context['content'] = []
     tasks_done_on_time = 0
     tasks_not_done_by_schedule = 0
 
@@ -237,10 +236,10 @@ def get_on_time_late_tasks(request):
                 else:
                     tasks_done_on_time = tasks_done_on_time + 1
 
-    context['content'].append({'label': "Tasks Done On Time", 'value': tasks_done_on_time})
-    context['content'].append({'label': "Tasks Not Done by Schedule", 'value': tasks_not_done_by_schedule})
+    #context.append({'label': "Tasks Done On Time", 'value': tasks_done_on_time})
+    #context.append({'label': "Tasks Not Done by Schedule", 'value': tasks_not_done_by_schedule})
 
-    return JsonResponse(context)
+    return JsonResponse([{'label': "Tasks Done On Time", 'value': tasks_done_on_time}, {'label': "Tasks Not Done by Schedule", 'value': tasks_not_done_by_schedule}], safe=False)
 
 
                 
