@@ -19,7 +19,7 @@ d3.json(url, function(error, json) {
   var pie = new d3pie("pieChart", {
 header: {
   title: {
-    text: "A Simple Donut Pie"
+    text: "complete on time vs not on time"
   },
   location: "pie-center"
 },
