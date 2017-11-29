@@ -2,31 +2,32 @@
 from __future__ import unicode_literals
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from .. models import *
 import datetime
 from django.utils import timezone
 
-
+@login_required
 def analytics(request):
     return render(request, 'analytics/tree.html', context={'username': request.user.username})
 
-
+@login_required
 def course_analytics(request):
     context = {'username': request.user.username}
     courses = Course.objects.filter(user=request.user)
     context['courses'] = courses
     return render(request, 'analytics/course_analytics.html', context)
 
-
+@login_required
 def research_analytics(request):
     return render(request, 'analytics/research_analytics.html', context={'username': request.user.username})
 
-
+@login_required
 def overall_analytics(request):
     return render(request, 'analytics/overall_analytics.html', context={'username': request.user.username})
 
-
+@login_required
 def get_course_analytics(request):
     total_time_courses = 0.0
     courses = Course.objects.filter(user=request.user)
@@ -61,7 +62,7 @@ def get_course_analytics(request):
 
     return JsonResponse(context)
 
-
+@login_required
 def get_research_analytics(request):
     total_time_research = 0.0
     context = {}
@@ -87,7 +88,7 @@ def get_research_analytics(request):
     context['time_per_research'] = time_per_research_dict
     return JsonResponse(context)
 
-
+@login_required
 def get_overall_analytics(request):
     total_time_misc = 0.0
     total_time_research = 0.0
@@ -143,7 +144,7 @@ def get_overall_analytics(request):
 
     return JsonResponse(context)
 
-
+@login_required
 def get_tree_analytics(request):
     courses = Course.objects.filter(user=request.user)
     context = dict()
@@ -172,43 +173,8 @@ def get_tree_analytics(request):
 
     return JsonResponse(context)
 
-
+@login_required
 def get_on_time_late_tasks(request):
-    # context = {}
-    # courses = Course.objects.filter(user=request.user)
-    # research_work = Research.objects.filter(user=request.user)
-    # context['research'] = []
-
-    # for course in courses:
-    #     context[course.course_name] = []
-
-    # for research in research_work:
-    #     if research.task_info.status == 2:
-    #         expected_finish_datetime = datetime.datetime.combine(research.task_info.expected_finish_date,
-    #                                                              research.task_info.expected_finish_time
-    #                                                              .replace(tzinfo=timezone.get_current_timezone()))
-    #         if research.task_info.stop_time > expected_finish_datetime:
-    #             context['research'].append({'time_exceeded_tasks': {'research_id': research.id,
-    #                                                                 'research_topic': research.topic}})
-    #         else:
-    #             context['research'].append({'on_time_tasks': {'research_id': research.id,
-    #                                                           'research_topic': research.topic}})
-    # for course in courses:
-    #     course_tasks = CourseTask.objects.filter(course=course)
-    #     for course_task in course_tasks: 
-    #         if course_task.task_info.status == 2:
-    #             expected_finish_datetime = datetime.datetime.combine(course_task.task_info.expected_finish_date,
-    #                                                                  course_task.task_info.expected_finish_time
-    #                                                                  .replace(tzinfo=timezone.get_current_timezone()))
-    #             if course_task.task_info.stop_time > expected_finish_datetime:
-    #                 context[course.course_name].append({'time_exceeded_tasks': {'task_id': course_task.id,
-    #                                                                             'task_name': course_task.name}})
-    #             else:
-    #                 context[course.course_name].append({'on_time_tasks': {'task_id': course_task.id,
-    #                                                                       'task_name': course_task.name}})
-
-    # return JsonResponse(context)
-    #context = {[]}
     courses = Course.objects.filter(user=request.user)
     research_work = Research.objects.filter(user=request.user)
     tasks_done_on_time = 0
@@ -235,9 +201,6 @@ def get_on_time_late_tasks(request):
                     tasks_not_done_by_schedule = tasks_not_done_by_schedule + 1
                 else:
                     tasks_done_on_time = tasks_done_on_time + 1
-
-    #context.append({'label': "Tasks Done On Time", 'value': tasks_done_on_time})
-    #context.append({'label': "Tasks Not Done by Schedule", 'value': tasks_not_done_by_schedule})
 
     return JsonResponse([{'label': "Tasks Done On Time", 'value': tasks_done_on_time}, {'label': "Tasks Not Done by Schedule", 'value': tasks_not_done_by_schedule}], safe=False)
 

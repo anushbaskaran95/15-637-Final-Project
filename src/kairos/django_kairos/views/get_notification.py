@@ -3,10 +3,11 @@ from __future__ import unicode_literals
 
 from .. models import *
 import datetime
+from django.contrib.auth.decorators import login_required
 
 from django.http import JsonResponse
 
-
+@login_required
 def get_notification_expected_finish(request):
     context = {}
     course_tasks = TaskInfo.objects.filter(coursetask__course__user=request.user).exclude(status=2)
@@ -49,7 +50,7 @@ def get_notification_expected_finish(request):
 
     return JsonResponse(context)
 
-
+@login_required
 def get_notification_due(request):
         context = {}
         course_tasks = TaskInfo.objects.filter(coursetask__course__user=request.user).exclude(status=2)
