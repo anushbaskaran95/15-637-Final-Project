@@ -17,13 +17,12 @@ d3.json(url, function(error, json) {
   })
 
   if (data[0].value == 0 && data[1].value == 0) {
-    console.log("hi");
-    $("#pieChart").append("<h7>No task has been finished yet. Consider finishing a task first to display the analytics</h7>");
+    $("#pieChart").append("<h7>No task has been finished yet. Finished tasks will be used to display the analytics</h7>");
   } else {
     var pie = new d3pie("pieChart", {
   header: {
     title: {
-      text: "on time vs late"
+      text: "On time vs Late"
     },
     location: "pie-center"
   },

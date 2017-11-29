@@ -7,15 +7,19 @@ function getCourseData() {
     total_time = 0;
     $.get( "/get-course-analytics")
         .done(function(data) {
-            for (var x in data['time_per_course']) {
-                time_per_course.push({'course':x, 'time': data['time_per_course'][x] });
-            }
-            delete data['time_per_course'];
-            total_time = data['total_time_courses'];
-            delete data['total_time_courses'];
-            plotCourseTimes(time_per_course);
-            for (var x in data) {
-                plotTaskTimes(data[x], data[x][0]['course_id']);
+            if (!$.isEmptyObject(data['time_per_course'])) {
+                for (var x in data['time_per_course']) {
+                    time_per_course.push({'course':x, 'time': data['time_per_course'][x] });
+                }
+                delete data['time_per_course'];
+                total_time = data['total_time_courses'];
+                delete data['total_time_courses'];
+                plotCourseTimes(time_per_course);
+                for (var x in data) {
+                    plotTaskTimes(data[x], data[x][0]['course_id']);
+                }
+            } else {
+                $('.chart-heading').html('No Course Tasks have been added ');
             }
         })
         .fail(function() {
@@ -27,6 +31,7 @@ function plotCourseTimes(data) {
     courses = data.map(function(t) {
                 return t.course
               });
+    $('.chart-heading').html('Time Spent per Course')
 
     var margin = {top: 5, right: 5, bottom: 100, left: 50};
     // here, we want the full chart to be 700x200, so we determine
