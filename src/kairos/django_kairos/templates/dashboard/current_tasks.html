@@ -73,7 +73,13 @@
             </div>
         {% endfor %}
     </div>
-
+    {% if not course_tasks and not research_tasks and not routine_tasks %}
+    <div class="center-align">
+        <h5>
+            There are no current tasks. Start one now!
+        </h5>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
 

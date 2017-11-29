@@ -123,15 +123,15 @@ class CourseForm(forms.ModelForm):
 
 class TaskInfoForm(forms.ModelForm):
 
-    start_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'datepicker', 'placeholder': 'Start Date'},
+    start_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'datepicker', 'placeholder': 'Start Date *'},
                                                         format='%d %B, %Y'), required=True)
-    start_time = forms.TimeField(widget=forms.TimeInput(attrs={'class': 'timepicker', 'placeholder': 'Start Time'},
+    start_time = forms.TimeField(widget=forms.TimeInput(attrs={'class': 'timepicker', 'placeholder': 'Start Time *'},
                                                         format='%H:%M'), required=True)
     expected_finish_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'datepicker',
-                                                                         'placeholder': 'Expected Finish Date'},
+                                                                         'placeholder': 'Expected Finish Date *'},
                                                                   format='%d %B, %Y'), required=True)
     expected_finish_time = forms.TimeField(widget=forms.TimeInput(attrs={'class': 'timepicker',
-                                                                         'placeholder': 'Expected Finish Time'},
+                                                                         'placeholder': 'Expected Finish Time *'},
                                                                   format='%H:%M'), required=True)
     due_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'datepicker', 'placeholder': 'Due Date'},
                                                       format='%d %B, %Y'), required=False)
@@ -173,6 +173,9 @@ class TaskInfoForm(forms.ModelForm):
         return cleaned_data
 
     def clean_time_needed(self):
+        if self.instance.pk:
+            return self.instance.time_needed
+
         time_needed = self.cleaned_data.get('time_needed')
         if time_needed < 0:
             forms.ValidationError("Invalid Time")

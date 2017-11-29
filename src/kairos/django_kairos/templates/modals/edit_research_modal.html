@@ -5,7 +5,7 @@
     <div class="input-field">
         {{ research_form.topic }}
         <label class="input-label"
-               for="{{ research_form.topic.id_for_label }}">Topic</label>
+               for="{{ research_form.topic.id_for_label }}">Topic *</label>
     </div>
 
     <br/>
@@ -31,7 +31,7 @@
     </div>
 
     <div id="finish-date-error" class="error"></div>
-    <label class="date-label input-label">Expected Finish Date</label>
+    <label class="date-label input-label">Expected Finish Date *</label>
     <div class="row col s12">
         <div class="input-field col s6">
             {{ task_info_form.expected_finish_date }}

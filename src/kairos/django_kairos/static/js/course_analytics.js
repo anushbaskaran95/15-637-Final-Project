@@ -19,7 +19,7 @@ function getCourseData() {
                     plotTaskTimes(data[x], data[x][0]['course_id']);
                 }
             } else {
-                $('.chart-heading').html('No Course Tasks have been added ');
+                $('.chart-heading').html('No Course Tasks have been added');
             }
         })
         .fail(function() {

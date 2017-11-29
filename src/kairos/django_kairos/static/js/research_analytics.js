@@ -7,13 +7,17 @@ function getResearchData() {
     total_time = 0;
     $.get( "/get-research-analytics")
         .done(function(data) {
-            for (var x in data['time_per_research']) {
-                time_per_research.push({'research':x, 'time': data['time_per_research'][x]});
+            if (!$.isEmptyObject(data['time_per_research'])) {
+                for (var x in data['time_per_research']) {
+                    time_per_research.push({'research':x, 'time': data['time_per_research'][x]});
+                }
+                delete data['time_per_research'];
+                total_time = data['total_time_research'];
+                delete data['total_time_research'];
+                plotResearchTimes(time_per_research);
+            } else {
+                $('.chart-heading').html('No Research Tasks have been added');
             }
-            delete data['time_per_research'];
-            total_time = data['total_time_research'];
-            delete data['total_time_research'];
-            plotResearchTimes(time_per_research);
         })
         .fail(function() {
             console.log('An error occurred')
@@ -24,6 +28,8 @@ function plotResearchTimes(data) {
     researches = data.map(function(t) {
                 return t.research
               });
+
+    $('.chart-heading').html('Time Spent per Research Task');
 
     var margin = {top: 5, right: 5, bottom: 100, left: 50};
     // here, we want the full chart to be 700x200, so we determine

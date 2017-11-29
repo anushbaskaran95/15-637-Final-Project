@@ -13,6 +13,13 @@
 
 {% block main-content%}
 <div class="tasks-container">
+    {% if not other_tasks and not finished_tasks %}
+    <div class="center-align">
+        <h5>
+            No routine tasks have been started
+        </h5>
+    </div>
+    {% endif %}
     <div class="row">
         {% if other_tasks %}
             <h5>Current Tasks</h5>

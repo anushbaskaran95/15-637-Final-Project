@@ -125,3 +125,7 @@
 .svg-container {
     max-width: 180px;
 }
+
+::placeholder {
+   color: #999;
+}
