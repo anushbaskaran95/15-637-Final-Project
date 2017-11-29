@@ -2,11 +2,12 @@
 from __future__ import unicode_literals
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, Http404
+from django.contrib.auth.decorators import login_required
 
 from .. models import *
 from django.utils import timezone
 
-
+@login_required
 def process_button(request):
     if request.method == 'POST':
         task_id = request.POST.get('task_id')
@@ -45,7 +46,7 @@ def process_button(request):
 
     return HttpResponse('')
 
-
+@login_required
 def process_stop(request):
     if request.method == 'POST':
         task_id = request.POST.get('task_id')

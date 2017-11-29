@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from django.contrib.auth.decorators import login_required
 
 from .. models import *
 import datetime
@@ -8,6 +9,7 @@ from django.utils import timezone
 
 
 # This function returns a dictionary containing {task id: [total time, time spent, percentage completion]}
+@login_required
 def get_task_info(request):
     context = {}
     now = timezone.now()
