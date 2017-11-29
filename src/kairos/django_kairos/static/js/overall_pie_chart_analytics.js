@@ -27,7 +27,7 @@ d3.json(url, function(error, json) {
     location: "pie-center"
   },
   size: {
-    pieInnerRadius: "80%"
+    pieInnerRadius: "70%"
   },
   data: {
     sortOrder: "label-asc",
