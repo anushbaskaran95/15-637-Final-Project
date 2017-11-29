@@ -70,4 +70,4 @@ def confirm_registration(request, user_id, token):
         user.save()
         return render(request, 'registration/email_confirmed.html')
     else:
-        return HttpResponse('Activation link is invalid!')
+        return render(request, 'registration/link_invalid.html')

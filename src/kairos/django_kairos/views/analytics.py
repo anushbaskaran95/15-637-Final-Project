@@ -8,9 +8,11 @@ from .. models import *
 import datetime
 from django.utils import timezone
 
+
 @login_required
 def analytics(request):
     return render(request, 'analytics/tree.html', context={'username': request.user.username})
+
 
 @login_required
 def course_analytics(request):
@@ -19,13 +21,16 @@ def course_analytics(request):
     context['courses'] = courses
     return render(request, 'analytics/course_analytics.html', context)
 
+
 @login_required
 def research_analytics(request):
     return render(request, 'analytics/research_analytics.html', context={'username': request.user.username})
 
+
 @login_required
 def overall_analytics(request):
     return render(request, 'analytics/overall_analytics.html', context={'username': request.user.username})
+
 
 @login_required
 def get_course_analytics(request):
@@ -62,6 +67,7 @@ def get_course_analytics(request):
 
     return JsonResponse(context)
 
+
 @login_required
 def get_research_analytics(request):
     total_time_research = 0.0
@@ -87,6 +93,7 @@ def get_research_analytics(request):
     context['total_time_research'] = total_time_research
     context['time_per_research'] = time_per_research_dict
     return JsonResponse(context)
+
 
 @login_required
 def get_overall_analytics(request):
@@ -144,6 +151,7 @@ def get_overall_analytics(request):
 
     return JsonResponse(context)
 
+
 @login_required
 def get_tree_analytics(request):
     courses = Course.objects.filter(user=request.user)
@@ -172,6 +180,7 @@ def get_tree_analytics(request):
                 break
 
     return JsonResponse(context)
+
 
 @login_required
 def get_on_time_late_tasks(request):

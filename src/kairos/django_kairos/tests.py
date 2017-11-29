@@ -8,8 +8,6 @@ from .models import *
 # Create your tests here.
 class TestUrls(TestCase):
 
-    fixtures = ['db']
-
     def test_login(self):
         client = Client()
         response = client.get('/login')
@@ -24,3 +22,21 @@ class TestUrls(TestCase):
         client = Client()
         response = client.get('')
         self.assertEqual(response.status_code, 302)
+
+    def test_coursework(self):
+        client = Client()
+        response = client.get('/course-work')
+        self.assertEqual(response.status_code, 302)
+
+    def test_get_task_info(self):
+        client = Client()
+        response = client.get('/get-task-info')
+        self.assertEqual(response.status_code, 302)
+
+
+class TestModels(TestCase):
+
+    fixtures = ['db']
+
+    # def create_course(self):
+    #     return
