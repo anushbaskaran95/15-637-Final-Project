@@ -56,7 +56,7 @@ def get_course_analytics(request):
 
         time_per_course_dict[course.course_name] = time_per_course
         total_time_courses += time_per_course
-        
+
     context['total_time_courses'] = total_time_courses
     context['time_per_course'] = time_per_course_dict
 
@@ -155,11 +155,11 @@ def get_tree_analytics(request):
     for course in courses:
         course_name = course.course_name
         context['children'].append({'name': course_name, 'children': []})
-        
+
     while index <= (len(context['children']) - 1):
         for course in courses:
             course_tasks = CourseTask.objects.filter(course=course)
-            for course_task in course_tasks: 
+            for course_task in course_tasks:
                 if course_task.task_info.status == 0:
                     context['children'][index]['children'].append({'name': course_task.name, 'status': 'Ongoing'})
                 elif course_task.task_info.status == 1:
@@ -192,7 +192,7 @@ def get_on_time_late_tasks(request):
 
     for course in courses:
         course_tasks = CourseTask.objects.filter(course=course)
-        for course_task in course_tasks: 
+        for course_task in course_tasks:
             if course_task.task_info.status == 2:
                 expected_finish_datetime = datetime.datetime.combine(course_task.task_info.expected_finish_date,
                                                                       course_task.task_info.expected_finish_time
@@ -202,8 +202,4 @@ def get_on_time_late_tasks(request):
                 else:
                     tasks_done_on_time = tasks_done_on_time + 1
 
-    return JsonResponse([{'label': "Tasks Done On Time", 'value': tasks_done_on_time}, {'label': "Tasks Not Done by Schedule", 'value': tasks_not_done_by_schedule}], safe=False)
-
-
-                
-
+    return JsonResponse([{'label': "On Time", 'value': tasks_done_on_time}, {'label': "Late", 'value': tasks_not_done_by_schedule}], safe=False)
