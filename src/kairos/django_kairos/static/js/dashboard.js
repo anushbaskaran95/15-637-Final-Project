@@ -86,7 +86,7 @@ $(document).ready(function(){
     getTaskMetrics();
 
     // Periodically check if a task is approaching the deadline
-    window.setInterval(getNotification, 1000 * 60 * 60);
+    window.setInterval(getNotification, 1000 * 5);
 });
 
 function initPickers() {

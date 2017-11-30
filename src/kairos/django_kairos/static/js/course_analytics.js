@@ -33,7 +33,7 @@ function plotCourseTimes(data) {
               });
     $('.chart-heading').html('Time Spent per Course')
 
-    var margin = {top: 5, right: 5, bottom: 100, left: 50};
+    var margin = {top: 5, right: 5, bottom: 100, left: 70};
     // here, we want the full chart to be 700x200, so we determine
     // the width and height by subtracting the margins from those values
     var fullWidth = 350;
@@ -89,7 +89,7 @@ function plotCourseTimes(data) {
                         .attr('transform', 'rotate(-90)translate(-' + height/2 + ',0)')
                         .style('text-anchor', 'middle')
                         .style('fill', 'black')
-                        .attr('dy', '-2.5em')
+                        .attr('dy', '-3em')
                         .style('font-size', 15)
                         .text('Hours');
 
@@ -127,7 +127,7 @@ function plotTaskTimes(data, id) {
                 return t.task_name
               });
 
-    var margin = {top: 5, right: 5, bottom: 100, left: 50};
+    var margin = {top: 5, right: 5, bottom: 100, left: 70};
     // here, we want the full chart to be 700x200, so we determine
     // the width and height by subtracting the margins from those values
     var fullWidth = 350;
@@ -183,7 +183,7 @@ function plotTaskTimes(data, id) {
                         .attr('transform', 'rotate(-90)translate(-' + height/2 + ',0)')
                         .style('text-anchor', 'middle')
                         .style('fill', 'black')
-                        .attr('dy', '-2.5em')
+                        .attr('dy', '-3em')
                         .style('font-size', 15)
                         .text('Hours');
 
