@@ -155,6 +155,8 @@ class TaskInfoForm(forms.ModelForm):
             start_date = self.instance.start_date
             start_time = self.instance.start_time
             start_datetime = datetime.datetime.combine(start_date, start_time)
+            cleaned_data['start_date'] = start_date
+            cleaned_data['start_time'] = start_time
 
         expected_finish_date = self.cleaned_data.get("expected_finish_date")
         expected_finish_time = self.cleaned_data.get("expected_finish_time")
