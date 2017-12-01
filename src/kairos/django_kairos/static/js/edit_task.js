@@ -46,7 +46,7 @@ $('body').on('submit', '#edit-course-task-form', function(e) {
     $.post( "/edit-course-task", {'form': $( "#edit-course-task-form" ).serialize(),
                                   'task_id': task_id, 'task_info_id': task_info_id})
         .done(function(data) {
-            clear_errors_edit_form();
+            clear_errors_edit_form('#edit-course-task-form');
             if(data['status'] == 'fail') {
                 errors = data['errors'];
                 for (var key in errors) {
@@ -73,7 +73,7 @@ $('body').on('submit', '#edit-research-task-form', function(e) {
     $.post( "/edit-research-task", {'form': $( "#edit-research-task-form" ).serialize(),
                                   'task_id': task_id, 'task_info_id': task_info_id})
         .done(function(data) {
-            clear_errors_edit_form();
+            clear_errors_edit_form('#edit-research-task-form');
             if(data['status'] == 'fail') {
                 errors = data['errors'];
                 for (var key in errors) {
@@ -100,7 +100,7 @@ $('body').on('submit', '#edit-routine-task-form', function(e) {
     $.post( "/edit-routine-task", {'form': $( "#edit-routine-task-form" ).serialize(),
                                   'task_id': task_id, 'task_info_id': task_info_id})
         .done(function(data) {
-            clear_errors_edit_form();
+            clear_errors_edit_form('#edit-routine-task-form');
             if(data['status'] == 'fail') {
                 errors = data['errors'];
                 for (var key in errors) {
@@ -119,11 +119,11 @@ $('body').on('submit', '#edit-routine-task-form', function(e) {
 });
 
 
-function clear_errors_edit_form() {
-    $('#task-name-error').html('');
-    $('#topic-error').html('');
-    $('#finish-date-error').html('');
-    $('#due-date-error').html('');
-    $('#errors-note').html('');
-    $('#pc-error').html('');
+function clear_errors_edit_form(form_id) {
+    $(form_id).find('#task-name-error').html('');
+    $(form_id).find('#topic-error').html('');
+    $(form_id).find('#finish-date-error').html('');
+    $(form_id).find('#due-date-error').html('');
+    $(form_id).find('#errors-note').html('');
+    $(form_id).find('#pc-error').html('');
 }

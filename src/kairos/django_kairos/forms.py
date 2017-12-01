@@ -192,6 +192,10 @@ class TaskInfoForm(forms.ModelForm):
 
     def clean_percentage_completion(self):
         percentage_completion = self.cleaned_data.get('percentage_completion')
+
+        if not percentage_completion:
+            return percentage_completion
+
         if percentage_completion < 0 or percentage_completion > 100:
             raise forms.ValidationError("Invalid percentage completion")
         else:

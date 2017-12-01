@@ -99,14 +99,19 @@ def edit_research_task(request):
             error_list = dict()
             if research_task_form['topic'].errors:
                 error_list['topic-error'] = research_task_form['topic'].errors
+
             if task_info_form['time_needed'].errors:
                 error_list['time-needed-error'] = task_info_form['time_needed'].errors
+
             if task_info_form['start_date'].errors:
                 error_list['start-date-error'] = task_info_form['start_date'].errors
+
             if task_info_form['expected_finish_date'].errors:
                 error_list['finish-date-error'] = task_info_form['expected_finish_date'].errors
+
             if task_info_form['due_date'].errors:
                 error_list['due-date-error'] = task_info_form['due_date'].errors
+
             if task_info_form['percentage_completion'].errors:
                 error_list['pc-error'] = task_info_form['percentage_completion'].errors
             return JsonResponse({'status': 'fail', 'errors': error_list})

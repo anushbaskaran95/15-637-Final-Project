@@ -21,7 +21,7 @@ $('#course-task-form').on('submit', function(e) {
     e.preventDefault();
     $.post( "/add-course-task", $( "#course-task-form" ).serialize())
         .done(function(data) {
-            clear_errors();
+            clear_errors('#course-task-form');
             if(data['status'] == 'fail') {
                 errors = data['errors'];
                 for (var key in errors) {
@@ -53,7 +53,7 @@ $('#research-task-form').on('submit', function(e) {
     e.preventDefault();
     $.post( "/add-research-task", $( "#research-task-form" ).serialize())
         .done(function(data) {
-            clear_errors();
+            clear_errors('#research-task-form');
             if(data['status'] == 'fail') {
                 errors = data['errors'];
                 for (var key in errors) {
@@ -85,7 +85,7 @@ $('#routine-task-form').on('submit', function(e) {
     e.preventDefault();
     $.post( "/add-routine-task", $( "#routine-task-form" ).serialize())
         .done(function(data) {
-            clear_errors();
+            clear_errors('#routine-task-form');
             if(data['status'] == 'fail') {
                 errors = data['errors'];
                 for (var key in errors) {
@@ -113,13 +113,13 @@ $('#routine-task-form').on('submit', function(e) {
 });
 
 
-function clear_errors() {
-    $('#course-name-error').html('');
-    $('#task-name-error').html('');
-    $('#topic-error').html('');
-    $('#start-date-error').html('');
-    $('#finish-date-error').html('');
-    $('#due-date-error').html('');
-    $('#errors-note').html('');
-    $('#time-needed-error').html('');
+function clear_errors(form_id) {
+    $(form_id).find('#course-name-error').html('');
+    $(form_id).find('#task-name-error').html('');
+    $(form_id).find('#topic-error').html('');
+    $(form_id).find('#start-date-error').html('');
+    $(form_id).find('#finish-date-error').html('');
+    $(form_id).find('#due-date-error').html('');
+    $(form_id).find('#errors-note').html('');
+    $(form_id).find('#time-needed-error').html('');
 }

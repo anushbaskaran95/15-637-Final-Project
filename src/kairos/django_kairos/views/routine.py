@@ -60,7 +60,7 @@ def add_routine_task(request):
                 error_list['time-needed-error'] = task_info_form['time_needed'].errors
             if task_info_form['start_date'].errors:
                 error_list['start-date-error'] = task_info_form['start_date'].errors
-            if task_info_form['expected_finish_date']:
+            if task_info_form['expected_finish_date'].errors:
                 error_list['finish-date-error'] = task_info_form['expected_finish_date'].errors
             return JsonResponse({'status': 'fail', 'errors': error_list})
     else:
