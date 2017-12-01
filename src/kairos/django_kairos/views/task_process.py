@@ -7,8 +7,9 @@ from django.contrib.auth.decorators import login_required
 from .. models import *
 from django.utils import timezone
 
+
 @login_required
-def process_button(request):
+def pause_task(request):
     if request.method == 'POST':
         task_id = request.POST.get('task_id')
         status = request.POST.get('status')
@@ -46,8 +47,9 @@ def process_button(request):
 
     return HttpResponse('')
 
+
 @login_required
-def process_stop(request):
+def stop_task(request):
     if request.method == 'POST':
         task_id = request.POST.get('task_id')
 

@@ -31,7 +31,7 @@ $('#course-task-form').on('submit', function(e) {
             }
             else {
                 $.ajax({
-                    url : 'button_process',
+                    url : 'pause-task',
                     type : "post",
                     data : {
                         status : 'true',
@@ -63,7 +63,7 @@ $('#research-task-form').on('submit', function(e) {
             }
             else {
                 $.ajax({
-                    url : 'button_process',
+                    url : 'pause-task',
                     type : "post",
                     data : {
                         status : 'true',
@@ -95,7 +95,7 @@ $('#routine-task-form').on('submit', function(e) {
             }
             else {
                 $.ajax({
-                    url : 'button_process',
+                    url : 'pause-task',
                     type : "post",
                     data : {
                         status : 'true',

@@ -76,9 +76,9 @@ def add_course_task(request):
 
         course_task_form = CourseTaskForm(request.POST)
         task_info_form = TaskInfoForm(request.POST)
-        task = course_task_form.save(commit=False)
 
         if course_task_form.is_valid() and task_info_form.is_valid():
+            task = course_task_form.save(commit=False)
             task_info = task_info_form.save()
             task.task_info = task_info
             task.course = course
@@ -109,6 +109,9 @@ def edit_course_task(request):
 
         task_info = get_object_or_404(TaskInfo, pk=request.POST['task_info_id'])
         if not task_info:
+            raise Http404
+
+        if 'form' not in request.POST:
             raise Http404
 
         form = QueryDict(request.POST['form'].encode('ASCII'))

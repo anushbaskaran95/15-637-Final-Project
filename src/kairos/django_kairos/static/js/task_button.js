@@ -9,7 +9,7 @@ $( document ).ready(function() {  // Runs when the document is ready
         var status = $(this).prop('checked');
         var task_id = $(this).val();
         $.ajax({
-            url : 'button_process',
+            url : 'pause-task',
             type : "post",
             data : {
                 status : status,
@@ -25,14 +25,11 @@ $( document ).ready(function() {  // Runs when the document is ready
      */
     $(".stop").click(function(){
         var task_id = $(this).attr('id');
-        var info = "stop button";
-        //console.log(task_id);
         $.ajax({
-            url : 'stop_process',
+            url : 'stop-task',
             type : "post",
             data : {
                 task_id : task_id,
-                info : info
             }
         }).done(function() {
             location.reload();

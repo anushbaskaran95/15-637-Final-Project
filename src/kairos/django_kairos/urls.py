@@ -8,7 +8,7 @@ from views.coursework import *
 from views.research import *
 from views.routine import *
 from views.profile import *
-from views.buttonprocess import *
+from views.task_process import *
 from views.get_task_info import *
 from views.get_notification import *
 from views.analytics import *
@@ -51,8 +51,8 @@ urlpatterns = [
         name='edit-research-modal'),
     url(r'^edit-routine-modal/(?P<task_id>\d+)/(?P<task_info_id>\d+)$', edit_routine_modal,
         name='edit-routine-modal'),
-    url(r'^button_process$', process_button, name='process_button'),
-    url(r'^stop_process$', process_stop, name='process_stop'),
+    url(r'^pause-task$', pause_task, name='pause-task'),
+    url(r'^stop-task$', stop_task, name='stop-task'),
 
     url(r'^edit-course-task$', edit_course_task, name='edit-course-task'),
     url(r'^edit-research-task$', edit_research_task, name='edit-research-task'),

@@ -79,6 +79,9 @@ def edit_routine_task(request):
         if not task_info:
             raise Http404
 
+        if 'form' not in request.POST:
+            raise Http404
+
         form = QueryDict(request.POST['form'].encode('ASCII'))
         routine_task_form = MiscForm(form, instance=task)
         task_info_form = TaskInfoForm(form, instance=task_info)
