@@ -170,7 +170,7 @@ class TaskInfoForm(forms.ModelForm):
         if due_date is not None and due_time is not None:
             due_datetime = datetime.datetime.combine(due_date, due_time)
             if due_datetime <= start_datetime:
-                raise forms.ValidationError({'due_date': "Due date should be after start time"})
+                raise forms.ValidationError({'due_date': "Due date should be after start date"})
 
         return cleaned_data
 
@@ -179,17 +179,21 @@ class TaskInfoForm(forms.ModelForm):
             return self.instance.time_needed
 
         time_needed = self.cleaned_data.get('time_needed')
+
+        if time_needed is None:
+            raise forms.ValidationError("Invalid Time")
+
         if time_needed < 0:
-            forms.ValidationError("Invalid Time")
+            raise forms.ValidationError("Invalid Time")
         elif time_needed > 100:
-            forms.ValidationError("Value is too high for a task. Try splitting your task into sub-tasks")
+            raise forms.ValidationError("Value is too high for a task. Try splitting your task into sub-tasks")
         else:
             return time_needed
 
     def clean_percentage_completion(self):
         percentage_completion = self.cleaned_data.get('percentage_completion')
         if percentage_completion < 0 or percentage_completion > 100:
-            forms.ValidationError("Invalid percentage completion")
+            raise forms.ValidationError("Invalid percentage completion")
         else:
             return percentage_completion
 

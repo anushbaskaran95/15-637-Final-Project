@@ -125,4 +125,5 @@ function clear_errors_edit_form() {
     $('#finish-date-error').html('');
     $('#due-date-error').html('');
     $('#errors-note').html('');
+    $('#pc-error').html('');
 }

@@ -25,9 +25,9 @@ $('#course-task-form').on('submit', function(e) {
             if(data['status'] == 'fail') {
                 errors = data['errors'];
                 for (var key in errors) {
-                    $('#'+key).html(errors[key]);
+                    $('#course-task-form').find('#'+key).html(errors[key]);
                 }
-                $('#errors-note').html('Check errors above');
+                $('#course-task-form').find('#errors-note').html('Check errors above');
             }
             else {
                 $.ajax({
@@ -57,9 +57,9 @@ $('#research-task-form').on('submit', function(e) {
             if(data['status'] == 'fail') {
                 errors = data['errors'];
                 for (var key in errors) {
-                    $('#'+key).html(errors[key]);
+                    $('#research-task-form').find('#'+key).html(errors[key]);
                 }
-                $('#errors-note').html('Check errors above');
+                $('#research-task-form').find('#errors-note').html('Check errors above');
             }
             else {
                 $.ajax({
@@ -70,7 +70,7 @@ $('#research-task-form').on('submit', function(e) {
                         task_id : data['task_id']
                     }
                 }).done(function() {
-                    $('#course-task-modal').modal('close');
+                    $('#research-task-modal').modal('close');
                     location.reload();
                 });
             }
@@ -89,9 +89,9 @@ $('#routine-task-form').on('submit', function(e) {
             if(data['status'] == 'fail') {
                 errors = data['errors'];
                 for (var key in errors) {
-                    $('#'+key).html(errors[key]);
+                    $('#routine-task-form').find('#'+key).html(errors[key]);
                 }
-                $('#errors-note').html('Check errors above');
+                $('#routine-task-form').find('#errors-note').html('Check errors above');
             }
             else {
                 $.ajax({
@@ -102,7 +102,7 @@ $('#routine-task-form').on('submit', function(e) {
                         task_id : data['task_id']
                     }
                 }).done(function() {
-                    $('#course-task-modal').modal('close');
+                    $('#routine-task-modal').modal('close');
                     location.reload();
                 });
             }
@@ -121,4 +121,5 @@ function clear_errors() {
     $('#finish-date-error').html('');
     $('#due-date-error').html('');
     $('#errors-note').html('');
+    $('#time-needed-error').html('');
 }
