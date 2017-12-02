@@ -25,9 +25,9 @@ Before running the project on your local machine make sure you have the followin
 
 # USAGE
 1) Clone the repository
-2) Route to the following directory: src/kairos/
-3) Migrate the database using python manage.py makemigrations django_kairos and python manage.py migrate
-4) Type in the following to start the local server: python manage.py runserver
+2) Route to the following directory: 'src/kairos/''
+3) Migrate the database using 'python manage.py makemigrations django_kairos' and 'python manage.py migrate''
+4) Type in the following to start the local server: 'python manage.py runserver'
 5) Launch your browser and enter the specified url in the terminal 
 
 # DEPLOYMENT PLATFORM USED
