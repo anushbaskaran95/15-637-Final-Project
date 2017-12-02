@@ -32,6 +32,8 @@ def overall_analytics(request):
     return render(request, 'analytics/overall_analytics.html', context={'username': request.user.username})
 
 
+# The view below is used to get the time spent for each task on a course
+# and the total time spent by the student on courses
 @login_required
 def get_course_analytics(request):
     total_time_courses = 0.0
@@ -68,6 +70,7 @@ def get_course_analytics(request):
     return JsonResponse(context)
 
 
+# used to get the total time spent on research work and time taken per research activity
 @login_required
 def get_research_analytics(request):
     total_time_research = 0.0
@@ -95,6 +98,7 @@ def get_research_analytics(request):
     return JsonResponse(context)
 
 
+# used to get the total time spent on courses, research and analytics
 @login_required
 def get_overall_analytics(request):
     total_time_misc = 0.0
@@ -152,6 +156,7 @@ def get_overall_analytics(request):
     return JsonResponse(context)
 
 
+# provides data to display the summary tree for each user
 @login_required
 def get_tree_analytics(request):
     courses = Course.objects.filter(user=request.user)
@@ -182,6 +187,8 @@ def get_tree_analytics(request):
     return JsonResponse(context)
 
 
+# used to get number of tasks completed - and filter by tasks finished by deadline and tasks not finished
+# by deadline
 @login_required
 def get_on_time_late_tasks(request):
     courses = Course.objects.filter(user=request.user)
