@@ -11,9 +11,9 @@ you save your degree. Kairos will provide you with a private account to keep tra
 time and data.
 
 # TEAM MEMBERS
-Anush Baskaran (abaskara)
-Advait Burde (aburde)
-Tony Fu (tony)
+1) Anush Baskaran (abaskara)
+2) Advait Burde (aburde)
+3) Tony Fu (tony)
 
 # PROJECT URL
 https://45.55.241.150/
